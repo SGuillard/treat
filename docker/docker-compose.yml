@@ -21,144 +21,93 @@ services:
         environment:
             - NODE_ENV=development
  
-    ### Apache Container ###
-    # apache:
-    #     container_name: ${CONTAINER_NAME}_apache
-    #     restart: always
-    #     image: ${CONTAINER_NAME}_apache:${APACHE_VERSION}
-    #     build: 
-    #         context: ${PATH_HOST}/apache
-    #         args:
-    #             APACHE_VERSION: ${APACHE_VERSION}
-    #     ports:
-    #         - 80:80
-    #     volumes:
-    #         - ${PATH_HOST}/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
-    #         - ${PATH_HOST}/apache/vhosts:/usr/local/apache2/conf/vhosts
-    #         - ${PATH_HOST}/apache/crontab.txt:/etc/cron.d/eq-cron
-    #     volumes_from:
-    #         - php
-    #     links:
-    #         - mysql:db
-    #     networks:
-    #         - frontend
-    #         - backend
+    ## Apache Container ###
+    apache:
+        container_name: ${CONTAINER_NAME}_apache
+        restart: always
+        image: ${CONTAINER_NAME}_apache:${APACHE_VERSION}
+        build: 
+            context: ${PATH_HOST}/apache
+            args:
+                APACHE_VERSION: ${APACHE_VERSION}
+        ports:
+            - 80:80
+        volumes:
+            - ${PATH_HOST}/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+            - ${PATH_HOST}/apache/vhosts:/usr/local/apache2/conf/vhosts
+            - ${PATH_HOST}/apache/crontab.txt:/etc/cron.d/eq-cron
+        volumes_from:
+            - php
+        links:
+            - mysql:db
+        networks:
+            - frontend
+            - backend
 
-    # ### PHP Container ###
-    # php:
-    #     container_name: ${CONTAINER_NAME}_php
-    #     restart: always
-    #     image: ${CONTAINER_NAME}_php:${PHP_VERSION}-${DEBIAN_VERSION}
-    #     build: 
-    #         context: ${PATH_HOST}/php
-    #         args:
-    #            PHP_VERSION: ${PHP_VERSION} 
-    #            DEBIAN_VERSION: ${DEBIAN_VERSION} 
-    #            INSTALL_ZIP_ARCHIVE: ${INSTALL_ZIP_ARCHIVE} 
-    #            INSTALL_SOAP: ${INSTALL_SOAP} 
-    #            INSTALL_XDEBUG: ${INSTALL_XDEBUG} 
-    #            INSTALL_BLACKFIRE: ${INSTALL_BLACKFIRE} 
-    #            INSTALL_OPCACHE: ${INSTALL_OPCACHE}             
-    #            INSTALL_PHPREDIS: ${INSTALL_PHPREDIS} 
-    #            INSTALL_MEMCACHED: ${INSTALL_MEMCACHED}     
-    #            INSTALL_COMPOSER: ${INSTALL_COMPOSER}         
-    #            INSTALL_IMAGEMAGICK: ${INSTALL_IMAGEMAGICK}             
-    #            INSTALL_WKHTMLTOPDF: ${INSTALL_WKHTMLTOPDF} 
-    #            INSTALL_NODE: ${INSTALL_NODE} 
-    #            NODE_VERSION: ${NODE_VERSION} 
-    #            NPM_REGISTRY: ${NPM_REGISTRY} 
-    #            INSTALL_YARN: ${INSTALL_YARN}                
-    #            YARN_VERSION: ${YARN_VERSION} 
-    #     expose:
-    #         - 9000
-    #     volumes:
-    #         - ../:/usr/local/apache2/htdocs
-    #         - ${PATH_HOST}/php/ini/php.ini:/usr/local/etc/php/php.ini:rw
-    #         - ${PATH_HOST}/php/ini/php-date.ini:/usr/local/etc/php/conf.d/date.ini:ro                       
-    #         - ${PATH_HOST}/php/ini/php-mail.ini:/usr/local/etc/php/conf.d/mail.ini:ro      
-    #         - ${PATH_HOST}/php/conf/ssmtp.conf:/etc/ssmtp/ssmtp.conf:ro 
-    #     links:
-    #         - maildev:maildev
-    #         - blackfire:blackfire
-    #     networks:
-    #         - backend
+    ### PHP Container ###
+    php:
+        container_name: ${CONTAINER_NAME}_php
+        restart: always
+        image: ${CONTAINER_NAME}_php:${PHP_VERSION}-${DEBIAN_VERSION}
+        build: 
+            context: ${PATH_HOST}/php
+            args:
+               PHP_VERSION: ${PHP_VERSION} 
+               DEBIAN_VERSION: ${DEBIAN_VERSION} 
+               INSTALL_ZIP_ARCHIVE: ${INSTALL_ZIP_ARCHIVE} 
+               INSTALL_SOAP: ${INSTALL_SOAP} 
+               INSTALL_XDEBUG: ${INSTALL_XDEBUG} 
+               INSTALL_BLACKFIRE: ${INSTALL_BLACKFIRE} 
+               INSTALL_OPCACHE: ${INSTALL_OPCACHE}             
+               INSTALL_PHPREDIS: ${INSTALL_PHPREDIS} 
+               INSTALL_MEMCACHED: ${INSTALL_MEMCACHED}     
+               INSTALL_COMPOSER: ${INSTALL_COMPOSER}         
+               INSTALL_IMAGEMAGICK: ${INSTALL_IMAGEMAGICK}             
+               INSTALL_WKHTMLTOPDF: ${INSTALL_WKHTMLTOPDF} 
+               INSTALL_NODE: ${INSTALL_NODE} 
+               NODE_VERSION: ${NODE_VERSION} 
+               NPM_REGISTRY: ${NPM_REGISTRY} 
+               INSTALL_YARN: ${INSTALL_YARN}                
+               YARN_VERSION: ${YARN_VERSION} 
+        expose:
+            - 9000
+        volumes:
+            - ../:/usr/local/apache2/htdocs
+            - ${PATH_HOST}/php/ini/php.ini:/usr/local/etc/php/php.ini:rw
+            - ${PATH_HOST}/php/ini/php-date.ini:/usr/local/etc/php/conf.d/date.ini:ro                       
+            - ${PATH_HOST}/php/ini/php-mail.ini:/usr/local/etc/php/conf.d/mail.ini:ro      
+            - ${PATH_HOST}/php/conf/ssmtp.conf:/etc/ssmtp/ssmtp.conf:ro 
+        networks:
+            - backend
 
-    # ### MySQL Container ###
-    # mysql:
-    #     container_name: ${CONTAINER_NAME}_mysql
-    #     restart: always
-    #     image: mysql:${MYSQL_VERSION}
-    #     command: --sql_mode="" --collation-server=utf8mb4_unicode_ci --character-set-server=utf8mb4
-    #     ports:
-    #         - 3306:3306
-    #     volumes:
-    #         - ${PATH_HOST}/mysql/datas:/var/lib/mysql
-    #     environment:
-    #         MYSQL_ROOT_PASSWORD: root
-    #     networks:
-    #         - backend
+    ### MySQL Container ###
+    mysql:
+        container_name: ${CONTAINER_NAME}_mysql
+        restart: always
+        image: mysql:${MYSQL_VERSION}
+        command: --sql_mode="" --collation-server=utf8mb4_unicode_ci --character-set-server=utf8mb4
+        ports:
+            - 3306:3306
+        volumes:
+            - ${PATH_HOST}/mysql/datas:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        networks:
+            - backend
 
-    # ### PHPMyAdmin Container ###
-    # phpmyadmin:
-    #     container_name: ${CONTAINER_NAME}_phpmyadmin
-    #     image: phpmyadmin/phpmyadmin
-    #     restart: always
-    #     ports:
-    #         - 8080:80
-    #     environment:
-    #         MYSQL_USERNAME: root
-    #         MYSQL_PASSWORD: root
-    #     links:
-    #         - mysql:db
-    #     networks:
-    #         - frontend
-    #         - backend
+    ### PHPMyAdmin Container ###
+    phpmyadmin:
+        container_name: ${CONTAINER_NAME}_phpmyadmin
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        ports:
+            - 8080:80
+        environment:
+            MYSQL_USERNAME: root
+            MYSQL_PASSWORD: root
+        links:
+            - mysql:db
+        networks:
+            - frontend
+            - backend
 
-    # ### Maildev Container ###
-    # maildev:
-    #     container_name: ${CONTAINER_NAME}_maildev
-    #     image: djfarrelly/maildev
-    #     restart: always
-    #     ports:
-    #         - "1088:80"
-    #     networks:
-    #         - frontend
-    #         - backend
-
-    # ### Blackfire Container ###
-    # blackfire:
-    #     container_name: ${CONTAINER_NAME}_blackfire
-    #     image: blackfire/blackfire
-    #     environment:
-    #         - BLACKFIRE_SERVER_ID=${BLACKFIRE_SERVER_ID}
-    #         - BLACKFIRE_SERVER_TOKEN=${BLACKFIRE_SERVER_TOKEN}
-    #     networks:
-    #         - backend
-
-    # ### Redis Container ###
-    # redis:
-    #     container_name: ${CONTAINER_NAME}_redis
-    #     image: ${CONTAINER_NAME}_redis
-    #     build: 
-    #         context: ${PATH_HOST}/redis
-    #     volumes:
-    #         - ${PATH_HOST}/redis/data:/data
-    #     ports:
-    #         - "${REDIS_PORT}:6379"
-    #     networks:
-    #         - backend
-
-    # ### Memcached Container ###
-    # memcached:
-    #     container_name: ${CONTAINER_NAME}_memcached
-    #     image: ${CONTAINER_NAME}_memcached
-    #     build: 
-    #         context: ${PATH_HOST}/memcached
-    #     volumes:
-    #         - ${PATH_HOST}/memcached:/var/lib/memcached
-    #     ports:
-    #         - "${MEMCACHED_HOST_PORT}:11211"
-    #     depends_on:
-    #         - php
-    #     networks:
-    #         - backend

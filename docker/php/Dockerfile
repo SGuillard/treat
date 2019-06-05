@@ -25,7 +25,7 @@ RUN apt-get update && \
 RUN docker-php-ext-configure calendar && docker-php-ext-install calendar
 
 # Install the PHP default extention
-RUN docker-php-ext-install pdo_mysql mysqli mcrypt
+RUN docker-php-ext-install pdo_mysql mysqli
 
 # Install the PHP gd library
 RUN docker-php-ext-configure gd \
