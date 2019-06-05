@@ -35,7 +35,6 @@ services:
         volumes:
             - ${PATH_HOST}/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
             - ${PATH_HOST}/apache/vhosts:/usr/local/apache2/conf/vhosts
-            - ${PATH_HOST}/apache/crontab.txt:/etc/cron.d/eq-cron
         volumes_from:
             - php
         links:
@@ -54,21 +53,9 @@ services:
             args:
                PHP_VERSION: ${PHP_VERSION} 
                DEBIAN_VERSION: ${DEBIAN_VERSION} 
-               INSTALL_ZIP_ARCHIVE: ${INSTALL_ZIP_ARCHIVE} 
-               INSTALL_SOAP: ${INSTALL_SOAP} 
                INSTALL_XDEBUG: ${INSTALL_XDEBUG} 
-               INSTALL_BLACKFIRE: ${INSTALL_BLACKFIRE} 
-               INSTALL_OPCACHE: ${INSTALL_OPCACHE}             
-               INSTALL_PHPREDIS: ${INSTALL_PHPREDIS} 
-               INSTALL_MEMCACHED: ${INSTALL_MEMCACHED}     
+               INSTALL_OPCACHE: ${INSTALL_OPCACHE}          
                INSTALL_COMPOSER: ${INSTALL_COMPOSER}         
-               INSTALL_IMAGEMAGICK: ${INSTALL_IMAGEMAGICK}             
-               INSTALL_WKHTMLTOPDF: ${INSTALL_WKHTMLTOPDF} 
-               INSTALL_NODE: ${INSTALL_NODE} 
-               NODE_VERSION: ${NODE_VERSION} 
-               NPM_REGISTRY: ${NPM_REGISTRY} 
-               INSTALL_YARN: ${INSTALL_YARN}                
-               YARN_VERSION: ${YARN_VERSION} 
         expose:
             - 9000
         volumes:
