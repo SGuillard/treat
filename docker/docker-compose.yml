@@ -61,9 +61,7 @@ services:
         volumes:
             - ../:/usr/local/apache2/htdocs
             - ${PATH_HOST}/php/ini/php.ini:/usr/local/etc/php/php.ini:rw
-            - ${PATH_HOST}/php/ini/php-date.ini:/usr/local/etc/php/conf.d/date.ini:ro                       
-            - ${PATH_HOST}/php/ini/php-mail.ini:/usr/local/etc/php/conf.d/mail.ini:ro      
-            - ${PATH_HOST}/php/conf/ssmtp.conf:/etc/ssmtp/ssmtp.conf:ro 
+            - ${PATH_HOST}/php/ini/php-date.ini:/usr/local/etc/php/conf.d/date.ini:ro    
         networks:
             - backend
 
