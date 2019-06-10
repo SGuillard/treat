@@ -1,7 +1,8 @@
 import React from 'react';
-import SearchBar from '../components/search-bar';
+import GetData from '../utils/api';
 
 const App = function () {
-  return <SearchBar />;
+  return <GetData />;
 };
+
 export default App;

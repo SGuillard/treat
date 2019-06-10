@@ -5,21 +5,21 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Install PHP extensions
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        curl \
-        git \
-        zip \
-        unzip \
-        ssmtp \
-        libmemcached-dev \
-        libz-dev \
-        libpq-dev \
-        libjpeg-dev \
-        libpng-dev \
-        libfreetype6-dev \
-        libssl-dev \
-        libmcrypt-dev \
-        mysql-client
+  apt-get install -y --no-install-recommends \
+  curl \
+  git \
+  zip \
+  unzip \
+  ssmtp \
+  libmemcached-dev \
+  libz-dev \
+  libpq-dev \
+  libjpeg-dev \
+  libpng-dev \
+  libfreetype6-dev \
+  libssl-dev \
+  libmcrypt-dev \
+  mysql-client
 
 # Pour que la fonction easter_date fonctionne
 RUN docker-php-ext-configure calendar && docker-php-ext-install calendar
@@ -29,10 +29,10 @@ RUN docker-php-ext-install pdo_mysql mysqli
 
 # Install the PHP gd library
 RUN docker-php-ext-configure gd \
-        --enable-gd-native-ttf \
-        --with-jpeg-dir=/usr/lib \
-        --with-freetype-dir=/usr/include/freetype2 && \
-    docker-php-ext-install gd
+  --enable-gd-native-ttf \
+  --with-jpeg-dir=/usr/lib \
+  --with-freetype-dir=/usr/include/freetype2 && \
+  docker-php-ext-install gd
 
 ###########################################################################
 # xDebug:
@@ -43,15 +43,15 @@ ARG INSTALL_XDEBUG=false
 RUN if [ ${INSTALL_XDEBUG} = true ]; then \
   # Install the xdebug extension
   if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
-    pecl install xdebug-2.5.5; \
+  pecl install xdebug-2.5.5; \
   else \
-    pecl install xdebug; \
+  pecl install xdebug; \
   fi && \
   docker-php-ext-enable xdebug \
-;fi
+  ;fi
 
 # Copy xdebug configuration for remote debugging
-COPY ./ini/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+# COPY ./ini/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 ###########################################################################
 # Opcache:
@@ -60,8 +60,8 @@ COPY ./ini/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 ARG INSTALL_OPCACHE=false
 
 RUN if [ ${INSTALL_OPCACHE} = true ]; then \
-    docker-php-ext-install opcache \
-;fi
+  docker-php-ext-install opcache \
+  ;fi
 
 # Copy opcache configration
 COPY ./ini/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
@@ -73,17 +73,17 @@ COPY ./ini/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 ARG INSTALL_COMPOSER=false
 
 RUN if [ ${INSTALL_COMPOSER} = true ]; then \
-    curl -sS https://getcomposer.org/installer | php \
-    && mv composer.phar /usr/local/bin/ \
-    && ln -s /usr/local/bin/composer.phar /usr/local/bin/composer \
-;fi
+  curl -sS https://getcomposer.org/installer | php \
+  && mv composer.phar /usr/local/bin/ \
+  && ln -s /usr/local/bin/composer.phar /usr/local/bin/composer \
+  ;fi
 
 USER root
 
 # Clean up
 RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    rm /var/log/lastlog /var/log/faillog
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+  rm /var/log/lastlog /var/log/faillog
 
 WORKDIR /usr/local/apache2/htdocs
 
