@@ -22,8 +22,6 @@ class AppFixtures extends Fixture
         $user->setUsername("test");
         $password = $this->encoder->encodePassword($user, 'test');
         $user->setPassword($password);
-        $user->setCreatedAt((new DateTime('NOW')));
-        $user->setUpDatedAt((new DateTime('NOW')));
         $manager->persist($user);
         $manager->flush();
     }
