@@ -1,8 +1,6 @@
 import React from 'react';
-import GetData from '../utils/api';
+import Login from './login';
 
-const App = function () {
-  return <GetData />;
-};
+const App = () => <Login />;
 
 export default App;
