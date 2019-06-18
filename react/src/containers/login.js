@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import LoginApi from '../utils/api';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirect: false,
       username: '',
       password: '',
     };
@@ -19,7 +21,7 @@ class Login extends Component {
     CallApi.getFirstToken()
       .then((response) => {
         if (response === true) {
-          console.log('redirection');
+          this.setState({ redirect: true });
         } else {
           console.log('Mauavis identifiants');
         }
@@ -39,7 +41,12 @@ class Login extends Component {
   }
 
   render() {
-    const { username, password } = this.state;
+    const { redirect, username, password } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/home" />;
+    }
+
     return (
       <form onSubmit={this.handleSubmit}>
         <label id="label-username" htmlFor="username">

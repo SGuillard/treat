@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from './login';
+import Home from './home';
 
-const App = () => <Login />;
+const App = () => <Home />;
 
 export default App;
