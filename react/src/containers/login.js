@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import LoginApi from '../utils/api';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: '',
+      username: '',
       password: '',
     };
 
@@ -13,13 +14,22 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state);
+    const CallApi = new LoginApi(this.state);
+    // Handling Api Login response
+    CallApi.getFirstToken()
+      .then((response) => {
+        if (response === true) {
+          console.log('redirection');
+        } else {
+          console.log('Mauavis identifiants');
+        }
+      })
+      .catch(error => console.log(error));
+
     event.preventDefault();
   }
 
   handleInputChange(event) {
-    console.log(event.target);
-
     const { target } = event;
     const { name, value } = target;
 
@@ -29,15 +39,15 @@ class Login extends Component {
   }
 
   render() {
-    const { login, password } = this.state;
+    const { username, password } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <label id="label-login" htmlFor="login">
+        <label id="label-username" htmlFor="username">
           Login:
           <input
-            name="login"
+            name="username"
             type="text"
-            value={login}
+            value={username}
             onChange={this.handleInputChange}
           />
         </label>
