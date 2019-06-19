@@ -1,0 +1,3 @@
+# Crontab EQ Serveur
+# /!\ Il faut toujours avoir une ligne vide en fin du fichier
+#* * * * * curl http://localhost/cron
