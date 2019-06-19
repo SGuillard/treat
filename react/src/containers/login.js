@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import LoginApi from '../utils/api';
+import LoginApi from '../utils/symfony-api/api-login';
 
 class Login extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class Login extends Component {
       redirect: false,
       username: '',
       password: '',
+      wrongCredentials: false,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -23,11 +24,10 @@ class Login extends Component {
         if (response === true) {
           this.setState({ redirect: true });
         } else {
-          console.log('Mauavis identifiants');
+          this.setState({ wrongCredentials: true });
         }
       })
-      .catch(error => console.log(error));
-
+      .catch(error => console.error(error));
     event.preventDefault();
   }
 
@@ -41,10 +41,17 @@ class Login extends Component {
   }
 
   render() {
-    const { redirect, username, password } = this.state;
+    const {
+      // eslint-disable-next-line comma-dangle
+      wrongCredentials,
+      redirect,
+      username,
+      password,
+    } = this.state;
+    const errorMessage = wrongCredentials ? <p>Wrong credentials</p> : '';
 
     if (redirect) {
-      return <Redirect to="/home" />;
+      return <Redirect to="/" />;
     }
 
     return (
@@ -68,6 +75,7 @@ class Login extends Component {
             onChange={this.handleInputChange}
           />
         </label>
+        {errorMessage}
         <input type="submit" value="Submit" />
       </form>
     );

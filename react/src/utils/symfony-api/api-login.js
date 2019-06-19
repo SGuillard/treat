@@ -39,7 +39,7 @@ class LoginApi {
     try {
       const apiLoginCheckResponse = await this.callApiLoginCheck();
       if (apiLoginCheckResponse !== false) {
-        storeToken(apiLoginCheckResponse);
+        storeToken(apiLoginCheckResponse.data);
         return true;
       }
       return false;
