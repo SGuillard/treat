@@ -8,11 +8,11 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use App\Utils\MovieConst;
 
 class ImportImdbService
 {
     public const IMDB_FILES_FOLDER = '/src/ImdbFiles/';
-    public const MOVIE_PROPERTIES = ['uuid' => 'uuid', 'ratings' => 'ratings', 'votes' => 'votes'];
     private const ROW_NUMBER = 'RowNumber';
     private const RATING_FILE = 'ratings.1.tsv';
     private const TEMP_RATING_FILE = 'temp.rating.tsv';
@@ -53,6 +53,7 @@ class ImportImdbService
         $this->session->start();
         $this->session->set(self::ROW_NUMBER, 1);
         $this->session->get(self::ROW_NUMBER) ?? 1;
+        return;
     }
 
     /**
@@ -67,6 +68,7 @@ class ImportImdbService
         file_put_contents($this->imdbFolder . self::TEMP_RATING_FILE, implode("\n", $output));
         unlink($this->imdbFolder . self::RATING_FILE);
         rename($this->imdbFolder . self::TEMP_RATING_FILE, $this->imdbFolder . self::RATING_FILE);
+        return;
     }
 
     /**
@@ -101,9 +103,9 @@ class ImportImdbService
     private function getRowDescripion(array $row): array
     {
         return [
-            self::MOVIE_PROPERTIES['uuid'] => $row[0],
-            self::MOVIE_PROPERTIES['ratings'] => $row[1],
-            self::MOVIE_PROPERTIES['votes'] => $row[2]
+            MovieConst::UUID => $row[0],
+            MovieConst::RATINGS => $row[1],
+            MovieConst::VOTES => $row[2]
         ];
     }
 
@@ -116,17 +118,18 @@ class ImportImdbService
     private function persistMovie(array $row): void 
     {
         $rowDescription = $this->getRowDescripion($row);
-        if ($rowDescription[self::MOVIE_PROPERTIES["votes"]] > 1500 && $rowDescription[self::MOVIE_PROPERTIES['ratings']] >= 7.2) {
+        if ($rowDescription[MovieConst::VOTES] > 1500 && $rowDescription[MovieConst::RATINGS] >= 7.2) {
             try{
                 $movie = new Movie();
-                $movie->setUuid($rowDescription[self::MOVIE_PROPERTIES['uuid']]);
-                $movie->setRatings($rowDescription[self::MOVIE_PROPERTIES['ratings']]);
-                $movie->setVotes($rowDescription[self::MOVIE_PROPERTIES['votes']]);
+                $movie->setUuid($rowDescription[MovieConst::UUID]);
+                $movie->setRatings($rowDescription[MovieConst::RATINGS]);
+                $movie->setVotes($rowDescription[MovieConst::VOTES]);
                 $this->em->persist($movie);
                 $this->em->flush();
             }catch(UniqueConstraintViolationException $e){
                 $this->logger->error($e);
             }
         }
+        return;
     }
 }
