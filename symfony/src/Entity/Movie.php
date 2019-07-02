@@ -40,6 +40,16 @@ class Movie
      */
     private $uuid;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Type;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $Year;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +99,30 @@ class Movie
     public function setUuid(?string $uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->Type;
+    }
+
+    public function setType(?string $Type): self
+    {
+        $this->Type = $Type;
+
+        return $this;
+    }
+
+    public function getYear(): ?int
+    {
+        return $this->Year;
+    }
+
+    public function setYear(?int $Year): self
+    {
+        $this->Year = $Year;
 
         return $this;
     }

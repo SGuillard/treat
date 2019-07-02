@@ -4,7 +4,8 @@ namespace App\Controller\Backend;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\ImportImdbService;
+use App\Service\ImportImdbRatingService;
+use App\Service\ImportImdbBasicService;
 
 class ImportImdbController extends AbstractController
 {
@@ -12,11 +13,22 @@ class ImportImdbController extends AbstractController
     /**
      * @Route("/importFromRatings", name="importFromRatings")
      */
-    public function importFromRatings(ImportImdbService $importService)
+    public function importFromRatings(ImportImdbRatingService $importRating)
     {
 
-        $import = $importService->importFromRating();
+        $import = $importRating->import();
 
+        return $this->json([
+            'message' => $import,
+        ]);
+    }
+
+    /**
+     * @Route("/importFromBasic", name="importFromBasic")
+     */
+    public function importFromBasics(ImportImdbBasicService $importBasics)
+    {
+        $import = $importBasics->import();
         return $this->json([
             'message' => $import,
         ]);
