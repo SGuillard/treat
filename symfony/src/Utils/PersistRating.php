@@ -3,19 +3,11 @@
 namespace App\Utils;
 
 use App\Utils\PersistMovieInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Movie;
+use App\Utils\PersistFileMovie;
 
-class PersistRating implements PersistMovieInterface
+class PersistRating extends PersistFileMovie implements PersistMovieInterface
 {
-    protected $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
-
-    protected $row;
 
     private const VOTE_LIMIT = 5;
     private const RATE_LIMIT = 5;
@@ -23,21 +15,6 @@ class PersistRating implements PersistMovieInterface
     public function setRow(array $row)
     {
         $this->row = $row;
-    }
-
-    /**
-     * Check if values are ok to persist the movie
-     *
-     * @param array $row
-     * @return array
-     */
-    public function handleMoviePersistance(array $row): void
-    {
-        $this->setRow($row);
-        if ($this->checkValues()) {
-            $this->persistMovie();
-        }
-        return;
     }
 
     public function checkValues(): bool

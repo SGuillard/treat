@@ -8,21 +8,19 @@ use Psr\Log\LoggerInterface;
 use App\Utils\PersistMovieInterface;
 use App\Service\ImportImdbInterface;
 
-abstract class  ImportImdbFile
+class  ImportImdbFile
 {
 
     public const IMDB_FILES_FOLDER = '/src/ImdbFiles/';
     protected const TEMP_FILE = 'temp.tsv';
 
     protected $imdbFolder;
-    protected $em;
     protected $logger;
     protected $file;
 
-    public function __construct(PersistMovieInterface $fileToPersist, KernelInterface $kernel, EntityManagerInterface $em, LoggerInterface $logger, string $file)
+    public function __construct(PersistMovieInterface $fileToPersist, KernelInterface $kernel, LoggerInterface $logger, string $file)
     {
         $this->imdbFolder = $kernel->getProjectDir() . self::IMDB_FILES_FOLDER;
-        $this->em = $em;
         $this->logger = $logger;
         $this->fileToPersist = $fileToPersist;
         $this->file = $file;
@@ -33,7 +31,7 @@ abstract class  ImportImdbFile
      *
      * @return string
      */
-    public function import(): string
+    public function import(): bool
     {
         $this->checkFile();
         do {
@@ -43,7 +41,7 @@ abstract class  ImportImdbFile
                 $this->deleteFirstFileLine();
             }
         } while (false !== $this->parseFile());
-        return 'ok';
+        return true;
     }
 
     /**

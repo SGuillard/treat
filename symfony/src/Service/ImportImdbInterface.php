@@ -4,5 +4,5 @@ namespace App\Service;
 
 interface ImportImdbInterface
 {
-    public function import(): string;
+    public function import(): bool;
 }
