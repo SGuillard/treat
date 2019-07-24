@@ -7,3 +7,4 @@
 .phpunit
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+.php_cs.cache
