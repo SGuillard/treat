@@ -74,6 +74,14 @@ COPY ./ini/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 ARG INSTALL_COMPOSER=false
 
+###########################################################################
+# FIXER:                                                           
+###########################################################################
+
+RUN wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer && \
+  chmod a+x php-cs-fixer && \
+  mv php-cs-fixer /usr/local/bin/php-cs-fixer	
+
 RUN if [ ${INSTALL_COMPOSER} = true ]; then \
   curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/ \
