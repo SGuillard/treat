@@ -2,29 +2,33 @@
 
 namespace App\Utils;
 
-use App\Service\ImportImdbFile;
+use App\Utils\ImportImdbFile;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use App\Utils\PersistRating;
+use App\Utils\PersistBasic;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ImportFileFactory
 {
-    private $em;
     private $kernel;
     private $logger;
+    private $em;
 
-    public function __construct(EntityManagerInterface $em, KernelInterface $kernel, LoggerInterface $logger)
+    public function __construct(KernelInterface $kernel, LoggerInterface $logger, EntityManagerInterface $em)
     {
-        $this->em = $em;
         $this->kernel = $kernel;
         $this->logger = $logger;
+        $this->em = $em;
     }
 
-    public function create($type): object
+    public function create(string $type): object
     {
         switch ($type) {
-            case self::RATING_CLASS:
-                return new ImportImdbFile(new ${}($this->em), $this->kernel, $this->logger, self::RATING_FILE);
+            case ImportImdbConst::getImportRatingClass():
+                return new ImportImdbFile(new PersistRating($this->em), $this->kernel, $this->logger, ImportImdbConst::getRatingFile());
+            case ImportImdbConst::getImportBasicClass():
+                return new ImportImdbFile(new PersistBasic($this->em), $this->kernel, $this->logger, ImportImdbConst::getBasicFile());
         }
     }
 }

@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Service;
+namespace App\Utils;
 
 use Symfony\Component\HttpKernel\KernelInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use App\Utils\PersistMovieInterface;
-use App\Service\ImportImdbInterface;
 
-class  ImportImdbFile
+class ImportImdbFile
 {
 
     public const IMDB_FILES_FOLDER = '/src/ImdbFiles/';
+
     protected const TEMP_FILE = 'temp.tsv';
 
     protected $imdbFolder;

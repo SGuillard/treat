@@ -21,15 +21,4 @@ class ImportImdbFilesController extends AbstractController
             'message' => $import,
         ]);
     }
-
-    // /**
-    //  * @Route("/importFromBasic", name="importFromBasic")
-    //  */
-    // public function importFromBasics(ImportImdbBasicService $importBasics)
-    // {
-    //     $import = $importBasics->import();
-    //     return $this->json([
-    //         'message' => $import,
-    //     ]);
-    // }
 }
