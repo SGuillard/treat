@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import LoginApi from '../utils/symfony-api/api-login';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import LoginApi from "../utils/symfony-api/api-login";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       redirect: false,
-      username: '',
-      password: '',
-      wrongCredentials: false,
+      username: "",
+      password: "",
+      wrongCredentials: false
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -17,10 +17,11 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
-    const CallApi = new LoginApi(this.state);
+    const callApi = new LoginApi(this.state);
     // Handling Api Login response
-    CallApi.getFirstToken()
-      .then((response) => {
+    callApi
+      .getFirstToken()
+      .then(response => {
         if (response === true) {
           this.setState({ redirect: true });
         } else {
@@ -36,7 +37,7 @@ class Login extends Component {
     const { name, value } = target;
 
     this.setState({
-      [name]: value,
+      [name]: value
     });
   }
 
@@ -46,9 +47,9 @@ class Login extends Component {
       wrongCredentials,
       redirect,
       username,
-      password,
+      password
     } = this.state;
-    const errorMessage = wrongCredentials ? <p>Wrong credentials</p> : '';
+    const errorMessage = wrongCredentials ? <p>Wrong credentials</p> : "";
 
     if (redirect) {
       return <Redirect to="/" />;
