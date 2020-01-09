@@ -2,14 +2,16 @@ import React from 'react';
 import ContentPage from "./content-page";
 import BottomMenu from "./bottom-menu";
 
-type pageProps = {page: string};
+export type pageType = { page: string };
 
-const AdminRoot = ({page}: pageProps) => {
+const AdminRoot = ({page}: pageType) => {
+
     return (
         <div>
             <ContentPage/>
-            <BottomMenu/>
-        </div>)
+            <BottomMenu page={page}/>
+        </div>
+    )
 };
 
 export default AdminRoot;
