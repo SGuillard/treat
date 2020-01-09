@@ -12,7 +12,6 @@ RUN apt-get update && \
   wget \
   zip \
   unzip \
-  ssmtp \
   libmemcached-dev \
   libz-dev \
   libpq-dev \
@@ -20,21 +19,10 @@ RUN apt-get update && \
   libpng-dev \
   libfreetype6-dev \
   libssl-dev \
-  libmcrypt-dev \
-  mysql-client
-
-# Pour que la fonction easter_date fonctionne
-RUN docker-php-ext-configure calendar && docker-php-ext-install calendar
+  libmcrypt-dev
 
 # Install the PHP default extention
 RUN docker-php-ext-install pdo_mysql mysqli
-
-# Install the PHP gd library
-RUN docker-php-ext-configure gd \
-  --enable-gd-native-ttf \
-  --with-jpeg-dir=/usr/lib \
-  --with-freetype-dir=/usr/include/freetype2 && \
-  docker-php-ext-install gd
 
 ###########################################################################
 # xDebug:
