@@ -1,23 +1,21 @@
 import React from 'react';
 import {pageType} from "./admin-root";
 import PageList from "./enum";
-import Calendar from "./calendar";
-import Dashboard from "./dashboard";
+import Calendar from "./calendar/calendar";
+import Dashboard from "./dashboard/dashboard";
+import Settings from "./settings/settings";
 
-
-const getPageComponent = (page: string) => {
+const ContentPageRouter = ({page}: pageType) => {
     switch(page) {
         case PageList.CALENDAR:
             return <Calendar />;
         case PageList.DASHBOARD:
             return <Dashboard />;
+        case PageList.SETTINGS:
+            return <Settings />;
         default:
             return <Calendar/>;
     }
-}
-
-const ContentPageRouter = ({page}: pageType) => {
-    return getPageComponent(page);
 };
 
 export default ContentPageRouter;
