@@ -1,7 +1,7 @@
-import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import App from "./containers/app";
-import Login from "./containers/login";
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import App from './containers/app';
+import Login from './containers/login';
 
 const Root = () => (
   <BrowserRouter>
