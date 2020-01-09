@@ -4,10 +4,4 @@ enum PageList {
     SETTINGS = 'settings'
 };
 
-enum adminRoutes {
-    CALENDAR = 'admin/calendar',
-    DASHBOARD = 'admin/dashboard',
-    SETTINGS = 'admin/settings'
-}
-
-export  {PageList, adminRoutes};
+export default PageList;

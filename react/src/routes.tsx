@@ -7,7 +7,7 @@ import AdminRoot from './containers/admin/admin-root';
 const Root = () => (
   <BrowserRouter>
     <Switch>
-      <Route path={"/admin"} render={() => <AdminRoot page="calendar" />} />
+       <Route path="/admin/calendar" render={() => <AdminRoot page="calendar" />} />
       <Route path="/admin/dashboard" render={() => <AdminRoot page="dashboard" />} />
       <Route path="/admin/settings" render={() => <AdminRoot page="settings" />} />
       <Route exact path="/" component={App} />

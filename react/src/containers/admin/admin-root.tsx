@@ -1,6 +1,6 @@
 import React from 'react';
-import ContentPage from "./content-page";
 import BottomMenu from "./bottom-menu";
+import ContentPageRouter from "./content-page-router";
 
 export type pageType = { page: string };
 
@@ -8,7 +8,7 @@ const AdminRoot = ({page}: pageType) => {
 
     return (
         <div>
-            <ContentPage/>
+            <ContentPageRouter page={page}/>
             <BottomMenu page={page}/>
         </div>
     )
