@@ -1,9 +1,11 @@
 import React from 'react';
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
 
 const Calendar = () => {
     return (
-        <div>Calendar
-
+        <div>
+            <FullCalendar defaultView="dayGridMonth" plugins={[ dayGridPlugin ]} />
         </div>
     );
 };
