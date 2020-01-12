@@ -11,11 +11,11 @@ class AdminUser extends Model
      */
     public function appointments()
     {
-        $this->hasMany('App\Appointment');
+       return $this->hasMany('App\Appointment');
     }
 
     public function salon()
     {
-        $this->belongsTo('App\Salon');
+       return $this->belongsTo('App\Salon');
     }
 }

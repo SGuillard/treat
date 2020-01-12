@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Salon extends Model
 {
-    public function adminUser()
+    public function adminUsers()
     {
-        $this->hasMany('App\AdminUser');
+        return $this->hasMany('App\AdminUser');
     }
 }
