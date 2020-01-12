@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserToAppointmentTable extends Migration
+class AddAdminUserToAppointmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class AddUserToAppointmentTable extends Migration
     public function up()
     {
         Schema::table('appointment', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned()->nullable()
-            ->references('id')->on('user')
-            ->onDelete('set null');
+            $table->integer('admin_user_id')->unsigned()->nullable()
+                ->references('id')->on('admin_user')
+                ->onDelete('set null');
         });
     }
 
