@@ -1,5 +1,5 @@
 import React from 'react';
-import {pageType} from "./admin-root";
+import {pageType} from "./admin-route";
 import PageList from "./enum";
 import Calendar from "./calendar/calendar";
 import Dashboard from "./dashboard/dashboard";

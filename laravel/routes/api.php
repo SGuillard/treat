@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Login route - Unprotected from the 'auth:api' middleware to allow us to get a user token
+Route::post('login', 'AuthenticationController@getToken');
+
+// Prefix applied to all routes inside
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('test', function () {
+        return ['message' => 'ok'];
+    });
 });

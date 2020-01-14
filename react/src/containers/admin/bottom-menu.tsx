@@ -5,7 +5,7 @@ import {makeStyles} from "@material-ui/core";
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import SettingsIcon from '@material-ui/icons/Settings';
-import {pageType} from "./admin-root";
+import {pageType} from "./admin-route";
 import PageList from "./enum";
 import { useHistory } from 'react-router-dom';
 
