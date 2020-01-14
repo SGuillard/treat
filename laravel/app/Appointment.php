@@ -18,4 +18,9 @@ class Appointment extends Model
     {
         return $this->belongsTo('App\AdminUser');
     }
+
+    public function salon()
+    {
+        return $this->belongsTo('App\Salon');
+    }
 }

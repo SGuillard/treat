@@ -10,4 +10,9 @@ class Salon extends Model
     {
         return $this->hasMany('App\AdminUser');
     }
+
+    public function appointments()
+    {
+        return $this->hasMany('App\Appointment');
+    }
 }

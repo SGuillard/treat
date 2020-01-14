@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSalonToAdminUsersTable extends Migration
+class AddDateToAppointments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddSalonToAdminUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('admin_users', function (Blueprint $table) {
-            $table->unsignedBigInteger('salon_id')->nullable();
-            $table->foreign('salon_id')->references('id')->on('salons')->onDelete('set null');
+        Schema::table('appointments', function (Blueprint $table) {
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddSalonToAdminUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('admin_users', function (Blueprint $table) {
+        Schema::table('appointments', function (Blueprint $table) {
             //
         });
     }
