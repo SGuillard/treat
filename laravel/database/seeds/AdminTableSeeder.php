@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class AdminTableSeeder extends Seeder
 {
@@ -11,6 +12,18 @@ class AdminTableSeeder extends Seeder
      */
     public function run()
     {
+
+        // Create a personal
+        Artisan::call(
+            'passport:client',
+            [
+                '--redirect_uri' => 'localhost',
+                '--name' => 'clientTest',
+                '--user_id' => 10,
+                '--personal' => true,
+            ]
+        );
+
         $salon = new \App\Salon();
         $salon->name = 'SalonTest';
         $salon->save();
@@ -19,6 +32,8 @@ class AdminTableSeeder extends Seeder
 
         $superAdmin = new \App\AdminUser();
         $superAdmin->name = 'SuperAdmin';
+        $superAdmin->email = 'test';
+        $superAdmin->password = md5('test');
 
         $admin = new \App\AdminUser();
         $admin->name = 'NormalAdmin';

@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Login route - Unprotected from the 'auth:api' middleware to allow us to get a user token
-Route::post('login', 'AuthenticationController@getToken');
-
+Route::get('login', 'AuthenticationController@getToken');
+Route::get('test', function () {
+    return 'ok';
+});
 // Prefix applied to all routes inside
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('test', function () {
