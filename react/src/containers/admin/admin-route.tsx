@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import BottomMenu from "./bottom-menu";
 import ContentPageRouter from "./content-page-router";
 import { Redirect } from 'react-router-dom';

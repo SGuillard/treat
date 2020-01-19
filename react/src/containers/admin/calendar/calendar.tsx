@@ -28,9 +28,9 @@ const Calendar = () => {
                 onClose={closeModal}
             >
                 <div className="modal">
-                    <a className="close" onClick={closeModal}>
+                    <div className="close" onClick={closeModal}>
                         &times;
-                    </a>
+                    </div>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni
                     omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate
                     ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam

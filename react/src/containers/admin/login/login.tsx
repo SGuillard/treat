@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import LoginApi from "./api-login";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -36,8 +37,10 @@ export default function SignIn() {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const handleSubmit = () => {
-    console.log('ookk');
+    const loginApi = new LoginApi(email, password);
+    loginApi.getToken();
   };
 
   function validateForm() {
@@ -54,7 +57,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
             Sign in
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit} noValidate>
+        <div className={classes.form}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -88,10 +91,11 @@ export default function SignIn() {
           <Button
             type="submit"
             fullWidth
+            onClick={handleSubmit}
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={!validateForm()}
+            // disabled={!validateForm()}
           >
               Sign In
           </Button>
@@ -107,7 +111,7 @@ export default function SignIn() {
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
     </Container>
   );

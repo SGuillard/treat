@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Login route - Unprotected from the 'auth:api' middleware to allow us to get a user token
-Route::get('login', 'AuthenticationController@getToken');
+Route::post('login', 'AuthenticationController@getToken');
 Route::get('test', function () {
     return 'ok';
 });
