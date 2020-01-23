@@ -1,10 +1,10 @@
 import React from 'react';
-import BottomMenu from "../../containers/admin/bottom-menu";
+import BottomMenu from "../../containers/admin/main/bottom-menu";
 import ContentPageRouter from "./content-page-router";
 import { Redirect } from 'react-router-dom';
 import {isAuthenticated} from "../../containers/admin/login/api-login";
 import AdminROUTES from "./admin-routes";
-import Main from "../../containers/admin/main";
+import Main from "../../containers/admin/main/main";
 
 export type pageType = { page: string };
 
