@@ -53,37 +53,36 @@ export default function Register() {
   const [errorValidation, setErrorValidation] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
-  const handleRegistration = () => {
+  const handleRegistration = async () => {
       const instance = axios.create({
         headers: { 'Content-Type': 'application/json' },
       });
       try {
-        const getToken = instance.request({
+        const getToken = await instance.request({
           url: `${API.API_URL}${API.REGISTRATION_SLUG}`,
           method: 'post',
           data: JSON.stringify({ email,password,firstName,lastName,phone,salon }),
         });
-        return getToken;
       } catch (e) {
-        if (e.response.status && e.response.status === 401) {
+        if (e.response.status && e.response.status !== 200) {
           return false;
         }
-        throw Error(e);
       }
-  }
+      return true;
+  };
 
-  const handleSubmit = (event: FormEvent) => {
+  const validateForm = () => {
+    return email.length >= 0 && password.length >= 0;
+  };
+
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-
-    handleRegistration();
-
     if (validateForm()) {
-      const loginApi = new LoginApi(email, password);
-      loginApi.authenticate().then(token => !token ? setErrorCredentials(true) : setRedirect(true));
-    } else {
-      setErrorValidation(true);
+      if(await handleRegistration()){
+        const loginApi = new LoginApi(email, password);
+        loginApi.authenticate().then(token => !token ? setErrorCredentials(true) : setRedirect(true));
+      }
     }
-    return false;
   };
 
   const displayErrorMessage = () => {
@@ -99,11 +98,6 @@ export default function Register() {
       {message}
     </div>)
   };
-
-  const validateForm = () => {
-    return email.length > 0 && password.length > 0;
-  };
-
 
   const form = () => (
     <Container component="main" maxWidth="xs">
