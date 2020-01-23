@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Resources\Admin\AdminUserResource;
 use App\Salon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TeamController extends Controller
+class TeamController
 {
     /**
      * @param Request $id Salon id
@@ -16,6 +17,7 @@ class TeamController extends Controller
     public function getTeam()
     {
         $user = Auth::user();
-        var_dump($user); die;
+        $salon = $user->salon;
+        return AdminUserResource::collection($salon->adminUsers);
     }
 }
