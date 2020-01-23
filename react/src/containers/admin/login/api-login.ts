@@ -5,6 +5,8 @@ const LOGIN_SLUG = '/login';
 
 const getToken = () => localStorage.getItem('token');
 
+const storeToken = (tokenItem: string) => localStorage.setItem('token', tokenItem);
+
 const isAuthenticated = () => {
   if (getToken()) {
     return true;
@@ -13,13 +15,13 @@ const isAuthenticated = () => {
 };
 
 class LoginApi {
-  constructor(login, password) {
+
+  login: string;
+  password: string;
+
+  constructor(login: string, password: string) {
     this.login = login;
     this.password = password;
-  }
-
-  storeToken(tokenItem) {
-    localStorage.setItem('token', tokenItem);
   }
 
   // Call Api to get the first token
@@ -28,8 +30,7 @@ class LoginApi {
       headers: { 'Content-Type': 'application/json' },
     });
     try {
-      const { login } = this;
-      const { password } = this;
+      const { login, password } = this;
 
       const getToken = await instance.request({
         url: `${API_URL}${LOGIN_SLUG}`,
@@ -50,7 +51,7 @@ class LoginApi {
     const apiLoginCheckResponse = await this.callApiLoginCheck();
     if (apiLoginCheckResponse !== false) {
       const token = apiLoginCheckResponse.data.accessToken;
-      this.storeToken(token);
+      storeToken(token);
       return true;
     }
     return false;

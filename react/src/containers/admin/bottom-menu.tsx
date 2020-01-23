@@ -5,9 +5,9 @@ import {makeStyles} from "@material-ui/core";
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import SettingsIcon from '@material-ui/icons/Settings';
-import {pageType} from "./admin-route";
-import PageList from "./enum";
 import { useHistory } from 'react-router-dom';
+import {pageType} from "../../route/admin/admin-router";
+import AdminROUTES from "../../route/admin/admin-routes";
 
 const useStyles = makeStyles({
     root: {
@@ -34,9 +34,9 @@ const BottomMenu = ({page}: pageType) => {
             showLabels
             className={classes.root}
         >
-            <BottomNavigationAction label="Calendar" value={PageList.CALENDAR} icon={<CalendarTodayIcon />} />
-            <BottomNavigationAction label="Dashboard" value={PageList.DASHBOARD} icon={<DashboardIcon />} />
-            <BottomNavigationAction label="Settings" value={PageList.SETTINGS} icon={<SettingsIcon />} />
+            <BottomNavigationAction label="Calendar" value={AdminROUTES.CALENDAR.name} icon={<CalendarTodayIcon />} />
+            <BottomNavigationAction label="Dashboard" value={AdminROUTES.DASHBOARD.name} icon={<DashboardIcon />} />
+            <BottomNavigationAction label="Settings" value={AdminROUTES.SETTINGS.name} icon={<SettingsIcon />} />
         </BottomNavigation>
     );
 };
