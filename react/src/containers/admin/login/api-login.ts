@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-const API_URL = 'http://localhost/api';
-const LOGIN_SLUG = '/login';
+import API from "../../../API";
 
 const getToken = () => localStorage.getItem('token');
 
@@ -33,7 +31,7 @@ class LoginApi {
       const { login, password } = this;
 
       const getToken = await instance.request({
-        url: `${API_URL}${LOGIN_SLUG}`,
+        url: `${API.API_URL}${API.LOGIN_SLUG}`,
         method: 'post',
         data: JSON.stringify({ username: login, password }),
       });

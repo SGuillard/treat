@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FormEvent, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,7 +9,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Link as RouterLink} from "react-router-dom";
+import {Link as RouterLink, Redirect} from "react-router-dom";
+import {LoginApi} from "./api-login";
+import axios from "axios";
+import API from "../../../API";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -29,12 +32,80 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  error: {
+    backgroundColor: "red",
+    borderRadius: "10px",
+    padding: "10px",
+    color: "white",
+    textAlign: "center",
+  }
 }));
 
 export default function Register() {
   const classes = useStyles();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [business, setBusiness] = useState('');
+  const [errorCredentials, setErrorCredentials] = useState(false);
+  const [errorValidation, setErrorValidation] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
-  return (
+  const handleRegistration = () => {
+      const instance = axios.create({
+        headers: { 'Content-Type': 'application/json' },
+      });
+      try {
+        const getToken = instance.request({
+          url: `${API}${API.REGISTRATION_SLUG}`,
+          method: 'post',
+          data: JSON.stringify({ email,password,firstName,lastName,phone,business }),
+        });
+        return getToken;
+      } catch (e) {
+        if (e.response.status && e.response.status === 401) {
+          return false;
+        }
+        throw Error(e);
+      }
+  }
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    handleRegistration();
+
+    if (validateForm()) {
+      const loginApi = new LoginApi(email, password);
+      loginApi.authenticate().then(token => !token ? setErrorCredentials(true) : setRedirect(true));
+    } else {
+      setErrorValidation(true);
+    }
+    return false;
+  };
+
+  const displayErrorMessage = () => {
+    let message = '';
+    if (errorValidation) {
+      message = 'Please enter valid credentials';
+    } else if (errorCredentials) {
+      message = 'Wrong mail/password combination';
+    } else {
+      message = 'Something went wrong, support has been informed';
+    }
+    return (<div className={classes.error}>
+      {message}
+    </div>)
+  };
+
+  const validateForm = () => {
+    return email.length > 0 && password.length > 0;
+  };
+
+
+  const form = () => (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -44,7 +115,7 @@ export default function Register() {
         <Typography component="h1" variant="h5">
                     Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -56,6 +127,8 @@ export default function Register() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={firstName}
+                onChange={e => setFirstName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -67,6 +140,8 @@ export default function Register() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="lname"
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -79,6 +154,8 @@ export default function Register() {
                   id="phone"
                   label="Phone"
                   autoFocus
+                  value={phone}
+                  onChange={e => setPhone(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -90,6 +167,8 @@ export default function Register() {
                   label="Name of my business"
                   name="business"
                   autoComplete="business"
+                  value={business}
+                  onChange={e => setBusiness(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -101,6 +180,8 @@ export default function Register() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -113,6 +194,8 @@ export default function Register() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
               />
             </Grid>
           </Grid>
@@ -125,6 +208,7 @@ export default function Register() {
           >
                         Sign Up
           </Button>
+          {errorValidation || errorCredentials ? displayErrorMessage() : ''}
           <Grid container justify="flex-end">
             <Grid item>
               <Link component={RouterLink} to="/admin/login">
@@ -136,4 +220,6 @@ export default function Register() {
       </div>
     </Container>
   );
+
+  return redirect ? <Redirect to='dashboard'/> : form();
 }
