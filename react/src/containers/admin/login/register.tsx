@@ -3,14 +3,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {Link as RouterLink} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -61,24 +60,25 @@ export default function Register() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lname"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                  autoComplete="fname"
+                  name="phone"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="phone"
+                  label="Phone"
+                  autoFocus
               />
             </Grid>
             <Grid item xs={12}>
@@ -95,19 +95,24 @@ export default function Register() {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                requiredsign-up
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
           </Grid>
@@ -122,8 +127,8 @@ export default function Register() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                                Already have an account? Sign in
+              <Link component={RouterLink} to="/admin/login">
+                Already have an account? Sign in
               </Link>
             </Grid>
           </Grid>
