@@ -31,12 +31,18 @@ class AdminTableSeeder extends Seeder
         factory('App\User', 5)->create();
 
         $superAdmin = new \App\AdminUser();
-        $superAdmin->name = 'SuperAdmin';
+        $superAdmin->first_name = 'Admin';
+        $superAdmin->last_name = 'Super';
         $superAdmin->email = 'test';
+        $superAdmin->phone = 25764587;
         $superAdmin->password = md5('test');
 
         $admin = new \App\AdminUser();
-        $admin->name = 'NormalAdmin';
+        $admin->first_name = 'Admin';
+        $admin->last_name = 'Normal';
+        $admin->email = 'test1';
+        $admin->phone = 25768989;
+        $admin->password = md5('test1');
 
         $salon->adminUsers()->saveMany([$superAdmin, $admin]);
 
