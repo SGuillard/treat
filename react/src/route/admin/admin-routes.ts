@@ -14,6 +14,10 @@ const AdminROUTES = {
     SETTINGS: {
         path: "/admin/settings",
         name: "settings",
+        TEAM: {
+            path: "/admin/settings/team",
+            name: "settings/team",
+        }
     },
     REGISTER: {
         path: "/admin/register",

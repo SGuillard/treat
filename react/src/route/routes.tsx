@@ -13,6 +13,7 @@ const Root = () => (
       <Route path={AdminROUTES.CALENDAR.path} render={() => <AdminRouter page={AdminROUTES.CALENDAR.name} />} />
       <Route path={AdminROUTES.DASHBOARD.path} render={() => <AdminRouter page={AdminROUTES.DASHBOARD.name} />} />
       <Route path={AdminROUTES.SETTINGS.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.name} />} />
+        <Route path={AdminROUTES.SETTINGS.TEAM.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.TEAM.name} />} />
       <Route path={AdminROUTES.LOGIN.path} component={Login} />
       <Route path={AdminROUTES.REGISTER.path} component={Register} />
 
