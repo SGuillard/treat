@@ -48,7 +48,7 @@ export default function Register() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
-  const [business, setBusiness] = useState('');
+  const [salon, setSalon] = useState('');
   const [errorCredentials, setErrorCredentials] = useState(false);
   const [errorValidation, setErrorValidation] = useState(false);
   const [redirect, setRedirect] = useState(false);
@@ -59,9 +59,9 @@ export default function Register() {
       });
       try {
         const getToken = instance.request({
-          url: `${API}${API.REGISTRATION_SLUG}`,
+          url: `${API.API_URL}${API.REGISTRATION_SLUG}`,
           method: 'post',
-          data: JSON.stringify({ email,password,firstName,lastName,phone,business }),
+          data: JSON.stringify({ email,password,firstName,lastName,phone,salon }),
         });
         return getToken;
       } catch (e) {
@@ -167,8 +167,8 @@ export default function Register() {
                   label="Name of my business"
                   name="business"
                   autoComplete="business"
-                  value={business}
-                  onChange={e => setBusiness(e.target.value)}
+                  value={salon}
+                  onChange={e => setSalon(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -199,6 +199,7 @@ export default function Register() {
               />
             </Grid>
           </Grid>
+          {errorValidation || errorCredentials ? displayErrorMessage() : ''}
           <Button
             type="submit"
             fullWidth
@@ -208,7 +209,6 @@ export default function Register() {
           >
                         Sign Up
           </Button>
-          {errorValidation || errorCredentials ? displayErrorMessage() : ''}
           <Grid container justify="flex-end">
             <Grid item>
               <Link component={RouterLink} to="/admin/login">
