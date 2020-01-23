@@ -38,7 +38,6 @@ const Settings = () => {
     const redirection = (route: string): void => {
         setRouteToRedirect(route);
         setRedirect(true);
-        return;
     };
 
     const list = () => (
@@ -86,8 +85,7 @@ const Settings = () => {
         </List>
     );
 
-    return redirect ? <Redirect to="/admin/dashboard" /> : list();
-
-}
+    return redirect ? <Redirect push to={routeToRedirect} /> : list();
+};
 
 export default Settings;

@@ -4,6 +4,7 @@ import Dashboard from "../../containers/admin/dashboard/dashboard";
 import Settings from "../../containers/admin/settings/settings";
 import {pageType} from "./admin-router";
 import AdminROUTES from "./admin-routes";
+import SettingsTeam from "../../containers/admin/settings/settings-team";
 
 const ContentPageRouter = ({page}: pageType) => {
     switch(page) {
@@ -13,6 +14,8 @@ const ContentPageRouter = ({page}: pageType) => {
             return <Dashboard />;
         case AdminROUTES.SETTINGS.name:
             return <Settings />;
+        case AdminROUTES.SETTINGS.TEAM.name:
+            return <SettingsTeam />;
         default:
             return <Calendar/>;
     }

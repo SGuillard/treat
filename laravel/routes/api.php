@@ -19,7 +19,5 @@ Route::post('register', 'Auth\RegisterController@create');
 
 // Prefix applied to all routes inside
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('test', function () {
-        return ['message' => 'ok'];
-    });
+    Route::get('team', 'TeamController@getTeam');
 });
