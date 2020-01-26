@@ -42,7 +42,7 @@ class LoginApi {
       const { login, password } = this;
 
       const getToken = await instance.request({
-        url: `${API.API_URL}${API.LOGIN_SLUG}`,
+        url: `${API.API_URL}${API.LOGIN}`,
         method: 'post',
         data: JSON.stringify({ username: login, password }),
       });

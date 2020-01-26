@@ -59,7 +59,7 @@ export default function Register() {
       });
       try {
         const getToken = await instance.request({
-          url: `${API.API_URL}${API.REGISTRATION_SLUG}`,
+          url: `${API.API_URL}${API.REGISTRATION}`,
           method: 'post',
           data: JSON.stringify({ email,password,firstName,lastName,phone,salon }),
         });
