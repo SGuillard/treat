@@ -13,10 +13,10 @@ const AdminROUTES = {
         name: "dashboard",
     },
     SETTINGS: {
-        path: "/admin/settings",
+        path: "/admin/settings/",
         name: "settings",
         TEAM: {
-            path: "/admin/settings/team",
+            path: "/admin/team",
             name: "settings/team",
         }
     },

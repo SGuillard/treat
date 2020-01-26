@@ -2,10 +2,8 @@ import React, {FormEvent, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import {LoginApi} from "../login/api-login";
 import makeRequest, {RequestMethod} from "../../../utils/apiRequest";
 import API from "../../../API";
-
 interface FormAddTeamMemberProps {
     toggleForm: (event?: React.MouseEvent) => void;
 };
@@ -27,7 +25,6 @@ const FormAddTeamMember = ({toggleForm}: FormAddTeamMemberProps) => {
     const validateForm = () => {
         return firstName.length > 0 && lastName.length > 0;
     };
-
 
     return (
         <form onSubmit={handleSubmit}>

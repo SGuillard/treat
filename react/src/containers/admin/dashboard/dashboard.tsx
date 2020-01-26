@@ -1,6 +1,9 @@
 import React from 'react';
+import {MyStore} from "../../../types";
+import {connect} from "react-redux";
 
-const Dashboard = () => {
+const Dashboard = (props: any) => {
+    console.log(props.count);
     return (
         <div>
             dashboard
@@ -8,4 +11,10 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+const MapStateToProps = (store: MyStore) => {
+    return {
+        count: store.test,
+    };
+};
+
+export default connect(MapStateToProps)(Dashboard);
