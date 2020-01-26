@@ -3,7 +3,7 @@ const API = {
     LOGIN: '/login',
     REGISTRATION: '/register',
     TEAM_ALL: '/team/getAll',
-    TEAM_CREATE: (id: number) => `team/${id}/create`,
+    TEAM_CREATE: '/team/create',
 };
 
 export default API;

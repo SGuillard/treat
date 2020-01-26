@@ -10,7 +10,7 @@ export enum RequestMethod {
     DELETE = "DELETE",
 };
 
-const makeRequest = (method: Method, slug: string) => {
+const makeRequest = (method: Method, slug: string, data: {} = {}) => {
     return new Promise((resolve, reject) => {
     const instance = axios.create({
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
@@ -18,6 +18,7 @@ const makeRequest = (method: Method, slug: string) => {
     instance.request({
         url: `${API.API_URL}${slug}`,
         method: method,
+        data: data
     }).then((response: any) => resolve(response.data.data)).catch(e => reject(redirectToLoginPage()));
 })};
 

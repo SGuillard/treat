@@ -42,7 +42,7 @@ const SettingsTeam = () => {
         makeRequest(RequestMethod.GET, `${API.TEAM_ALL}`).then((data: any) => setMemberList(data));
     }, []);
 
-    const toggleForm = (event: React.MouseEvent) => {
+    const toggleForm = (event?: React.MouseEvent) => {
         setShowFormAdd(!showFormAdd);
     };
 
