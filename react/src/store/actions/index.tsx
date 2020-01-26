@@ -1,4 +1,5 @@
 import * as constants from '../constants';
+
 //define action interfaces
 export interface testInterface {
     type: constants.SET_TEST;

@@ -4,22 +4,26 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import makeRequest, {RequestMethod} from "../../../utils/apiRequest";
 import API from "../../../API";
+import {connect} from "react-redux";
+import { bindActionCreators } from 'redux';
 interface FormAddTeamMemberProps {
     toggleForm: (event?: React.MouseEvent) => void;
+    addTeamMember: () => void
 };
 
-const FormAddTeamMember = ({toggleForm}: FormAddTeamMemberProps) => {
+const FormAddTeamMember = ({toggleForm, addTeamMember}: FormAddTeamMemberProps) => {
 
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
-        if (validateForm()) {
-            makeRequest(RequestMethod.POST, API.TEAM_CREATE, {firstName, lastName}).then(() => {
-                toggleForm();
-            }).catch((e) =>console.log(e));
-        }
+        addTeamMember();
+        // if (validateForm()) {
+        //     makeRequest(RequestMethod.POST, API.TEAM_CREATE, {firstName, lastName}).then(() => {
+        //         toggleForm();
+        //     }).catch((e) =>console.log(e));
+        // }
     };
 
     const validateForm = () => {
@@ -68,4 +72,8 @@ const FormAddTeamMember = ({toggleForm}: FormAddTeamMemberProps) => {
     );
 };
 
-export default FormAddTeamMember;
+const MapDispatchToProps = (dispatch: any) => bindActionCreators({
+        addTeamMember: () => dispatch({type: 'ADD_MEMBER', payload: 'trois test'})
+}, dispatch);
+
+export default connect(null, MapDispatchToProps)(FormAddTeamMember);
