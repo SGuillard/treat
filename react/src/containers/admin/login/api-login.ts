@@ -1,12 +1,23 @@
 import axios from 'axios';
 import API from "../../../API";
+import AdminROUTES from "../../../route/admin/admin-routes";
 
-const getToken = () => localStorage.getItem('token');
+const getStorageToken = () => localStorage.getItem('token');
+
+const getToken = () => {
+  if(getStorageToken()) {
+    return getStorageToken();
+  }else {
+    window.location.href = (`${AdminROUTES.BASE}${AdminROUTES.LOGIN}`);
+  }
+};
+
+const redirectToLoginPage = () => window.location.href = (`${AdminROUTES.BASE}${AdminROUTES.LOGIN}`);
 
 const storeToken = (tokenItem: string) => localStorage.setItem('token', tokenItem);
 
 const isAuthenticated = () => {
-  if (getToken()) {
+  if (getStorageToken()) {
     return true;
   }
   return false;
@@ -64,4 +75,4 @@ class LoginApi {
   }
 }
 
-export { LoginApi, getToken, isAuthenticated };
+export { LoginApi, getToken, isAuthenticated, redirectToLoginPage };

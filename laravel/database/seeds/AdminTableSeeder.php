@@ -36,6 +36,7 @@ class AdminTableSeeder extends Seeder
         $superAdmin->email = 'test';
         $superAdmin->phone = 25764587;
         $superAdmin->password = md5('test');
+        $superAdmin->active = true;
 
         $admin = new \App\AdminUser();
         $admin->first_name = 'Admin';
@@ -43,8 +44,17 @@ class AdminTableSeeder extends Seeder
         $admin->email = 'test1';
         $admin->phone = 25768989;
         $admin->password = md5('test1');
+        $admin->active = true;
 
-        $salon->adminUsers()->saveMany([$superAdmin, $admin]);
+        $adminOther = new \App\AdminUser();
+        $adminOther->first_name = 'Admin';
+        $adminOther->last_name = 'Other';
+        $adminOther->email = 'test2';
+        $adminOther->phone = 1111111;
+        $adminOther->password = md5('test2');
+        $adminOther->active = false;
+
+        $salon->adminUsers()->saveMany([$superAdmin, $admin, $adminOther]);
 
         for($i = 0; $i < 4; $i++) {
             $appointment = new \App\Appointment();

@@ -1,4 +1,5 @@
 const AdminROUTES = {
+    BASE: "localhost:3001",
     LOGIN: {
         path: "/admin/login",
         name: "login",

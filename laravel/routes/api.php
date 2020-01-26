@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Admin login routes - Unprotected from the 'auth:api' middleware to allow us to get a user token
-Route::post('login', 'Admin\Auth\AuthenticationController@getToken');
+Route::post('login', 'Admin\Auth\AuthenticationController@getToken')->name('login');
 Route::post('register', 'Admin\Auth\RegisterController@create');
 
 // Prefix applied to all routes inside
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('team', 'Admin\TeamController@getTeam');
+    Route::get('team/get', 'Admin\TeamController@getTeam');
+//    Route::get('team/', 'Admin\TeamController@getTeam');
 });
