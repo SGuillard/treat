@@ -5,12 +5,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
-import axios from "axios";
-import API from "../../../API";
-import {getToken, redirectToLoginPage} from "../login/api-login";
 import {Switch} from "@material-ui/core";
+import makeRequest, {RequestMethod} from "../../../utils/apiRequest";
+import API from "../../../API";
+import {Method} from "axios";
+import Container from "@material-ui/core/Container";
 
 interface TeamMemberInterface {
     id: number,
@@ -31,17 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SettingsTeam = () => {
     const classes = useStyles();
-    const [checked, setChecked] = useState([1]);
-    const [memberList, setMemberList] = useState([]);
+    const [checked, setChecked] = useState<number[]>([1]);
+    const [memberList, setMemberList] = useState<TeamMemberInterface[]>([]);
 
     useEffect(() => {
-            const instance = axios.create({
-                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
-            });
-                instance.request({
-                    url: `${API.API_URL}${API.TEAM_SLUG}`,
-                    method: 'get',
-                }).then((response) => setMemberList(response.data.data)).catch(e => redirectToLoginPage());
+        makeRequest(RequestMethod.GET, `${API.TEAM_SLUG}`).then((data: any) => setMemberList(data));
     }, []);
 
     const handleToggle = (value: number) => () => {
@@ -58,23 +52,24 @@ const SettingsTeam = () => {
     };
 
     return (
+        <Container component="main" maxWidth="xs">
         <List dense className={classes.root}>
-            {memberList.map((value: TeamMemberInterface) => {
-                const labelId = `checkbox-list-secondary-label-${value.id}`;
+            {memberList.map((member: TeamMemberInterface) => {
+                const labelId = `checkbox-list-secondary-label-${member.id}`;
                 return (
-                    <ListItem key={value.id} button>
+                    <ListItem key={member.id} button>
                         <ListItemAvatar>
                             <Avatar
-                                alt={`Avatar n°${value.id + 1}`}
-                                src={`/static/images/avatar/${value.id + 1}.jpg`}
+                                alt={`Avatar n°${member.id + 1}`}
+                                src={`/static/images/avatar/${member.id + 1}.jpg`}
                             />
                         </ListItemAvatar>
-                        <ListItemText id={labelId} primary={`${value.first_name} ${value.last_name}`} />
+                        <ListItemText id={labelId} primary={`${member.first_name} ${member.last_name}`} />
                         <ListItemSecondaryAction>
                             <Switch
                                 edge="end"
-                                onChange={handleToggle(value.id)}
-                                checked={value.active}
+                                onChange={handleToggle(member.id, )}
+                                checked={member.active}
                                 inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
                             />
                         </ListItemSecondaryAction>
@@ -82,6 +77,7 @@ const SettingsTeam = () => {
                 );
             })}
         </List>
+        </Container>
     );
 }
 
