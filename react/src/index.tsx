@@ -5,12 +5,12 @@ import Root from './route/routes';
 import './style.scss';
 import {Provider} from "react-redux";
 import {adminUsersReducer} from "./store/reducers/adminUsersReducer";
-import {TeamMemberInterface} from "./containers/admin/types/types";
+import {AdminUserInterface} from "./containers/admin/types/types";
 
 
 export interface storeType {
    admin: {
-      adminUsers: TeamMemberInterface[]
+      adminUsers: AdminUserInterface[]
    };
 }
 

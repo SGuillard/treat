@@ -8,12 +8,12 @@ import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
 import {addAdminUser} from "../../../store/actions/adminUsersActions";
 
-interface FormAddTeamMemberProps {
+interface SettingsAdminUserFormAddProps {
     toggleForm: (event?: React.MouseEvent) => void;
     addTeamMember: () => void
 };
 
-const SettingsAdminUserFormAdd = ({toggleForm, addTeamMember}: FormAddTeamMemberProps) => {
+const SettingsAdminUserFormAdd = ({toggleForm, addTeamMember}: SettingsAdminUserFormAddProps) => {
 
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');

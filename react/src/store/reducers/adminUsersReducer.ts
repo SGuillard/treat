@@ -1,8 +1,7 @@
 import {ADD_ADMIN_USER_ACTION} from "../actions/constants";
-import {TeamMemberInterface} from "../../containers/admin/types/types";
-import {storeType} from "../../index";
+import {AdminUserInterface} from "../../containers/admin/types/types";
 
-type adminUsersInitialStateType = {list: TeamMemberInterface[]};
+type adminUsersInitialStateType = {list: AdminUserInterface[]};
 
 const adminUserInitialState: adminUsersInitialStateType = {
     list: [

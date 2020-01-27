@@ -13,7 +13,7 @@ import Container from "@material-ui/core/Container";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import {TeamMemberInterface} from "../types/types";
+import {AdminUserInterface} from "../types/types";
 import SettingsAdminUserFormAdd from "./settings-admin-user-form-add";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const SettingsAdminUserList = () => {
     const classes = useStyles();
     const [checked, setChecked] = useState<number[]>([1]);
-    const [memberList, setMemberList] = useState<TeamMemberInterface[]>([]);
+    const [memberList, setMemberList] = useState<AdminUserInterface[]>([]);
     const [showFormAdd, setShowFormAdd] = useState<boolean>(false);
 
     useEffect(() => {
@@ -55,7 +55,7 @@ const SettingsAdminUserList = () => {
 
     const displayTeamList = () => (
         <List dense className={classes.root}>
-            {memberList.map((member: TeamMemberInterface) => {
+            {memberList.map((member: AdminUserInterface) => {
                 const labelId = `checkbox-list-secondary-label-${member.id}`;
                 return (
                     <ListItem key={member.id} button>
