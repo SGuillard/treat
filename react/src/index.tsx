@@ -1,14 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import Root from './route/routes';
 import './style.scss';
-import {StoreType} from "./store/types";
-import {storeReducer} from "./store/reducers";
 import {Provider} from "react-redux";
+import {adminUsersReducer} from "./store/reducers/adminUsersReducer";
+import {TeamMemberInterface} from "./containers/admin/types/types";
+
+
+export interface storeType {
+   admin: {
+      adminUsers: TeamMemberInterface[]
+   };
+}
+
+const rootReducer = combineReducers({
+   adminUsers: adminUsersReducer
+});
 
 /* eslint-disable no-underscore-dangle */
-const store = createStore<StoreType , any, any, any>(storeReducer,(window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+const store = createStore<any , any, any, any>(rootReducer,(window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION__());
 /* eslint-enable */
 ReactDOM.render( <Provider store={store}><Root /> </Provider>, document.getElementById('root'));

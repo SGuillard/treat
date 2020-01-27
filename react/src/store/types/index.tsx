@@ -1,3 +1,4 @@
-export interface StoreType {
-    test: string;
+export interface testInterface {
+    type: string;
+    payload: string;
 }

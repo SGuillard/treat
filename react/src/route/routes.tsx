@@ -5,8 +5,6 @@ import App from "../containers/app";
 import Login from "../containers/admin/login/login";
 import AdminRouter from "./admin/admin-router";
 import AdminROUTES from "./admin/admin-routes";
-import {StoreType} from "../store/types";
-import { connect } from 'react-redux';
 
 const Root = () => (
   <BrowserRouter>
@@ -25,9 +23,5 @@ const Root = () => (
     </Switch>
   </BrowserRouter>
 );
-const MapStateToProps = (store: StoreType) => {
-  return {
-    count: store.test,
-  };
-};
-export default connect(MapStateToProps)(Root);
+
+export default Root;

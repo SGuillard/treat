@@ -13,14 +13,8 @@ import Container from "@material-ui/core/Container";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import FormAddTeamMember from "./FormAddTeamMember";
-
-interface TeamMemberInterface {
-    id: number,
-    first_name: string,
-    last_name: string,
-    active: boolean
-}
+import {TeamMemberInterface} from "../types/types";
+import SettingsAdminUserFormAdd from "./settings-admin-user-form-add";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -32,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const SettingsTeam = () => {
+const SettingsAdminUserList = () => {
     const classes = useStyles();
     const [checked, setChecked] = useState<number[]>([1]);
     const [memberList, setMemberList] = useState<TeamMemberInterface[]>([]);
@@ -95,12 +89,12 @@ const SettingsTeam = () => {
                     }
                     title="My Team"
                 />
-                { showFormAdd ? <FormAddTeamMember toggleForm={toggleForm}/> : '' }
+                { showFormAdd ? <SettingsAdminUserFormAdd toggleForm={toggleForm}/> : '' }
                 { !showFormAdd ? displayTeamList() : '' }
             </Card>
         </Container>
     );
 }
 
-export default SettingsTeam;
+export default SettingsAdminUserList;
 
