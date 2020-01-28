@@ -1,15 +1,14 @@
 import axios from 'axios';
-import API from "../../../API";
-import AdminROUTES from "../../../route/admin/admin-routes";
+import API from '../../../API';
+import AdminROUTES from '../../../route/admin/admin-routes';
 
 const getStorageToken = () => localStorage.getItem('token');
 
 const getToken = () => {
-  if(getStorageToken()) {
+  if (getStorageToken()) {
     return getStorageToken();
-  }else {
-    window.location.href = (`${AdminROUTES.BASE}${AdminROUTES.LOGIN}`);
   }
+  window.location.href = (`${AdminROUTES.BASE}${AdminROUTES.LOGIN}`);
 };
 
 const redirectToLoginPage = () => window.location.href = (`${AdminROUTES.BASE}${AdminROUTES.LOGIN}`);
@@ -24,8 +23,8 @@ const isAuthenticated = () => {
 };
 
 class LoginApi {
-
   login: string;
+
   password: string;
 
   constructor(login: string, password: string) {
@@ -75,4 +74,6 @@ class LoginApi {
   }
 }
 
-export { LoginApi, getToken, isAuthenticated, redirectToLoginPage };
+export {
+  LoginApi, getToken, isAuthenticated, redirectToLoginPage,
+};

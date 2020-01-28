@@ -1,4 +1,4 @@
 export interface testInterface {
-    type: string;
-    payload: string;
+  type: string;
+  payload: string;
 }
