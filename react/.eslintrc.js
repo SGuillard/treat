@@ -1,28 +1,58 @@
 module.exports =  {
-  parser:  '@typescript-eslint/parser',  // Specifies the ESLint parser
-  extends:  ['airbnb-typescript'],
-  parserOptions:  {
-    ecmaVersion:  2018,  // Allows for the parsing of modern ECMAScript features
-    sourceType:  'module',  // Allows for the use of imports
-    ecmaFeatures:  {
-      jsx:  true,  // Allows for the parsing of JSX
-      tsx: true,
-      ts: true
-    },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    }
   },
-  rules:  {
-    '@typescript-eslint/no-unused-vars': 'off',
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    // e.g. '@typescript-eslint/explicit-function-return-type': 'off',
+  "extends": "airbnb",
+  "env": {
+    "jest": true,
+    "browser": true
   },
-  settings:  {
-    react:  {
-      version:  'detect',  // Tells eslint-plugin-react to automatically detect the version of React to use
-    },
-      "import/resolver": {
-        "node": {
-          "extensions": [".js", ".jsx", ".ts", ".tsx"]
-        }
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
       }
+    ],
+    "react/jsx-filename-extension": [2, { "extensions": [".jsx" , ".tsx", ".js"]}],
+    "import/prefer-default-export": "off",
+    "object-shorthand": "off",
+    "object-curly-newline": "off",
+    "max-len": "warn",
+    "no-underscore-dangle": "off",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "complexity": ["warn", 5],
+    "max-nested-callbacks": ["warn", 2],
+    "max-depth": ["warn", 3],
+    "max-params": ["warn", 2],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": [
+        ".storybook/**",
+        "stories/**"
+      ]
+    }]
   },
-};
+  "plugins": [
+    "react-hooks"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".stories.jsx"]
+      }
+    }
+  }
+}

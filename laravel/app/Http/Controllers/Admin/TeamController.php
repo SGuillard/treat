@@ -7,15 +7,16 @@ use App\Http\Resources\Admin\AdminUserResource;
 use App\Salon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\Types\Collection;
 
 class TeamController
 {
     /**
      * @param Request $id Salon id
      *
-     * Return the list of salon members
+     * @return json list of salon members
      */
-    public function getTeam()
+    public function getList()
     {
         $user = Auth::user();
         $salon = $user->salon;
