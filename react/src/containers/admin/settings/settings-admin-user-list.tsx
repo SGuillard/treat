@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,6 +17,7 @@ import makeRequest, { RequestMethod } from '../../../utils/apiRequest';
 import { AdminUserInterface } from '../types/types';
 import SettingsAdminUserFormAdd from './settings-admin-user-form-add';
 
+
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
     width: '100%',
@@ -24,16 +26,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-const SettingsAdminUserList = () => {
+interface SettingsAdminUserListProps {
+  adminUsers: any,
+}
+
+const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
   const classes = useStyles();
   const [checked, setChecked] = useState<number[]>([1]);
-  const [memberList, setMemberList] = useState<AdminUserInterface[]>([]);
   const [showFormAdd, setShowFormAdd] = useState<boolean>(false);
 
-  useEffect(() => {
-    makeRequest(RequestMethod.GET, `${API.TEAM_ALL}`).then((data: any) => setMemberList(data));
-  }, []);
-
+  console.log(adminUsers);
   const toggleForm = (event?: React.MouseEvent) => {
     setShowFormAdd(!showFormAdd);
   };
@@ -53,7 +55,7 @@ const SettingsAdminUserList = () => {
 
   const displayTeamList = () => (
     <List dense className={classes.root}>
-      {memberList.map((member: AdminUserInterface) => {
+      {adminUsers.map((member: AdminUserInterface) => {
         const labelId = `checkbox-list-secondary-label-${member.id}`;
         return (
           <ListItem key={member.id} button>
@@ -94,4 +96,8 @@ const SettingsAdminUserList = () => {
   );
 };
 
-export default SettingsAdminUserList;
+const mapStateToProps = (state: any) => ({
+  adminUsers: state.adminUsers.adminUsers.list,
+});
+
+export default connect(mapStateToProps)(SettingsAdminUserList);

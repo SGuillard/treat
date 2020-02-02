@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import makeRequest, { RequestMethod } from '../../../utils/apiRequest';
 import API from '../../../API';
-import adminUsersActions from '../../../store/actions/adminUsersActions';
+import { addAdminUser } from '../../../store/actions/adminUsersActions';
 
 interface SettingsAdminUserFormAddProps {
   toggleForm: (event?: React.MouseEvent) => void;
@@ -72,7 +72,7 @@ const SettingsAdminUserFormAdd = ({ toggleForm, addTeamMember }: SettingsAdminUs
 };
 
 const MapDispatchToProps = (dispatch: any) => bindActionCreators({
-  addTeamMember: () => adminUsersActions({
+  addTeamMember: () => addAdminUser({
     id: 2,
     first_name: 'My first name 2',
     last_name: 'My Last name 2',
