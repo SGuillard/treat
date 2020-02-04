@@ -50,7 +50,7 @@ export default function Register() {
   const [phone, setPhone] = useState('');
   const [salon, setSalon] = useState('');
   const [errorCredentials, setErrorCredentials] = useState(false);
-  const [errorValidation, setErrorValidation] = useState(false);
+  const [errorValidation] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
   const handleRegistration = async () => {

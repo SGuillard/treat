@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
 import BottomMenu from './bottom-menu';
-import { pageType } from '../../../route/admin/admin-router';
 import ContentPageRouter from '../../../route/admin/content-page-router';
 import { connect } from 'react-redux';
 import { initAdminUsers } from '../../../store/actions/adminUsersActions';
 
 interface mainProps {
   page: string,
-  onInitIngredients: any,
+  onInitAdminUsers: any,
   adminUsers: any,
 }
 
-const Main = ({ page, onInitIngredients, adminUsers }: mainProps) => {
-  useEffect(() => onInitIngredients(), []);
+const Main = ({ page, onInitAdminUsers, adminUsers }: mainProps) => {
+  useEffect(() => onInitAdminUsers(), [onInitAdminUsers]);
   return adminUsers ? (
     <div>
       <ContentPageRouter page={page} />
@@ -27,7 +26,7 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onInitIngredients: () => dispatch(initAdminUsers()),
+    onInitAdminUsers: () => dispatch(initAdminUsers()),
   };
 };
 

@@ -31,7 +31,6 @@ module.exports =  {
     "object-curly-newline": "off",
     "max-len": "warn",
     "no-underscore-dangle": "off",
-    "@typescript-eslint/no-angle-bracket-type-assertion": "off",
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "complexity": ["warn", 5],
     "max-nested-callbacks": ["warn", 2],
@@ -47,7 +46,7 @@ module.exports =  {
     }]
   },
   "plugins": [
-    "react-hooks"
+    "react-hooks",
   ],
   "settings": {
     "import/resolver": {

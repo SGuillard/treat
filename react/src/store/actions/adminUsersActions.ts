@@ -15,7 +15,6 @@ export const addAdminUser = (val: AdminUserInterface): AdminUserInterfacePayload
 });
 
 export const updateObject = (oldObject: any, updatedProperties: any) => {
-  console.log(updatedProperties);
   return {
     ...oldObject,
     ...updatedProperties,

@@ -1,13 +1,5 @@
 import { ADD_ADMIN_USER_ACTION, SET_ADMIN_USER_ACTION } from '../actions/constants';
-import { AdminUserInterface } from '../../containers/admin/types/types';
 import { updateObject } from '../actions/adminUsersActions';
-
-type adminUsersInitialStateType = {list: AdminUserInterface[]};
-
-const adminUserInitialState = {
-  list: null,
-};
-
 
 const setAdminUsersReducer = (state: any = null, action: any) => updateObject(state, {
   adminUsers: {
@@ -24,6 +16,6 @@ export const adminUsersReducer: any = (state: any = null, action: any): any => {
       };
     case SET_ADMIN_USER_ACTION:
       return setAdminUsersReducer(state, action);
+    default: return state;
   }
-  return state;
 };

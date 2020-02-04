@@ -4,8 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import makeRequest, { RequestMethod } from '../../../utils/apiRequest';
-import API from '../../../API';
 import { addAdminUser } from '../../../store/actions/adminUsersActions';
 
 interface SettingsAdminUserFormAddProps {
