@@ -2,9 +2,7 @@ import { ADD_ADMIN_USER_ACTION, SET_ADMIN_USER_ACTION } from '../actions/constan
 import { updateObject } from '../actions/adminUsersActions';
 
 const setAdminUsersReducer = (state: any = null, action: any) => updateObject(state, {
-  adminUsers: {
-    list: action.payload,
-  },
+  list: action.payload,
 });
 
 export const adminUsersReducer: any = (state: any = null, action: any): any => {

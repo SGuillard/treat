@@ -93,7 +93,7 @@ const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
 };
 
 const mapStateToProps = (state: any) => ({
-  adminUsers: state.adminUsers.adminUsers.list,
+  adminUsers: state.adminUsers.list,
 });
 
 export default connect(mapStateToProps)(SettingsAdminUserList);
