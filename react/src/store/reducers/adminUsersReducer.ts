@@ -5,15 +5,21 @@ const setAdminUsersReducer = (state: any = null, action: any) => updateObject(st
   list: action.payload,
 });
 
+const addAdminUsersReducer = (state: any = null, action: any) => {
+  console.log('JHJHJHJHJ');
+  console.log(action);
+  return updateObject(state, {
+    list: action.payload,
+  });
+}
+
 export const adminUsersReducer: any = (state: any = null, action: any): any => {
+  console.log(action);
   switch (action.type) {
     case ADD_ADMIN_USER_ACTION:
-      return {
-        ...state,
-        list: state.list.concat(action.payload),
-      };
+      return addAdminUsersReducer;
     case SET_ADMIN_USER_ACTION:
       return setAdminUsersReducer(state, action);
-    default: return state;
+    default: console.log('jjjjjjj'); return state;
   }
 };

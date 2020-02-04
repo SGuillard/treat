@@ -66,7 +66,7 @@ const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
               <Switch
                 edge="end"
                 onChange={handleToggle(member.id)}
-                checked={member.active}
+                checked={member.active || false}
                 inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
               />
             </ListItemSecondaryAction>

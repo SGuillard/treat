@@ -4,28 +4,28 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addAdminUser } from '../../../store/actions/adminUsersActions';
+import { addAdminUser, addAdminUsersAction } from '../../../store/actions/adminUsersActions';
+import { AdminUserInterface } from '../types/types';
+import makeRequest, { RequestMethod } from '../../../utils/apiRequest';
+import API from '../../../API';
 
 interface SettingsAdminUserFormAddProps {
   toggleForm: (event?: React.MouseEvent) => void;
-  addTeamMember: () => void
+  addTeamMember: (User: AdminUserInterface) => (payload: any) => void;
 }
 
 const SettingsAdminUserFormAdd = ({ toggleForm, addTeamMember }: SettingsAdminUserFormAddProps) => {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
 
+  const validateForm = () => firstName.length > 0 && lastName.length > 0;
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    addTeamMember();
-    // if (validateForm()) {
-    //     makeRequest(RequestMethod.POST, API.TEAM_CREATE, {firstName, lastName}).then(() => {
-    //         toggleForm();
-    //     }).catch((e) =>console.log(e));
-    // }
+    if (validateForm()) {
+      addTeamMember({ id: 0, first_name: firstName, last_name: lastName, active: true });
+    }
   };
-
-  const validateForm = () => firstName.length > 0 && lastName.length > 0;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -56,12 +56,12 @@ const SettingsAdminUserFormAdd = ({ toggleForm, addTeamMember }: SettingsAdminUs
         </Grid>
         <Grid item xs={6}>
           <Button variant="contained" color="primary" type="submit">
-                        Add
+            Add
           </Button>
         </Grid>
         <Grid item xs={6}>
           <Button variant="contained" color="secondary" onClick={toggleForm}>
-                        Cancel
+            Cancel
           </Button>
         </Grid>
       </Grid>
@@ -70,12 +70,7 @@ const SettingsAdminUserFormAdd = ({ toggleForm, addTeamMember }: SettingsAdminUs
 };
 
 const MapDispatchToProps = (dispatch: any) => bindActionCreators({
-  addTeamMember: () => addAdminUser({
-    id: 2,
-    first_name: 'My first name 2',
-    last_name: 'My Last name 2',
-    active: false,
-  }),
+  addTeamMember: (user: any) => addAdminUser(user),
 }, dispatch);
 
 export default connect(null, MapDispatchToProps)(SettingsAdminUserFormAdd);
