@@ -11,7 +11,7 @@ import API from '../../../API';
 
 interface SettingsAdminUserFormAddProps {
   toggleForm: (event?: React.MouseEvent) => void;
-  addTeamMember: (User: AdminUserInterface) => (payload: any) => void;
+  addTeamMember: (User: any) => (payload: any) => void;
 }
 
 const SettingsAdminUserFormAdd = ({ toggleForm, addTeamMember }: SettingsAdminUserFormAddProps) => {
@@ -23,7 +23,7 @@ const SettingsAdminUserFormAdd = ({ toggleForm, addTeamMember }: SettingsAdminUs
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (validateForm()) {
-      addTeamMember({ id: 0, first_name: firstName, last_name: lastName, active: true });
+      addTeamMember({ id: 0, firstName: firstName, lastName: lastName, active: true });
     }
   };
 
