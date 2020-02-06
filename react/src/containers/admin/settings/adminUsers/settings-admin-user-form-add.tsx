@@ -4,10 +4,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addAdminUser, addAdminUsersAction } from '../../../store/actions/adminUsersActions';
-import { AdminUserInterface } from '../types/types';
-import makeRequest, { RequestMethod } from '../../../utils/apiRequest';
-import API from '../../../API';
+import { addAdminUser, addAdminUsersAction } from '../../../../store/actions/adminUsersActions';
+import { AdminUserInterface } from '../../types/types';
+import makeRequest, { RequestMethod } from '../../../../utils/apiRequest';
+import API from '../../../../API';
 
 interface SettingsAdminUserFormAddProps {
   toggleForm: (event?: React.MouseEvent) => void;

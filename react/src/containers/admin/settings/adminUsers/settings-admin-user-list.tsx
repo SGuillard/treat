@@ -13,7 +13,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import SettingsAdminUserFormAdd from './settings-admin-user-form-add';
-import { AdminUserInterface } from '../types/types';
+import { AdminUserInterface } from '../../types/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {

@@ -10,7 +10,7 @@ import Business from '@material-ui/icons/Business';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { HomeWork, People } from '@material-ui/icons';
+import { EventSeat, HomeWork, People } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../../route/admin/admin-routes';
 
@@ -72,6 +72,14 @@ const Settings = () => {
             </ListItemIcon>
             <ListItemText primary="My Team" />
           </ListItem>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.SERVICES.path)}>
+              <ListItemIcon>
+                <EventSeat />
+              </ListItemIcon>
+              <ListItemText primary="My services" />
+            </ListItem>
+          </List>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested}>
               <ListItemIcon>
