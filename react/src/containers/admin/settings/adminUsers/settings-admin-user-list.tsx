@@ -14,6 +14,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import SettingsAdminUserFormAdd from './settings-admin-user-form-add';
 import { AdminUserInterface } from '../../types/types';
+import { bindActionCreators } from 'redux';
+import { addAdminUser, statusAdminUser } from '../../../../store/actions/adminUsersActions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -96,4 +98,8 @@ const mapStateToProps = (state: any) => ({
   adminUsers: state.adminUsers.list,
 });
 
-export default connect(mapStateToProps)(SettingsAdminUserList);
+const MapDispatchToProps = (dispatch: any) => bindActionCreators({
+  changeStatusTeamMember: (user: any) => statusAdminUser(user),
+}, dispatch);
+
+export default connect(mapStateToProps, MapDispatchToProps)(SettingsAdminUserList);

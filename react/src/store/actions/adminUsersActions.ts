@@ -8,20 +8,14 @@ interface AdminUserInterfacePayload {
   payload: AdminUserInterface,
 }
 
-// define actions
+export const addAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => {
+  return {
+    type: ADD_ADMIN_USER_ACTION,
+    payload: user,
+  };
+};
 
-// export const addAdminUser = (state, action) => {
-//   console.log(action);
-// const updatedIngredient = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1 }
-// const updatedIngredients = updateObject( state.ingredients, updatedIngredient );
-// const updatedState = {
-//   ingredients: updatedIngredients,
-//   totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
-// }
-// return updateObject( state, updatedState );
-// };
-
-export const addAdminUsersAction = (user: AdminUserInterface): AdminUserInterfacePayload => {
+export const statusAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => {
   return {
     type: ADD_ADMIN_USER_ACTION,
     payload: user,
@@ -44,5 +38,10 @@ export const initAdminUsers = () => (dispatch: any) => {
 
 export const addAdminUser = (payload: any) => (dispatch: any) => {
   makeRequest(RequestMethod.POST,
-    `${API.TEAM_CREATE}`, payload).then((response: any) => dispatch(addAdminUsersAction(response)));
+    `${API.TEAM_CREATE}`, payload).then((response: any) => dispatch(addAdminUserAction(response)));
 };
+
+export const statusAdminUser = (payload: any) => (dispatch: any) => {
+  makeRequest(RequestMethod.PATCH,
+    `${API.TEAM_STATUS}`, payload).then((response: any) => dispatch(statusAdminUserAction(response)));
+}
