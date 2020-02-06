@@ -1,7 +1,7 @@
 import {
   ADD_ADMIN_USER_ACTION,
   SET_ADMIN_USER_ACTION,
-  STATUS_ADMIN_USER_ACTION
+  STATUS_ADMIN_USER_ACTION,
 } from '../actions/constants';
 import { updateObject } from '../actions/adminUsersActions';
 
@@ -9,17 +9,13 @@ const setAdminUsersReducer = (state: any = null, action: any) => updateObject(st
   list: action.payload,
 });
 
-const addAdminUsersReducer = (state: any = null, action: any) => {
-  return updateObject(state, {
-    list: action.payload,
-  });
-}
+const addAdminUsersReducer = (state: any = null, action: any) => updateObject(state, {
+  list: action.payload,
+});
 
-const statusAdminUserReducer = (state: any = null, action: any) => {
-  return updateObject(state, {
-    list: action.payload,
-  });
-}
+const statusAdminUserReducer = (state: any = null, action: any) => updateObject(state, {
+  list: action.payload,
+});
 
 export const adminUsersReducer: any = (state: any = null, action: any): any => {
   console.log(action);

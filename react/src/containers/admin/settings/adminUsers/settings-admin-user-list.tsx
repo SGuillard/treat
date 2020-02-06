@@ -12,9 +12,9 @@ import Container from '@material-ui/core/Container';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import { bindActionCreators } from 'redux';
 import SettingsAdminUserFormAdd from './settings-admin-user-form-add';
 import { AdminUserInterface } from '../../types/types';
-import { bindActionCreators } from 'redux';
 import { addAdminUser, statusAdminUser } from '../../../../store/actions/adminUsersActions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -53,7 +53,7 @@ const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
 
   const displayTeamList = () => (
     <List dense className={classes.root}>
-      {adminUsers.map((member: AdminUserInterface) => {
+      { adminUsers ? adminUsers.map((member: AdminUserInterface) => {
         const labelId = `checkbox-list-secondary-label-${member.id}`;
         return (
           <ListItem key={member.id} button>
@@ -68,13 +68,13 @@ const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
               <Switch
                 edge="end"
                 onChange={handleToggle(member.id)}
-                checked={member.active || false}
+                checked={member.active}
                 inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
               />
             </ListItemSecondaryAction>
           </ListItem>
         );
-      })}
+      }) : null}
     </List>
   );
 

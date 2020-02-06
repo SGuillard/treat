@@ -24,6 +24,9 @@ const SettingsAdminUserFormAdd = ({ toggleForm, addTeamMember }: SettingsAdminUs
     event.preventDefault();
     if (validateForm()) {
       addTeamMember({ id: 0, firstName: firstName, lastName: lastName, active: true });
+      setFirstName('');
+      setLastName('');
+      toggleForm();
     }
   };
 
