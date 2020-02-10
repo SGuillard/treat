@@ -35,6 +35,6 @@ class TeamController
         $newUser->save();
 
         $salon->AdminUsers()->save($newUser);
-        return [];
+        return AdminUserResource::collection($salon->adminUsers);
     }
 }

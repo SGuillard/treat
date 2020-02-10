@@ -18,7 +18,7 @@ class AdminUserResource extends JsonResource
         'id' => $this->id,
         'first_name' => $this->first_name,
         'last_name' => $this->last_name,
-        'active' => $this->active,
+        'active' => $this->active ? true : false,
     ];
     }
 }

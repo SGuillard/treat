@@ -18,10 +18,9 @@ const statusAdminUserReducer = (state: any = null, action: any) => updateObject(
 });
 
 export const adminUsersReducer: any = (state: any = null, action: any): any => {
-  console.log(action);
   switch (action.type) {
     case ADD_ADMIN_USER_ACTION:
-      return addAdminUsersReducer;
+      return addAdminUsersReducer(state, action);
     case SET_ADMIN_USER_ACTION:
       return setAdminUsersReducer(state, action);
     case STATUS_ADMIN_USER_ACTION:
