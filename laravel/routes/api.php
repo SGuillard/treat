@@ -21,5 +21,6 @@ Route::post('register', 'Admin\Auth\RegisterController@create');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('team/getAll', 'Admin\TeamController@getList');
     Route::post('team/create', 'Admin\TeamController@create');
+    Route::patch('team/status', 'Admin\TeamController@status');
 //    Route::get('team/', 'Admin\TeamController@getTeam');
 });

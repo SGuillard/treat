@@ -27,9 +27,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface SettingsAdminUserListProps {
   adminUsers: any,
+  changeStatusTeamMember: any
 }
 
-const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
+const SettingsAdminUserList = ({ adminUsers, changeStatusTeamMember } : SettingsAdminUserListProps) => {
   const classes = useStyles();
   const [checked, setChecked] = useState<number[]>([1]);
   const [showFormAdd, setShowFormAdd] = useState<boolean>(false);
@@ -38,16 +39,17 @@ const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
     setShowFormAdd(!showFormAdd);
   };
 
-  const handleToggle = (value: number) => () => {
-    const currentIndex = checked.indexOf(value);
+  const handleToggle = (adminUserId: number) => () => {
+    const currentIndex = checked.indexOf(adminUserId);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newChecked.push(adminUserId);
     } else {
       newChecked.splice(currentIndex, 1);
     }
 
+    changeStatusTeamMember(adminUserId);
     setChecked(newChecked);
   };
 
@@ -99,7 +101,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const MapDispatchToProps = (dispatch: any) => bindActionCreators({
-  changeStatusTeamMember: (user: any) => statusAdminUser(user),
+  changeStatusTeamMember: (userId: any) => statusAdminUser(userId),
 }, dispatch);
 
 export default connect(mapStateToProps, MapDispatchToProps)(SettingsAdminUserList);

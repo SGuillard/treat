@@ -11,11 +11,6 @@ use phpDocumentor\Reflection\Types\Collection;
 
 class TeamController
 {
-    /**
-     * @param Request $id Salon id
-     *
-     * @return json list of salon members
-     */
     public function getList()
     {
         $user = Auth::user();
@@ -36,5 +31,13 @@ class TeamController
 
         $salon->AdminUsers()->save($newUser);
         return AdminUserResource::collection($salon->adminUsers);
+    }
+
+    public function status(Request $request)
+    {
+        $user = AdminUser::findOrFail($request->adminUserId);
+        $user->active = $user->active == 1 ? 0 : 1;
+        $user->save();
+        return [];
     }
 }
