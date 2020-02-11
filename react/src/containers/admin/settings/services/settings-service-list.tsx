@@ -10,6 +10,8 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import EditIcon from '@material-ui/icons/Edit';
+import { Redirect } from 'react-router-dom';
+import AdminROUTES from '../../../../route/admin/admin-routes';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -32,18 +34,17 @@ interface SettingsServiceListProps {
 
 const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
   const classes = useStyles();
+  const [edit, setEdit] = useState<boolean>(false);
 
   const displayTeamList = () => (
     <List dense className={classes.root}>
       { serviceList ? serviceList.map((service: ServiceInterface) => {
         const labelId = `checkbox-list-secondary-label-${service.id}`;
         return (
-          <ListItem key={service.id} button>
+          <ListItem key={service.id} button onClick={() => setEdit(true)} >
             <ListItemText id={labelId} primary={`${service.name} (${service.duration} min) ${service.price}$ `} />
             <ListItemSecondaryAction>
-              <EditIcon
-                onClick={() => {}}
-              />
+              <EditIcon />
             </ListItemSecondaryAction>
           </ListItem>
         );
@@ -52,7 +53,7 @@ const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
     </List>
   );
 
-  return (
+  const getView = () => (
     <Container component="main" maxWidth="xs">
       <Card>
         <CardHeader
@@ -65,6 +66,8 @@ const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
       </Card>
     </Container>
   );
+
+  return edit ? <Redirect to={AdminROUTES.SETTINGS.SERVICES_EDIT.path} /> : getView();
 };
 
 const mapStateToProps = (state: any) => ({

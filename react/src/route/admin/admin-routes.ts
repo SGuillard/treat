@@ -23,6 +23,10 @@ const AdminROUTES = {
       path: '/admin/services',
       name: 'settings/services',
     },
+    SERVICES_EDIT: {
+      path: '/admin/services/edit',
+      name: 'settings/services/edit',
+    },
   },
   REGISTER: {
     path: '/admin/register',

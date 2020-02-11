@@ -9,16 +9,15 @@ import AdminROUTES from './admin/admin-routes';
 const Root = () => (
   <BrowserRouter>
     <Switch>
-\
       {/* Admin  */}
       <Route path={AdminROUTES.CALENDAR.path} render={() => <AdminRouter page={AdminROUTES.CALENDAR.name} />} />
       <Route path={AdminROUTES.DASHBOARD.path} render={() => <AdminRouter page={AdminROUTES.DASHBOARD.name} />} />
       <Route exact path={AdminROUTES.SETTINGS.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.name} />} />
       <Route path={AdminROUTES.SETTINGS.TEAM.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.TEAM.name} />} />
-      <Route path={AdminROUTES.SETTINGS.SERVICES.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.SERVICES.name} />} />
+      <Route exact path={AdminROUTES.SETTINGS.SERVICES.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.SERVICES.name} />} />
+      <Route path={AdminROUTES.SETTINGS.SERVICES_EDIT.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.SERVICES_EDIT.name} />} />
       <Route path={AdminROUTES.LOGIN.path} component={Login} />
       <Route path={AdminROUTES.REGISTER.path} component={Register} />
-
       {/* Others */}
       <Route exact path="/" component={App} />
       <Route render={() => <h3>Not Found</h3>} />
