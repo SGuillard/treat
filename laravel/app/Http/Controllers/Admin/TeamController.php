@@ -13,22 +13,18 @@ class TeamController
 {
     public function getList()
     {
-        $user = Auth::user();
-        $salon = $user->salon;
-        return AdminUserResource::collection($salon->adminUsers);
+        return AdminUserResource::collection($this->getSalon()->adminUsers);
     }
 
     public function create(Request $request)
     {
-        $user = Auth::user();
-        $salon = $user->salon;
-
         $newUser = new AdminUser();
         $newUser->first_name = $request->firstName;
         $newUser->last_name = $request->lastName;
         $newUser->active = true;
         $newUser->save();
 
+        $salon = $this->getSalon();
         $salon->AdminUsers()->save($newUser);
         return AdminUserResource::collection($salon->adminUsers);
     }
@@ -38,6 +34,11 @@ class TeamController
         $user = AdminUser::findOrFail($request->adminUserId);
         $user->active = $user->active == 1 ? 0 : 1;
         $user->save();
-        return [];
+        return AdminUserResource::collection($this->getSalon()->adminUsers);
+    }
+
+    private function getSalon() {
+        $user = Auth::user();
+        return $user->salon;
     }
 }

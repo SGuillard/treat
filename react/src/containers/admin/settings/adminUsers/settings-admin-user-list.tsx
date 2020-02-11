@@ -101,7 +101,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const MapDispatchToProps = (dispatch: any) => bindActionCreators({
-  changeStatusTeamMember: (userId: any) => statusAdminUser(userId),
+  changeStatusTeamMember: (userId: any) => statusAdminUser({ adminUserId: userId }),
 }, dispatch);
 
 export default connect(mapStateToProps, MapDispatchToProps)(SettingsAdminUserList);

@@ -1,4 +1,8 @@
-import { ADD_ADMIN_USER_ACTION, SET_ADMIN_USER_ACTION } from './constants';
+import {
+  ADD_ADMIN_USER_ACTION,
+  SET_ADMIN_USER_ACTION,
+  STATUS_ADMIN_USER_ACTION
+} from './constants';
 import { AdminUserInterface } from '../../containers/admin/types/types';
 import makeRequest, { RequestMethod } from '../../utils/apiRequest';
 import API from '../../API';
@@ -17,7 +21,7 @@ export const addAdminUserAction = (user: AdminUserInterface): AdminUserInterface
 
 export const statusAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => {
   return {
-    type: ADD_ADMIN_USER_ACTION,
+    type: STATUS_ADMIN_USER_ACTION,
     payload: user,
   };
 };
