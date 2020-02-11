@@ -56,9 +56,9 @@ class AdminTableSeeder extends Seeder
 
         $salon->adminUsers()->saveMany([$superAdmin, $admin, $adminOther]);
 
-        for($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $appointment = new \App\Appointment();
-            $appointment->name = 'test Appointment '.$i;
+            $appointment->name = 'test Appointment ' . $i;
             $appointment->salon()->associate($salon);
             $adminPerson = $i % 2 == 0 ? $superAdmin : $admin;
             $appointment->adminUser()->associate($adminPerson);
@@ -66,12 +66,25 @@ class AdminTableSeeder extends Seeder
             $appointment->end_date = $this->dateAddAnHour(now(), $i + 1);;
             $appointment->save();
         }
+
+        $firstService = new \App\Service();
+        $firstService->name = 'Hair Massage';
+        $firstService->duration = 45;
+        $firstService->price = 25.50;
+
+        $secondService = new \App\Service();
+        $secondService->name = 'Foot service';
+        $secondService->duration = 15;
+        $secondService->price = 15.25;
+
+        $salon->services()->saveMany([$firstService,$secondService]);
+
     }
 
     private function dateAddAnHour($date = null, $howManyHours = '+1', $format = 'Y-m-d H:i:s')
     {
         $new_date = new \DateTime($date);
-        $new_date->modify($howManyHours.' hour');
+        $new_date->modify($howManyHours . ' hour');
 
         return $new_date->format($format);
     }

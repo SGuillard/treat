@@ -13,6 +13,7 @@ return array(
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Admin\\Auth\\AuthenticationController' => $baseDir . '/app/Http/Controllers/Admin/Auth/AuthenticationController.php',
     'App\\Http\\Controllers\\Admin\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Admin/Auth/RegisterController.php',
+    'App\\Http\\Controllers\\Admin\\ServiceController' => $baseDir . '/app/Http/Controllers/Admin/ServiceController.php',
     'App\\Http\\Controllers\\Admin\\TeamController' => $baseDir . '/app/Http/Controllers/Admin/TeamController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
