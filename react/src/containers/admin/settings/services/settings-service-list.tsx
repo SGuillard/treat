@@ -35,13 +35,19 @@ interface SettingsServiceListProps {
 const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
   const classes = useStyles();
   const [edit, setEdit] = useState<boolean>(false);
+  const [editId, setEditId] = useState<number>(0);
+
+  const editElement = (id: number) => {
+    setEdit(true);
+    setEditId(id);
+  };
 
   const displayTeamList = () => (
     <List dense className={classes.root}>
       { serviceList ? serviceList.map((service: ServiceInterface) => {
         const labelId = `checkbox-list-secondary-label-${service.id}`;
         return (
-          <ListItem key={service.id} button onClick={() => setEdit(true)} >
+          <ListItem key={service.id} button onClick={() => editElement(service.id)} >
             <ListItemText id={labelId} primary={`${service.name} (${service.duration} min) ${service.price}$ `} />
             <ListItemSecondaryAction>
               <EditIcon />
@@ -67,7 +73,7 @@ const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
     </Container>
   );
 
-  return edit ? <Redirect to={AdminROUTES.SETTINGS.SERVICES_EDIT.path} /> : getView();
+  return edit ? <Redirect to={`${AdminROUTES.SETTINGS.SERVICES_EDIT.path}/${editId}`} /> : getView();
 };
 
 const mapStateToProps = (state: any) => ({
