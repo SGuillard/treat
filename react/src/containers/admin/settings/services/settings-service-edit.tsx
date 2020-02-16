@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import { Link } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { EventSeat } from '@material-ui/icons';
 
 interface SettingsServiceEditProps {
   service?: any,
@@ -57,65 +58,45 @@ const SettingsServiceEdit = (props : SettingsServiceEditProps) => {
       <CssBaseline />
       <form className={classes.paper} onSubmit={handleSubmit}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <EventSeat />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Edit my service
         </Typography>
-        <div className={classes.form}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            value={''}
-            // onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={''}
-            // onChange={(e) => setPassword(e.target.value)}
-          />
-          {/* {errorValidation || errorCredentials ? displayErrorMessage() : ''} */}
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link component={RouterLink} to="/admin/forgot-password">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link component={RouterLink} to="/admin/register">
-                Don't have an account? Sign Up
-              </Link>
-            </Grid>
+        <Grid container spacing={3} style={{ padding: '15px' }}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="Name"
+              name="Name"
+              label="Name"
+              fullWidth
+              value={service.name}
+            />
           </Grid>
-        </div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="Duration"
+              name="duration"
+              label="Duration (min)"
+              fullWidth
+              autoComplete="lname"
+              value={service.duration}
+              // onChange={(e) => setLastName(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Button variant="contained" color="primary" type="submit">
+              Add
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button variant="contained" color="secondary">
+              Cancel
+            </Button>
+          </Grid>
+        </Grid>
       </form>
     </Container>
   );

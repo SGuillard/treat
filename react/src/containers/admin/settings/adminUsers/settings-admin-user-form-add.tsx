@@ -5,9 +5,6 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addAdminUser } from '../../../../store/actions/adminUsersActions';
-import { AdminUserInterface } from '../../types/types';
-import makeRequest, { RequestMethod } from '../../../../utils/apiRequest';
-import API from '../../../../API';
 
 interface SettingsAdminUserFormAddProps {
   toggleForm: (event?: React.MouseEvent) => void;
