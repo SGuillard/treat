@@ -4,12 +4,12 @@ import { isAuthenticated } from '../../containers/admin/login/api-login';
 import AdminROUTES from './admin-routes';
 import Main from '../../containers/admin/main/main';
 
-export type pageType = { page: string };
+export type pageType = { page: string, params?: {} };
 
-const AdminRouter = ({ page }: pageType) => {
+const AdminRouter = ({ page, params }: pageType) => {
   const router = () => (
     <div>
-      <Main page={page} />
+      <Main page={page} params={params} />
     </div>
   );
 

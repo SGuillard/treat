@@ -10,16 +10,18 @@ interface mainProps {
   onInitAdminUsers: any,
   onInitService: any,
   adminUsers: any,
+  match?: object,
+  params?: object
 }
 
-const Main = ({ page, onInitAdminUsers, onInitService, adminUsers }: mainProps) => {
+const Main = ({ page, onInitAdminUsers, onInitService, adminUsers, params }: mainProps) => {
   useEffect(() => {
     onInitAdminUsers();
     onInitService();
   }, [onInitAdminUsers, onInitService]);
   return adminUsers ? (
     <div>
-      <ContentPageRouter page={page} />
+      <ContentPageRouter page={page} params={params} />
       <BottomMenu page={page} />
     </div>
   ) : (<p>Loading...</p>);
