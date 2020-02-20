@@ -11,7 +11,7 @@ interface SettingsAdminUserFormAddProps {
   addTeamMember: (User: any) => (payload: any) => void;
 }
 
-const SettingsAdminUserFormAdd = ({ toggleForm, addTeamMember }: SettingsAdminUserFormAddProps) => {
+const SettingsAdminUserForm = ({ toggleForm, addTeamMember }: SettingsAdminUserFormAddProps) => {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
 
@@ -73,4 +73,4 @@ const MapDispatchToProps = (dispatch: any) => bindActionCreators({
   addTeamMember: (user: any) => addAdminUser(user),
 }, dispatch);
 
-export default connect(null, MapDispatchToProps)(SettingsAdminUserFormAdd);
+export default connect(null, MapDispatchToProps)(SettingsAdminUserForm);

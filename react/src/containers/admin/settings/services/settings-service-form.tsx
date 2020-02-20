@@ -3,15 +3,10 @@ import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { Link } from '@material-ui/core';
-import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { EventSeat } from '@material-ui/icons';
 
@@ -47,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SettingsServiceEdit = (props : SettingsServiceEditProps) => {
+const SettingsServiceForm = (props : SettingsServiceEditProps) => {
   const classes = useStyles();
   const { service } = props;
 
@@ -106,4 +101,4 @@ const MapStateToProps = (state: any, ownProps: any) => ({
   service: state.services.list.find((service:any) => service.id === Number(ownProps.params.id)),
 });
 
-export default connect(MapStateToProps)(SettingsServiceEdit);
+export default connect(MapStateToProps)(SettingsServiceForm);

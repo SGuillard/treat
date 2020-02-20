@@ -13,9 +13,9 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import { bindActionCreators } from 'redux';
-import SettingsAdminUserFormAdd from './settings-admin-user-form-add';
 import { AdminUserInterface } from '../../types/types';
-import { addAdminUser, statusAdminUser } from '../../../../store/actions/adminUsersActions';
+import { statusAdminUser } from '../../../../store/actions/adminUsersActions';
+import SettingsAdminUserForm from './settings-admin-user-form';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -89,7 +89,7 @@ const SettingsAdminUserList = ({ adminUsers, changeStatusTeamMember } : Settings
                     }
           title="My Team"
         />
-        { showFormAdd ? <SettingsAdminUserFormAdd toggleForm={toggleForm} /> : '' }
+        { showFormAdd ? <SettingsAdminUserForm toggleForm={toggleForm} /> : '' }
         { !showFormAdd ? displayTeamList() : '' }
       </Card>
     </Container>

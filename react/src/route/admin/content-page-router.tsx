@@ -6,7 +6,7 @@ import { pageType } from './admin-router';
 import AdminROUTES from './admin-routes';
 import SettingsAdminUserList from '../../containers/admin/settings/adminUsers/settings-admin-user-list';
 import SettingsServiceList from '../../containers/admin/settings/services/settings-service-list';
-import SettingsServiceEdit from '../../containers/admin/settings/services/settings-service-edit';
+import SettingsServiceForm from '../../containers/admin/settings/services/settings-service-form';
 
 const ContentPageRouter = ({ page, params }: pageType) => {
   switch (page) {
@@ -21,7 +21,7 @@ const ContentPageRouter = ({ page, params }: pageType) => {
     case AdminROUTES.SETTINGS.SERVICES.name:
       return <SettingsServiceList />;
     case AdminROUTES.SETTINGS.SERVICES_EDIT.name:
-      return <SettingsServiceEdit params={params} />;
+      return <SettingsServiceForm params={params} />;
     default:
       return <Calendar />;
   }

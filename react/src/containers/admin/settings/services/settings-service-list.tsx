@@ -47,7 +47,7 @@ const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
       { serviceList ? serviceList.map((service: ServiceInterface) => {
         const labelId = `checkbox-list-secondary-label-${service.id}`;
         return (
-          <ListItem key={service.id} button onClick={() => editElement(service.id)} >
+          <ListItem key={service.id} button onClick={() => editElement(service.id)}>
             <ListItemText id={labelId} primary={`${service.name} (${service.duration} min) ${service.price}$ `} />
             <ListItemSecondaryAction>
               <EditIcon />
