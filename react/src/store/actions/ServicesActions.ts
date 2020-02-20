@@ -10,11 +10,6 @@ interface AdminUserInterfacePayload {
   payload: ServiceInterface,
 }
 
-export const addAdminUserAction = (user: ServiceInterface): AdminUserInterfacePayload => ({
-  type: ADD_ADMIN_USER_ACTION,
-  payload: user,
-});
-
 export const updateObject = (oldObject: any, updatedProperties: any) => ({
   ...oldObject,
   ...updatedProperties,
@@ -27,9 +22,4 @@ export const setServiceAction = (service: ServiceInterface[]) => ({
 
 export const initServiceList = () => (dispatch: any) => {
   makeRequest(RequestMethod.GET, `${API.SERVICE_ALL}`).then((response: any) => dispatch(setServiceAction(response)));
-};
-
-export const addAdminUser = (payload: any) => (dispatch: any) => {
-  makeRequest(RequestMethod.POST,
-    `${API.ADMIN_USER_CREATE}`, payload).then((response: any) => dispatch(addAdminUserAction(response)));
 };

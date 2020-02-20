@@ -59,12 +59,6 @@ const SettingsAdminUserList = ({ adminUsers, changeStatusTeamMember } : Settings
             </ListItemAvatar>
             <ListItemText id={labelId} primary={`${adminUser.firstName} ${adminUser.lastName}`} />
             <ListItemSecondaryAction>
-              {/*<Switch*/}
-              {/*  edge="end"*/}
-              {/*  onChange={handleToggle(member.id)}*/}
-              {/*  checked={member.active}*/}
-              {/*  inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}*/}
-              {/*/>*/}
               <EditIcon />
             </ListItemSecondaryAction>
           </ListItem>

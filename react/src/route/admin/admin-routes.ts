@@ -21,7 +21,7 @@ const AdminROUTES = {
     },
     ADMIN_USER_EDIT: {
       path: '/admin/users/edit',
-      pathWithId: '/admin/users/edit/:id',
+      pathWithId: '/admin/users/edit/:id?',
       name: 'settings/users/edit',
     },
     SERVICE_LIST: {

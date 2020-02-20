@@ -19,6 +19,7 @@ class AdminUserResource extends MainResource
     public static $map = [
         'firstName' => 'first_name',
         'lastName' => 'last_name',
+        'active' => 'active'
     ];
 
     /**
