@@ -1,5 +1,5 @@
 import {
-  ADD_ADMIN_USER_ACTION, SET_SERVICE_ACTION,
+  SET_SERVICE_ACTION,
 } from './constants';
 import makeRequest, { RequestMethod } from '../../utils/apiRequest';
 import API from '../../API';

@@ -1,5 +1,5 @@
 import {
-  ADD_ADMIN_USER_ACTION,
+  ADD_EDIT_ADMIN_USER_ACTION,
   SET_ADMIN_USER_ACTION,
   STATUS_ADMIN_USER_ACTION
 } from './constants';
@@ -12,9 +12,9 @@ interface AdminUserInterfacePayload {
   payload: AdminUserInterface,
 }
 
-export const addAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => {
+export const addEditAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => {
   return {
-    type: ADD_ADMIN_USER_ACTION,
+    type: ADD_EDIT_ADMIN_USER_ACTION,
     payload: user,
   };
 };
@@ -37,12 +37,12 @@ export const setAdminUsersAction = (users: AdminUserInterface[]) => ({
 });
 
 export const initAdminUsers = () => (dispatch: any) => {
-  makeRequest(RequestMethod.GET, `${API.ADMIN_USER_LIST}`).then((response: any) => dispatch(setAdminUsersAction(response)));
+  makeRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: any) => dispatch(setAdminUsersAction(response)));
 };
 
-export const addAdminUser = (payload: any) => (dispatch: any) => {
+export const addEditAdminUser = (payload: any) => (dispatch: any) => {
   makeRequest(RequestMethod.POST,
-    `${API.ADMIN_USER_CREATE}`, payload).then((response: any) => dispatch(addAdminUserAction(response)));
+    `${API.ADMIN_USER}${payload.id || ''}`, payload).then((response: any) => dispatch(addEditAdminUserAction(response)));
 };
 
 export const statusAdminUser = (payload: any) => (dispatch: any) => {

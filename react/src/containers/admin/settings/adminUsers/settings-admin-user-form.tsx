@@ -11,11 +11,11 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Switch } from '@material-ui/core';
-import { AdminUserInterface } from '../../types/types';
-import { addAdminUser } from '../../../../store/actions/adminUsersActions';
+import { AdminUserInterface, AddAdminUserInterface } from '../../types/types';
+import { addEditAdminUser } from '../../../../store/actions/adminUsersActions';
 
 interface SettingsAdminUserFormAddProps {
-  addTeamMember: (User: AdminUserInterface) => (payload: any) => void;
+  addEditTeamMember: (User: AddAdminUserInterface | AdminUserInterface) => (payload: any) => void;
   params?: object;
   adminUser?: AdminUserInterface;
 }
@@ -49,9 +49,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
-  const { adminUser, addTeamMember } = props;
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
+  const { adminUser, addEditTeamMember } = props;
+  const [firstName, setFirstName] = useState<string>(adminUser ? adminUser.firstName : '');
+  const [lastName, setLastName] = useState<string>(adminUser ? adminUser.lastName : '');
   const [active, setActive] = useState<boolean>(adminUser ? adminUser.active : true);
 
   const validateForm = () => firstName.length > 0 && lastName.length > 0;
@@ -59,7 +59,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (validateForm()) {
-      addTeamMember({ id: 0, firstName: firstName, lastName: lastName, active: true });
+      addEditTeamMember({ firstName: firstName, lastName: lastName, active: true });
       setFirstName('');
       setLastName('');
       setActive(true);
@@ -89,7 +89,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
               label="First name"
               fullWidth
               autoComplete="fname"
-              value={adminUser ? adminUser.firstName : ''}
+              value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
           </Grid>
@@ -101,7 +101,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
               label="Last name"
               fullWidth
               autoComplete="lname"
-              value={adminUser ? adminUser.lastName : ''}
+              value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
           </Grid>
@@ -135,7 +135,7 @@ const MapStateToProps = (state: any, ownProps: any) => ({
 });
 
 const MapDispatchToProps = (dispatch: any) => bindActionCreators({
-  addTeamMember: (user: any) => addAdminUser(user),
+  addEditTeamMember: (user: AdminUserInterface | AddAdminUserInterface) => addEditAdminUser(user),
 }, dispatch);
 
 export default connect(MapStateToProps, MapDispatchToProps)(SettingsAdminUserForm);

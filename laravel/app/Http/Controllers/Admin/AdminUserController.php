@@ -59,7 +59,12 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $adminUser = AdminUser::findOrFail($id);
+        $adminUser->first_name = $request->firstName;
+        $adminUser->last_name = $request->lastName;
+        $adminUser->active = $request->active;
+        $adminUser->save();
+        return AdminUserResource::collection($this->getSalon()->adminUsers);
     }
 
     /**
