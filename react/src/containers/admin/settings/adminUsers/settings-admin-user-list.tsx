@@ -16,6 +16,9 @@ import { bindActionCreators } from 'redux';
 import { AdminUserInterface } from '../../types/types';
 import { statusAdminUser } from '../../../../store/actions/adminUsersActions';
 import SettingsAdminUserForm from './settings-admin-user-form';
+import EditIcon from '@material-ui/icons/Edit';
+import { Redirect } from 'react-router-dom';
+import AdminROUTES from '../../../../route/admin/admin-routes';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -34,45 +37,35 @@ const SettingsAdminUserList = ({ adminUsers, changeStatusTeamMember } : Settings
   const classes = useStyles();
   const [checked, setChecked] = useState<number[]>([1]);
   const [showFormAdd, setShowFormAdd] = useState<boolean>(false);
+  const [edit, setEdit] = useState<boolean>(false);
+  const [editId, setEditId] = useState<number>(0);
 
-  const toggleForm = () => {
-    setShowFormAdd(!showFormAdd);
-  };
-
-  const handleToggle = (adminUserId: number) => () => {
-    const currentIndex = checked.indexOf(adminUserId);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(adminUserId);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    changeStatusTeamMember(adminUserId);
-    setChecked(newChecked);
+  const editElement = (id: number) => {
+    setEdit(true);
+    setEditId(id);
   };
 
   const displayTeamList = () => (
     <List dense className={classes.root}>
-      { adminUsers ? adminUsers.map((member: AdminUserInterface) => {
-        const labelId = `checkbox-list-secondary-label-${member.id}`;
+      { adminUsers ? adminUsers.map((adminUser: AdminUserInterface) => {
+        const labelId = `checkbox-list-secondary-label-${adminUser.id}`;
         return (
-          <ListItem key={member.id} button>
+          <ListItem key={adminUser.id} button onClick={() => editElement(adminUser.id)}>
             <ListItemAvatar>
               <Avatar
-                alt={`Avatar n°${member.id + 1}`}
-                src={`/static/images/avatar/${member.id + 1}.jpg`}
+                alt={`Avatar n°${adminUser.id + 1}`}
+                src={`/static/images/avatar/${adminUser.id + 1}.jpg`}
               />
             </ListItemAvatar>
-            <ListItemText id={labelId} primary={`${member.first_name} ${member.last_name}`} />
+            <ListItemText id={labelId} primary={`${adminUser.first_name} ${adminUser.last_name}`} />
             <ListItemSecondaryAction>
-              <Switch
-                edge="end"
-                onChange={handleToggle(member.id)}
-                checked={member.active}
-                inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
-              />
+              {/*<Switch*/}
+              {/*  edge="end"*/}
+              {/*  onChange={handleToggle(member.id)}*/}
+              {/*  checked={member.active}*/}
+              {/*  inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}*/}
+              {/*/>*/}
+              <EditIcon />
             </ListItemSecondaryAction>
           </ListItem>
         );
@@ -80,20 +73,22 @@ const SettingsAdminUserList = ({ adminUsers, changeStatusTeamMember } : Settings
     </List>
   );
 
-  return (
+  const getView = () => (
     <Container component="main" maxWidth="xs">
       <Card>
         <CardHeader
           action={
-                        !showFormAdd ? <AddCircleOutlineIcon style={{ paddingTop: '15px' }} onClick={toggleForm} /> : ''
-                    }
+            !showFormAdd ? <AddCircleOutlineIcon style={{ paddingTop: '15px' }} /> : ''
+          }
           title="My Team"
         />
-        { showFormAdd ? <SettingsAdminUserForm toggleForm={toggleForm} /> : '' }
+        { showFormAdd ? <SettingsAdminUserForm /> : '' }
         { !showFormAdd ? displayTeamList() : '' }
       </Card>
     </Container>
   );
+
+  return edit ? <Redirect to={`${AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path}/${editId}`} /> : getView();
 };
 
 const mapStateToProps = (state: any) => ({

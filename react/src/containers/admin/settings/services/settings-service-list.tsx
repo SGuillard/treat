@@ -73,7 +73,7 @@ const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
     </Container>
   );
 
-  return edit ? <Redirect to={`${AdminROUTES.SETTINGS.SERVICES_EDIT.path}/${editId}`} /> : getView();
+  return edit ? <Redirect to={`${AdminROUTES.SETTINGS.SERVICE_EDIT.path}/${editId}`} /> : getView();
 };
 
 const mapStateToProps = (state: any) => ({

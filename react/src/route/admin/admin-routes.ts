@@ -15,15 +15,20 @@ const AdminROUTES = {
   SETTINGS: {
     path: '/admin/settings/',
     name: 'settings',
-    TEAM: {
-      path: '/admin/team',
-      name: 'settings/team',
+    ADMIN_USER_LIST: {
+      path: '/admin/users',
+      name: 'settings/users',
     },
-    SERVICES: {
+    ADMIN_USER_EDIT: {
+      path: '/admin/users/edit',
+      pathWithId: '/admin/users/edit/:id',
+      name: 'settings/users/edit',
+    },
+    SERVICE_LIST: {
       path: '/admin/services',
       name: 'settings/services',
     },
-    SERVICES_EDIT: {
+    SERVICE_EDIT: {
       path: '/admin/services/edit',
       pathWithId: '/admin/services/edit/:id',
       name: 'settings/services/edit',

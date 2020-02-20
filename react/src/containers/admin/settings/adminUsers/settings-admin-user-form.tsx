@@ -7,23 +7,38 @@ import { bindActionCreators } from 'redux';
 import { addAdminUser } from '../../../../store/actions/adminUsersActions';
 
 interface SettingsAdminUserFormAddProps {
-  toggleForm: (event?: React.MouseEvent) => void;
   addTeamMember: (User: any) => (payload: any) => void;
+  params?: object;
+  adminUser?: any;
 }
 
-const SettingsAdminUserForm = ({ toggleForm, addTeamMember }: SettingsAdminUserFormAddProps) => {
+const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
+  const { adminUser } = props;
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
 
   const validateForm = () => firstName.length > 0 && lastName.length > 0;
 
+  // const handleToggle = (adminUserId: number) => () => {
+  //   const currentIndex = checked.indexOf(adminUserId);
+  //   const newChecked = [...checked];
+  //
+  //   if (currentIndex === -1) {
+  //     newChecked.push(adminUserId);
+  //   } else {
+  //     newChecked.splice(currentIndex, 1);
+  //   }
+  //
+  //   changeStatusTeamMember(adminUserId);
+  //   setChecked(newChecked);
+  // };
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (validateForm()) {
-      addTeamMember({ id: 0, firstName: firstName, lastName: lastName, active: true });
+      // addTeamMember({ id: 0, firstName: firstName, lastName: lastName, active: true });
       setFirstName('');
       setLastName('');
-      toggleForm();
     }
   };
 
@@ -38,7 +53,7 @@ const SettingsAdminUserForm = ({ toggleForm, addTeamMember }: SettingsAdminUserF
             label="First name"
             fullWidth
             autoComplete="fname"
-            value={firstName}
+            value={adminUser.firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Grid>
@@ -60,7 +75,7 @@ const SettingsAdminUserForm = ({ toggleForm, addTeamMember }: SettingsAdminUserF
           </Button>
         </Grid>
         <Grid item xs={6}>
-          <Button variant="contained" color="secondary" onClick={toggleForm}>
+          <Button variant="contained" color="secondary">
             Cancel
           </Button>
         </Grid>
@@ -69,8 +84,15 @@ const SettingsAdminUserForm = ({ toggleForm, addTeamMember }: SettingsAdminUserF
   );
 };
 
+const MapStateToProps = (state: any, ownProps: any) => {
+ console.log(ownProps);
+  return {
+    adminUser: state.adminUsers.list.find((adminUser:any) => adminUser.id === Number(ownProps.params.id))
+  }
+};
+
 const MapDispatchToProps = (dispatch: any) => bindActionCreators({
   addTeamMember: (user: any) => addAdminUser(user),
 }, dispatch);
 
-export default connect(null, MapDispatchToProps)(SettingsAdminUserForm);
+export default connect(MapStateToProps, MapDispatchToProps)(SettingsAdminUserForm);

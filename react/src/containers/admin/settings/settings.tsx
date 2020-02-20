@@ -66,14 +66,14 @@ const Settings = () => {
       </ListItem>
       <Collapse in={openBusiness} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.TEAM.path)}>
+          <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.ADMIN_USER_LIST.path)}>
             <ListItemIcon>
               <People />
             </ListItemIcon>
             <ListItemText primary="My Team" />
           </ListItem>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.SERVICES.path)}>
+            <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.SERVICE_LIST.path)}>
               <ListItemIcon>
                 <EventSeat />
               </ListItemIcon>
