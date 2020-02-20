@@ -5,11 +5,12 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addAdminUser } from '../../../../store/actions/adminUsersActions';
+import { AdminUserInterface } from '../../types/types';
 
 interface SettingsAdminUserFormAddProps {
   addTeamMember: (User: any) => (payload: any) => void;
   params?: object;
-  adminUser?: any;
+  adminUser?: AdminUserInterface;
 }
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
@@ -53,7 +54,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
             label="First name"
             fullWidth
             autoComplete="fname"
-            value={adminUser.firstName}
+            value={adminUser ? adminUser.firstName : ''}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Grid>
@@ -65,7 +66,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
             label="Last name"
             fullWidth
             autoComplete="lname"
-            value={lastName}
+            value={adminUser ? adminUser.lastName : ''}
             onChange={(e) => setLastName(e.target.value)}
           />
         </Grid>
@@ -84,12 +85,9 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   );
 };
 
-const MapStateToProps = (state: any, ownProps: any) => {
- console.log(ownProps);
-  return {
-    adminUser: state.adminUsers.list.find((adminUser:any) => adminUser.id === Number(ownProps.params.id))
-  }
-};
+const MapStateToProps = (state: any, ownProps: any) => ({
+  adminUser: state.adminUsers.list.find((adminUser:any) => adminUser.id === Number(ownProps.params.id)),
+});
 
 const MapDispatchToProps = (dispatch: any) => bindActionCreators({
   addTeamMember: (user: any) => addAdminUser(user),

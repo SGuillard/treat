@@ -57,7 +57,7 @@ const SettingsAdminUserList = ({ adminUsers, changeStatusTeamMember } : Settings
                 src={`/static/images/avatar/${adminUser.id + 1}.jpg`}
               />
             </ListItemAvatar>
-            <ListItemText id={labelId} primary={`${adminUser.first_name} ${adminUser.last_name}`} />
+            <ListItemText id={labelId} primary={`${adminUser.firstName} ${adminUser.lastName}`} />
             <ListItemSecondaryAction>
               {/*<Switch*/}
               {/*  edge="end"*/}
