@@ -31,5 +31,5 @@ export const initServiceList = () => (dispatch: any) => {
 
 export const addAdminUser = (payload: any) => (dispatch: any) => {
   makeRequest(RequestMethod.POST,
-    `${API.TEAM_CREATE}`, payload).then((response: any) => dispatch(addAdminUserAction(response)));
+    `${API.ADMIN_USER_CREATE}`, payload).then((response: any) => dispatch(addAdminUserAction(response)));
 };

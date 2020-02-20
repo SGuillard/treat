@@ -37,12 +37,12 @@ export const setAdminUsersAction = (users: AdminUserInterface[]) => ({
 });
 
 export const initAdminUsers = () => (dispatch: any) => {
-  makeRequest(RequestMethod.GET, `${API.TEAM_ALL}`).then((response: any) => dispatch(setAdminUsersAction(response)));
+  makeRequest(RequestMethod.GET, `${API.ADMIN_USER_LIST}`).then((response: any) => dispatch(setAdminUsersAction(response)));
 };
 
 export const addAdminUser = (payload: any) => (dispatch: any) => {
   makeRequest(RequestMethod.POST,
-    `${API.TEAM_CREATE}`, payload).then((response: any) => dispatch(addAdminUserAction(response)));
+    `${API.ADMIN_USER_CREATE}`, payload).then((response: any) => dispatch(addAdminUserAction(response)));
 };
 
 export const statusAdminUser = (payload: any) => (dispatch: any) => {

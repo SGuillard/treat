@@ -20,9 +20,5 @@ Route::post('register', 'Admin\Auth\RegisterController@create');
 // Prefix applied to all routes inside
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('services', 'Admin\ServiceController');
-
-    Route::get('team/getAll', 'Admin\TeamController@getList');
-    Route::post('team/create', 'Admin\TeamController@create');
-    Route::patch('team/status', 'Admin\TeamController@status');
-//    Route::get('team/', 'Admin\TeamController@getTeam');
+    Route::apiResource('adminUser', 'Admin\AdminUserController');
 });
