@@ -1,6 +1,7 @@
 import axios, { Method } from 'axios';
 import { getToken, redirectToLoginPage } from '../containers/admin/login/api-login';
 import API from '../API';
+import { castObject, castOptions } from '../helpers/castObjectToCamelOrSnakeCase';
 
 export enum RequestMethod {
   GET = 'GET',
@@ -10,7 +11,8 @@ export enum RequestMethod {
   DELETE = 'DELETE',
 }
 
-const makeRequest = (method: Method, slug: string, data: {} = {}) => new Promise((resolve, reject) => {
+const makeRequest = (method: Method, slug: string, payload: {} = {}) => new Promise((resolve, reject) => {
+  const data = castObject(payload, castOptions.ToSnake);
   const instance = axios.create({
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
   });
@@ -19,8 +21,9 @@ const makeRequest = (method: Method, slug: string, data: {} = {}) => new Promise
     method,
     data,
   })
-    .then((response: any) => resolve(response.data.data))
-    .catch((e) => reject(redirectToLoginPage()));
+    // .then((response: any) => resolve(castObject(response.data.data, castOptions.ToCamel)))
+    .then((response: any) => resolve(castObject(response.data.data, castOptions.ToCamel)))
+    .catch(() => reject(redirectToLoginPage()));
 });
 
 export default makeRequest;

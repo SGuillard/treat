@@ -1,8 +1,13 @@
-export interface AdminUserInterface {
-  id: number,
+interface AdminUserModel {
   firstName: string,
   lastName: string,
   active: boolean,
 }
 
-export type AddAdminUserInterface = Omit<AdminUserInterface, 'id'>;
+export interface AdminUserInterface extends AdminUserModel {
+  id: number,
+}
+
+export interface AdminUserFormInterface extends AdminUserModel {
+  id?: number | null;
+}

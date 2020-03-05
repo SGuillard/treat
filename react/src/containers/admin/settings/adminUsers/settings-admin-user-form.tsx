@@ -11,13 +11,13 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Switch } from '@material-ui/core';
-import { AdminUserInterface, AddAdminUserInterface } from '../../types/types';
+import { AdminUserFormInterface } from '../../types/types';
 import { addEditAdminUser } from '../../../../store/actions/adminUsersActions';
 
 interface SettingsAdminUserFormAddProps {
-  addEditTeamMember: (User: AddAdminUserInterface | AdminUserInterface) => (payload: any) => void;
+  addEditTeamMember: (User: AdminUserFormInterface) => (payload: any) => void;
   params?: object;
-  adminUser?: AdminUserInterface;
+  adminUser?: AdminUserFormInterface;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +59,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (validateForm()) {
-      addEditTeamMember({ firstName: firstName, lastName: lastName, active: true });
+      addEditTeamMember({ id: adminUser ? adminUser.id : null, firstName: firstName, lastName: lastName, active: true });
       setFirstName('');
       setLastName('');
       setActive(true);
@@ -116,7 +116,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
           </Grid>
           <Grid item xs={6}>
             <Button variant="contained" color="primary" type="submit">
-              Add
+              Validate
             </Button>
           </Grid>
           <Grid item xs={6}>
@@ -135,7 +135,7 @@ const MapStateToProps = (state: any, ownProps: any) => ({
 });
 
 const MapDispatchToProps = (dispatch: any) => bindActionCreators({
-  addEditTeamMember: (user: AdminUserInterface | AddAdminUserInterface) => addEditAdminUser(user),
+  addEditTeamMember: (user: AdminUserFormInterface) => addEditAdminUser(user),
 }, dispatch);
 
 export default connect(MapStateToProps, MapDispatchToProps)(SettingsAdminUserForm);

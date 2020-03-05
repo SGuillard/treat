@@ -1,7 +1,7 @@
 import {
   ADD_EDIT_ADMIN_USER_ACTION,
   SET_ADMIN_USER_ACTION,
-  STATUS_ADMIN_USER_ACTION
+  STATUS_ADMIN_USER_ACTION,
 } from './constants';
 import { AdminUserInterface } from '../../containers/admin/types/types';
 import makeRequest, { RequestMethod } from '../../utils/apiRequest';
@@ -12,19 +12,15 @@ interface AdminUserInterfacePayload {
   payload: AdminUserInterface,
 }
 
-export const addEditAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => {
-  return {
-    type: ADD_EDIT_ADMIN_USER_ACTION,
-    payload: user,
-  };
-};
+export const addEditAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => ({
+  type: ADD_EDIT_ADMIN_USER_ACTION,
+  payload: user,
+});
 
-export const statusAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => {
-  return {
-    type: STATUS_ADMIN_USER_ACTION,
-    payload: user,
-  };
-};
+export const statusAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => ({
+  type: STATUS_ADMIN_USER_ACTION,
+  payload: user,
+});
 
 export const updateObject = (oldObject: any, updatedProperties: any) => ({
   ...oldObject,
@@ -37,15 +33,19 @@ export const setAdminUsersAction = (users: AdminUserInterface[]) => ({
 });
 
 export const initAdminUsers = () => (dispatch: any) => {
-  makeRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: any) => dispatch(setAdminUsersAction(response)));
+  makeRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: any) => dispatch(
+    setAdminUsersAction(response),
+  ));
 };
 
 export const addEditAdminUser = (payload: any) => (dispatch: any) => {
-  makeRequest(RequestMethod.POST,
-    `${API.ADMIN_USER}${payload.id || ''}`, payload).then((response: any) => dispatch(addEditAdminUserAction(response)));
+  makeRequest(RequestMethod.PUT,
+    `${API.ADMIN_USER}${payload.id || ''}`, payload).then((response: any) => dispatch(
+    addEditAdminUserAction(response),
+  ));
 };
 
 export const statusAdminUser = (payload: any) => (dispatch: any) => {
   makeRequest(RequestMethod.PATCH,
     `${API.TEAM_STATUS}`, payload).then((response: any) => dispatch(statusAdminUserAction(response)));
-}
+};
