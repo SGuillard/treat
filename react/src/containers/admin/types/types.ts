@@ -1,7 +1,7 @@
 interface AdminUserModel {
   firstName: string,
   lastName: string,
-  active: boolean,
+  active: number,
 }
 
 export interface AdminUserInterface extends AdminUserModel {

@@ -13,21 +13,28 @@ const stringToSnakeCase = (str: string) => str && str.match(regexToSnake)!
   .map((x) => x.toLowerCase())
   .join('_');
 
-export const castObject = (payload: any, type: castOptions) => {
-  const castedArray = [];
+export const castObject = (obj: any, type: castOptions) => {
+  const objectKeys = Object.keys(obj);
+  objectKeys.forEach((keyName) => {
+    const castedKey = type === castOptions.ToCamel ? stringToCamelCase(keyName) : stringToSnakeCase(
+      keyName,
+    );
+    if (keyName !== castedKey) {
+      delete Object.assign(obj,
+        { [castedKey]: obj[keyName] })[keyName];
+    }
+  });
+  return obj;
+};
+
+// Cast an object keys to camelCase or snake_case. Useful for mapping between
+// back end and front end
+export const castObjectList = (payload: any, type: castOptions) => {
+  const castedArrayList = [];
   for (let i = 0; i < payload.length; i += 1) {
     const obj = payload[i];
-    const objectKeys = Object.keys(obj);
-    objectKeys.forEach((keyName) => {
-      const castedKey = type === castOptions.ToCamel ? stringToCamelCase(keyName) : stringToSnakeCase(
-        keyName,
-      );
-      if (keyName !== castedKey) {
-        delete Object.assign(obj,
-          { [castedKey]: obj[keyName] })[keyName];
-      }
-    });
-    castedArray.push(obj);
+    castObject(obj, type);
+    castedArrayList.push(obj);
   }
-  return castedArray;
+  return castedArrayList;
 };

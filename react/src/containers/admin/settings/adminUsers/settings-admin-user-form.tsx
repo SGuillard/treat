@@ -52,22 +52,25 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const { adminUser, addEditTeamMember } = props;
   const [firstName, setFirstName] = useState<string>(adminUser ? adminUser.firstName : '');
   const [lastName, setLastName] = useState<string>(adminUser ? adminUser.lastName : '');
-  const [active, setActive] = useState<boolean>(adminUser ? adminUser.active : true);
+  const [active, setActive] = useState<number>(adminUser ? adminUser.active : 1);
 
   const validateForm = () => firstName.length > 0 && lastName.length > 0;
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (validateForm()) {
-      addEditTeamMember({ id: adminUser ? adminUser.id : null, firstName: firstName, lastName: lastName, active: true });
+      const requestData: AdminUserFormInterface = { firstName: firstName, lastName: lastName, active: active };
+      // Add id in the request only if edit
+      if (adminUser) requestData.id = adminUser.id;
+      addEditTeamMember(requestData);
       setFirstName('');
       setLastName('');
-      setActive(true);
+      setActive(1);
     }
   };
 
   const toggleActive = () => {
-    setActive(!active);
+    setActive(+!active);
   };
 
   return (
@@ -110,7 +113,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
             <Switch
               edge="end"
               onChange={() => toggleActive()}
-              checked={active}
+              checked={!!active}
               inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
             />
           </Grid>

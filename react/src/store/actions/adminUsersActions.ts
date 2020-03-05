@@ -4,8 +4,9 @@ import {
   STATUS_ADMIN_USER_ACTION,
 } from './constants';
 import { AdminUserInterface } from '../../containers/admin/types/types';
-import makeRequest, { RequestMethod } from '../../utils/apiRequest';
+import makeRequest  from '../../utils/apiRequest';
 import API from '../../API';
+import { RequestMethod } from '../../types';
 
 interface AdminUserInterfacePayload {
   type: string,
@@ -34,7 +35,6 @@ export const setAdminUsersAction = (users: AdminUserInterface[]) => ({
 
 export const initAdminUsers = () => (dispatch: any) => {
   makeRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: any) => {
-    // console.log(response);
     return dispatch(
       setAdminUsersAction(response),
     );
@@ -42,8 +42,10 @@ export const initAdminUsers = () => (dispatch: any) => {
 };
 
 export const addEditAdminUser = (payload: any) => (dispatch: any) => {
-  makeRequest(RequestMethod.PUT,
-    `${API.ADMIN_USER}${payload.id || ''}`, payload).then((response: any) => dispatch(
+  const httpMethod = payload.id ? RequestMethod.PUT : RequestMethod.POST;
+  const params = payload.id ? `/${payload.id}` : '';
+  makeRequest(httpMethod,
+    `${API.ADMIN_USER}${params}`, payload).then((response: any) => dispatch(
     addEditAdminUserAction(response),
   ));
 };
