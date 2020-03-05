@@ -10,6 +10,14 @@ use Laravel\Passport\HasApiTokens;
 class AdminUser extends Authenticatable
 {
     use HasApiTokens, Notifiable;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
     /**
      * Retrieve the appointments of the admin user
      */

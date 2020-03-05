@@ -6,44 +6,51 @@ use App\AdminUser;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminUserResource;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response as ResponseAlias;
 use Illuminate\Support\Facades\Auth;
 
 class AdminUserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Return the list of users for the salon of the actual authenticated user
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
-    public function index()
+    private function getAdminUserList()
     {
         return AdminUserResource::collection($this->getSalon()->adminUsers);
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return AnonymousResourceCollection
+     */
+    public function index()
+    {
+        return $this->getAdminUserList();
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return AnonymousResourceCollection
      */
     public function store(Request $request)
     {
-        $newUser = new AdminUser();
-        $newUser->first_name = $request->firstName;
-        $newUser->last_name = $request->lastName;
-        $newUser->active = true;
-        $newUser->save();
-
+        $newUser = AdminUser::create($request->input());
         $salon = $this->getSalon();
         $salon->AdminUsers()->save($newUser);
-        return AdminUserResource::collection($salon->adminUsers);
+        return $this->getAdminUserList();
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return ResponseAlias
      */
     public function show($id)
     {
@@ -53,25 +60,21 @@ class AdminUserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param AdminUser $adminUser
+     * @return AnonymousResourceCollection
      */
     public function update(Request $request, AdminUser $adminUser)
     {
-        $adminUser->first_name = $request->firstName;
-        $adminUser->last_name = $request->lastName;
-        $adminUser->active = $request->active;
-        $adminUser->save();
-
-        return AdminUserResource::collection($this->getSalon()->adminUsers);
+        $adminUser->update($request->input());
+        return $this->getAdminUserList();
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return ResponseAlias
      */
     public function destroy($id)
     {
