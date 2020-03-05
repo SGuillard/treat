@@ -2,35 +2,22 @@
 
 namespace App\Http\Resources\Admin;
 
-use App\Http\Resources\MainResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdminUserResource extends MainResource
+class AdminUserResource extends JsonResource
 {
-
     /**
-     * Returns a general map of api names to db columns
-     *
-     * This does not contain ALL the api fields as some are
-     * set in the toArray method because they need some
-     * additional logic
-     *
-     * @var array
-     */
-    public static $map = [
-        'firstName' => 'first_name',
-        'lastName' => 'last_name',
-        'active' => 'active'
-    ];
-
-    /**
-     * Transform the resource into an array.
+     * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
     {
-        $result = $this->getMappedData();
-        return $result;
+        return [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'active' => $this->active,
+        ];
     }
 }
