@@ -12,7 +12,8 @@ export enum RequestMethod {
 }
 
 const makeRequest = (method: Method, slug: string, payload: {} = {}) => new Promise((resolve, reject) => {
-  const data = castObject(payload, castOptions.ToSnake);
+  const data = payload;
+  // const data = castObject(payload, castOptions.ToSnake);
   const instance = axios.create({
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
   });
@@ -21,7 +22,7 @@ const makeRequest = (method: Method, slug: string, payload: {} = {}) => new Prom
     method,
     data,
   })
-    // .then((response: any) => resolve(castObject(response.data.data, castOptions.ToCamel)))
+    // .then((response: any) => resolve(response.data.data))
     .then((response: any) => resolve(castObject(response.data.data, castOptions.ToCamel)))
     .catch(() => reject(redirectToLoginPage()));
 });

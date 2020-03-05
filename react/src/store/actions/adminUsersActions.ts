@@ -33,9 +33,12 @@ export const setAdminUsersAction = (users: AdminUserInterface[]) => ({
 });
 
 export const initAdminUsers = () => (dispatch: any) => {
-  makeRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: any) => dispatch(
-    setAdminUsersAction(response),
-  ));
+  makeRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: any) => {
+    // console.log(response);
+    return dispatch(
+      setAdminUsersAction(response),
+    );
+  });
 };
 
 export const addEditAdminUser = (payload: any) => (dispatch: any) => {

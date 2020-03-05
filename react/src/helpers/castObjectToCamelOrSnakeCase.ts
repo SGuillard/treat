@@ -13,13 +13,21 @@ const stringToSnakeCase = (str: string) => str && str.match(regexToSnake)!
   .map((x) => x.toLowerCase())
   .join('_');
 
-export const castObject = (obj: any, type: castOptions) => {
-  const objectKeys = Object.keys(obj);
-  objectKeys.forEach((keyName) => {
-    const castedKey = type === castOptions.ToCamel ? stringToCamelCase(keyName) : stringToSnakeCase(
-      keyName,
-    );
-    if (keyName !== castedKey) delete Object.assign(obj, { [castedKey]: obj[keyName] })[keyName];
-  });
-  return obj;
+export const castObject = (payload: any, type: castOptions) => {
+  const castedArray = [];
+  for (let i = 0; i < payload.length; i += 1) {
+    const obj = payload[i];
+    const objectKeys = Object.keys(obj);
+    objectKeys.forEach((keyName) => {
+      const castedKey = type === castOptions.ToCamel ? stringToCamelCase(keyName) : stringToSnakeCase(
+        keyName,
+      );
+      if (keyName !== castedKey) {
+        delete Object.assign(obj,
+          { [castedKey]: obj[keyName] })[keyName];
+      }
+    });
+    castedArray.push(obj);
+  }
+  return castedArray;
 };
