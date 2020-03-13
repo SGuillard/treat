@@ -13,6 +13,14 @@ interface AdminUserInterfacePayload {
   payload: AdminUserInterface,
 }
 
+export const setLoginAction = (isLogged: boolean) => (dispatch: any) => {
+  console.log('kkkk');
+  return dispatch({
+    type: ADD_EDIT_ADMIN_USER_ACTION,
+    payload: isLogged,
+  });
+}
+
 export const addEditAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => ({
   type: ADD_EDIT_ADMIN_USER_ACTION,
   payload: user,

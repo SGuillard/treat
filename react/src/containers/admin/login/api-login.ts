@@ -11,7 +11,9 @@ const getToken = () => {
   window.location.href = (`${AdminROUTES.BASE}${AdminROUTES.LOGIN}`);
 };
 
-const redirectToLoginPage = () => window.location.href = (`${AdminROUTES.BASE}${AdminROUTES.LOGIN}`);
+const redirectToLoginPage = () => {
+  window.location.href = (`${AdminROUTES.BASE}${AdminROUTES.LOGIN}/`);
+};
 
 const storeToken = (tokenItem: string) => localStorage.setItem('token', tokenItem);
 

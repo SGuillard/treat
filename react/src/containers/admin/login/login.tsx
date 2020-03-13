@@ -12,7 +12,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Link } from '@material-ui/core';
+import axios from 'axios';
+import { connect } from 'react-redux';
 import { LoginApi } from './api-login';
+import API from '../../../API';
+import { SET_LOGIN_ACTION } from '../../../store/actions/constants';
+import { setLoginAction, statusAdminUser } from '../../../store/actions/adminUsersActions';
+import { bindActionCreators } from 'redux';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,26 +47,55 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+const loginApi = async (login: any, password: any) => {
+  const instance = axios.create({
+    headers: { 'Content-Type': 'application/json' },
+  });
+  try {
+    const getToken = await instance.request({
+      url: `${API.API_URL}${API.LOGIN}`,
+      method: 'post',
+      data: JSON.stringify({ username: login, password }),
+    });
+    return getToken;
+  } catch (e) {
+    if (e.response.status && e.response.status === 401) {
+      return false;
+    }
+    throw Error(e);
+  }
+};
+
+const Login = (props: any) => {
+  const { setLogin } = props;
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorCredentials, setErrorCredentials] = useState(false);
   const [errorValidation, setErrorValidation] = useState(false);
-  const [redirect, setRedirect] = useState(false);
+  const [redirect] = useState(false);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+
+    const validateForm = () => email.length > 0 && password.length > 0;
+
     if (validateForm()) {
-      const loginApi = new LoginApi(email, password);
-      loginApi.authenticate().then((token) => (!token ? setErrorCredentials(true) : setRedirect(true)));
+      setLogin(true);
+
+      loginApi(email, password).then((response) => {
+        if (!response) {
+          setErrorCredentials(true);
+        } else {
+          localStorage.setItem('token', response.data.accessToken);
+          setLogin(true);
+        }
+      });
     } else {
       setErrorValidation(true);
     }
     return false;
   };
-
-  const validateForm = () => email.length > 0 && password.length > 0;
 
   const displayErrorMessage = () => {
     let message = '';
@@ -86,7 +121,7 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-                    Sign in
+          Sign in
         </Typography>
         <div className={classes.form}>
           <TextField
@@ -127,17 +162,17 @@ export default function Login() {
             color="primary"
             className={classes.submit}
           >
-                        Sign In
+            Sign In
           </Button>
           <Grid container>
             <Grid item xs>
               <Link component={RouterLink} to="/admin/forgot-password">
-                                Forgot password?
+                Forgot password?
               </Link>
             </Grid>
             <Grid item>
               <Link component={RouterLink} to="/admin/register">
-                                Don't have an account? Sign Up
+                Don't have an account? Sign Up
               </Link>
             </Grid>
           </Grid>
@@ -147,4 +182,10 @@ export default function Login() {
   );
 
   return redirect ? <Redirect to="dashboard" /> : form();
-}
+};
+
+const MapDispatchToProps = (dispatch: any) => bindActionCreators({
+  setLogin: (isLogged: boolean) => setLoginAction(isLogged),
+}, dispatch);
+
+export default connect(null, MapDispatchToProps)(Login);
