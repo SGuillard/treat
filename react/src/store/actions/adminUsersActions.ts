@@ -1,6 +1,6 @@
 import {
   ADD_EDIT_ADMIN_USER_ACTION,
-  SET_ADMIN_USER_ACTION,
+  SET_ADMIN_USER_ACTION, SET_LOGIN_ACTION,
   STATUS_ADMIN_USER_ACTION,
 } from './constants';
 import { AdminUserInterface } from '../../containers/admin/types/types';
@@ -14,9 +14,8 @@ interface AdminUserInterfacePayload {
 }
 
 export const setLoginAction = (isLogged: boolean) => (dispatch: any) => {
-  console.log('kkkk');
   return dispatch({
-    type: ADD_EDIT_ADMIN_USER_ACTION,
+    type: SET_LOGIN_ACTION,
     payload: isLogged,
   });
 }

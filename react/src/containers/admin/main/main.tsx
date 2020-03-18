@@ -18,10 +18,6 @@ interface mainProps {
   params?: object
 }
 
-
-
-
-
 const Main = ({ page, onInitAdminUsers, onInitService, adminUsers, isLogged = false, params }: mainProps) => {
   useEffect(() => {
     onInitAdminUsers();
@@ -42,7 +38,7 @@ const Main = ({ page, onInitAdminUsers, onInitService, adminUsers, isLogged = fa
 
 const mapStateToProps = (state: any) => ({
   adminUsers: state.adminUsers,
-  isLogged: state.isLogged,
+  isLogged: state.adminUsers && state.adminUsers.isLogged,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

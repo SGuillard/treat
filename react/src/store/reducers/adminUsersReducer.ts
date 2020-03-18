@@ -18,7 +18,6 @@ const statusAdminUserReducer = (state: any = null, action: any) => updateObject(
 });
 
 const setLoginReducer = (state: any, action: any) => {
-  console.log(action);
   return updateObject(state, {
     isLogged: action.payload,
   });

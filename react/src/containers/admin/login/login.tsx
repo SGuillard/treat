@@ -67,13 +67,12 @@ const loginApi = async (login: any, password: any) => {
 };
 
 const Login = (props: any) => {
-  const { setLogin } = props;
+  const { setLogin, isLogged } = props;
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorCredentials, setErrorCredentials] = useState(false);
   const [errorValidation, setErrorValidation] = useState(false);
-  const [redirect] = useState(false);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -181,11 +180,15 @@ const Login = (props: any) => {
     </Container>
   );
 
-  return redirect ? <Redirect to="dashboard" /> : form();
+  return isLogged ? <Redirect to="dashboard" /> : form();
 };
 
 const MapDispatchToProps = (dispatch: any) => bindActionCreators({
   setLogin: (isLogged: boolean) => setLoginAction(isLogged),
 }, dispatch);
 
-export default connect(null, MapDispatchToProps)(Login);
+const MapStateToProps = (state: any) => ({
+  isLogged: state.adminUsers && state.adminUsers.isLogged,
+});
+
+export default connect(MapStateToProps, MapDispatchToProps)(Login);
