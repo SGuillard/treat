@@ -12,6 +12,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import EditIcon from '@material-ui/icons/Edit';
 import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../../route/admin/admin-routes';
+import { ServiceInterface } from '../../types/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -21,25 +22,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-export interface ServiceInterface {
-  price: number;
-  duration: number;
-  id: number,
-  name: string,
-}
-
 interface SettingsServiceListProps {
   serviceList: any,
 }
 
 const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
   const classes = useStyles();
-  const [edit, setEdit] = useState<boolean>(false);
-  const [editId, setEditId] = useState<number>(0);
+  const [redirect, setRedirect] = useState<boolean>(false);
+  const [redirectUrl, setRedirectUrl] = useState<string>(AdminROUTES.SETTINGS.SERVICE_EDIT.path);
 
   const editElement = (id: number) => {
-    setEdit(true);
-    setEditId(id);
+    setRedirect(true);
+    setRedirectUrl(`${AdminROUTES.SETTINGS.SERVICE_EDIT.path}/${id}`);
   };
 
   const displayTeamList = () => (
@@ -64,7 +58,7 @@ const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
       <Card>
         <CardHeader
           action={
-            <AddCircleOutlineIcon style={{ paddingTop: '15px' }} />
+            <AddCircleOutlineIcon style={{ paddingTop: '15px' }} onClick={() => setRedirect(true)} />
           }
           title="My Services"
         />
@@ -73,7 +67,7 @@ const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
     </Container>
   );
 
-  return edit ? <Redirect to={`${AdminROUTES.SETTINGS.SERVICE_EDIT.path}/${editId}`} /> : getView();
+  return redirect ? <Redirect push to={redirectUrl} /> : getView();
 };
 
 const mapStateToProps = (state: any) => ({

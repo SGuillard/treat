@@ -3,8 +3,8 @@ import {
 } from './constants';
 import makeRequest from '../../utils/apiRequest';
 import API from '../../API';
-import { ServiceInterface } from '../../views/settings/services/settings-service-list';
 import { RequestMethod } from '../../types';
+import { ServiceInterface } from '../../views/types/types';
 
 interface AdminUserInterfacePayload {
   type: string,

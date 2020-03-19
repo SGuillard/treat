@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
 import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,46 +9,44 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { EventSeat } from '@material-ui/icons';
+import { ServiceFormInterface } from '../../types/types';
+import { useStyles } from './style';
+import FormButtons from '../../../uiComponents/FormButtons';
+import { Redirect } from 'react-router-dom';
+import AdminROUTES from '../../../route/admin/admin-routes';
 
 interface SettingsServiceEditProps {
-  service?: any,
+  service?: ServiceFormInterface,
   params?: object
 }
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  error: {
-    backgroundColor: 'red',
-    borderRadius: '10px',
-    padding: '10px',
-    color: 'white',
-    textAlign: 'center',
-  },
-}));
 
 const SettingsServiceForm = (props : SettingsServiceEditProps) => {
   const classes = useStyles();
   const { service } = props;
+  const [name, setName] = useState<string>(service ? service.name : '');
+  const [duration, setDuration] = useState<number>(service ? service.duration : 0);
+  const [price, setPrice] = useState<string>(service ? service.price : '');
+  const [redirect, setRedirect] = useState<boolean>(false);
 
-  const handleSubmit = () => null;
+  const validateForm = () => true;
 
-  return (
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    if (validateForm()) {
+      const requestData: ServiceFormInterface = { name: name, duration: duration, price: price };
+      // Add id in the request only if edit
+      if (service) requestData.id = service.id;
+      // addEditTeamMember(requestData);
+      // setFirstName('');
+      // setLastName('');
+      // setActive(1);
+      // setRedirect(true);
+    }
+  };
+
+  const onCancel = () => setRedirect(true);
+
+  const getForm = () => (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <form className={classes.paper} onSubmit={handleSubmit}>
@@ -66,7 +64,8 @@ const SettingsServiceForm = (props : SettingsServiceEditProps) => {
               name="Name"
               label="Name"
               fullWidth
-              value={service.name}
+              onChange={(e) => setName(e.target.value)}
+              value={name}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -77,28 +76,33 @@ const SettingsServiceForm = (props : SettingsServiceEditProps) => {
               label="Duration (min)"
               fullWidth
               autoComplete="lname"
-              value={service.duration}
-              // onChange={(e) => setLastName(e.target.value)}
+              value={duration}
+              onChange={(e) => setDuration(parseInt(e.currentTarget.value, 10))}
             />
           </Grid>
-          <Grid item xs={6}>
-            <Button variant="contained" color="primary" type="submit">
-              Add
-            </Button>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id="Price"
+              name="price"
+              label="Price ($)"
+              fullWidth
+              autoComplete="lprice"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
           </Grid>
-          <Grid item xs={6}>
-            <Button variant="contained" color="secondary">
-              Cancel
-            </Button>
-          </Grid>
+          <FormButtons onCancel={onCancel} />
         </Grid>
       </form>
     </Container>
   );
+
+  return redirect ? <Redirect push to={AdminROUTES.SETTINGS.ADMIN_USER_LIST.path} /> : getForm();
 };
 
 const MapStateToProps = (state: any, ownProps: any) => ({
-  service: state.services.list.find((service:any) => service.id === Number(ownProps.params.id)),
+  service: state.services ?? state.services.list.find((service:any) => service.id === Number(ownProps.params.id)),
 });
 
 export default connect(MapStateToProps)(SettingsServiceForm);

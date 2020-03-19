@@ -15,6 +15,8 @@ import { Redirect } from 'react-router-dom';
 import { AdminUserFormInterface } from '../../types/types';
 import { addEditAdminUser } from '../../../store/actions/adminUsersActions';
 import AdminROUTES from '../../../route/admin/admin-routes';
+import { useStyles } from './style';
+import FormButtons from '../../../uiComponents/FormButtons';
 
 interface SettingsAdminUserFormAddProps {
   addEditTeamMember: (User: AdminUserFormInterface) => (payload: any) => void;
@@ -22,33 +24,6 @@ interface SettingsAdminUserFormAddProps {
   params?: object;
   adminUser?: AdminUserFormInterface;
 }
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  error: {
-    backgroundColor: 'red',
-    borderRadius: '10px',
-    padding: '10px',
-    color: 'white',
-    textAlign: 'center',
-  },
-}));
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
@@ -77,6 +52,8 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const toggleActive = () => {
     setActive(+!active);
   };
+
+  const onCancel = () => setRedirect(true);
 
   const getForm = () => (
     <Container component="main" maxWidth="xs">
@@ -122,16 +99,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
               inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
             />
           </Grid>
-          <Grid item xs={6}>
-            <Button variant="contained" color="primary" type="submit">
-              Validate
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button variant="contained" color="secondary" onClick={() => setRedirect(true)}>
-              Cancel
-            </Button>
-          </Grid>
+          <FormButtons onCancel={onCancel} />
         </Grid>
       </form>
     </Container>

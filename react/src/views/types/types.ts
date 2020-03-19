@@ -11,3 +11,17 @@ export interface AdminUserInterface extends AdminUserModel {
 export interface AdminUserFormInterface extends AdminUserModel {
   id?: number | null;
 }
+
+export interface ServiceModel {
+  price: string,
+  duration: number,
+  name: string,
+}
+
+export interface ServiceInterface extends ServiceModel {
+  id: number,
+}
+
+export interface ServiceFormInterface extends ServiceModel {
+  id?: number | null;
+}
