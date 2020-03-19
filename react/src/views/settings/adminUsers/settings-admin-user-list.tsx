@@ -33,12 +33,12 @@ interface SettingsAdminUserListProps {
 
 const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
   const classes = useStyles();
-  const [edit, setEdit] = useState<boolean>(false);
-  const [editId, setEditId] = useState<number>(0);
+  const [redirect, setRedirect] = useState<boolean>(false);
+  const [redirectUrl, setRedirectUrl] = useState<string>(AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path);
 
   const editElement = (id: number) => {
-    setEdit(true);
-    setEditId(id);
+    setRedirect(true);
+    setRedirectUrl(`${AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path}/${id}`);
   };
 
   const displayTeamList = () => (
@@ -67,7 +67,7 @@ const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
     <Container component="main" maxWidth="xs">
       <Card>
         <CardHeader
-          action={<AddCircleOutlineIcon style={{ paddingTop: '15px' }} />}
+          action={<AddCircleOutlineIcon style={{ paddingTop: '15px' }} onClick={() => setRedirect(true)} />}
           title="My Team"
         />
         {displayTeamList()}
@@ -75,7 +75,7 @@ const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
     </Container>
   );
 
-  return edit ? <Redirect push to={`${AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path}/${editId}`} /> : getView();
+  return redirect ? <Redirect push to={redirectUrl} /> : getView();
 };
 
 const mapStateToProps = (state: any) => ({

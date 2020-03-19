@@ -11,11 +11,14 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Switch } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 import { AdminUserFormInterface } from '../../types/types';
 import { addEditAdminUser } from '../../../store/actions/adminUsersActions';
+import AdminROUTES from '../../../route/admin/admin-routes';
 
 interface SettingsAdminUserFormAddProps {
   addEditTeamMember: (User: AdminUserFormInterface) => (payload: any) => void;
+  history: any
   params?: object;
   adminUser?: AdminUserFormInterface;
 }
@@ -53,6 +56,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const [firstName, setFirstName] = useState<string>(adminUser ? adminUser.firstName : '');
   const [lastName, setLastName] = useState<string>(adminUser ? adminUser.lastName : '');
   const [active, setActive] = useState<number>(adminUser ? adminUser.active : 1);
+  const [redirect, setRedirect] = useState<boolean>(false);
 
   const validateForm = () => firstName.length > 0 && lastName.length > 0;
 
@@ -66,6 +70,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
       setFirstName('');
       setLastName('');
       setActive(1);
+      setRedirect(true);
     }
   };
 
@@ -73,7 +78,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
     setActive(+!active);
   };
 
-  return (
+  const getForm = () => (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <form className={classes.paper} onSubmit={handleSubmit}>
@@ -123,7 +128,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
             </Button>
           </Grid>
           <Grid item xs={6}>
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary" onClick={() => setRedirect(true)}>
               Cancel
             </Button>
           </Grid>
@@ -131,6 +136,8 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
       </form>
     </Container>
   );
+
+  return redirect ? <Redirect push to={AdminROUTES.SETTINGS.ADMIN_USER_LIST.path} /> : getForm();
 };
 
 const MapStateToProps = (state: any, ownProps: any) => ({
