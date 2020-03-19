@@ -11,7 +11,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import EditIcon from '@material-ui/icons/Edit';
 import { Redirect } from 'react-router-dom';
-import AdminROUTES from '../../../../route/admin/admin-routes';
+import AdminROUTES from '../../../route/admin/admin-routes';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {

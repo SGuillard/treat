@@ -14,11 +14,11 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import { bindActionCreators } from 'redux';
 import { AdminUserInterface } from '../../types/types';
-import { statusAdminUser } from '../../../../store/actions/adminUsersActions';
+import { statusAdminUser } from '../../../store/actions/adminUsersActions';
 import SettingsAdminUserForm from './settings-admin-user-form';
 import EditIcon from '@material-ui/icons/Edit';
 import { Redirect } from 'react-router-dom';
-import AdminROUTES from '../../../../route/admin/admin-routes';
+import AdminROUTES from '../../../route/admin/admin-routes';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {

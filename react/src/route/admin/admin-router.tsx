@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { isAuthenticated } from '../../containers/admin/login/api-login';
+import { isAuthenticated } from '../../views/login/api-login';
 import AdminROUTES from './admin-routes';
-import Main from '../../containers/admin/main/main';
+import Main from '../../views/main/main';
 
 export type pageType = { page: string, params?: {} };
 

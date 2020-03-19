@@ -3,7 +3,7 @@ import {
 } from './constants';
 import makeRequest from '../../utils/apiRequest';
 import API from '../../API';
-import { ServiceInterface } from '../../containers/admin/settings/services/settings-service-list';
+import { ServiceInterface } from '../../views/settings/services/settings-service-list';
 import { RequestMethod } from '../../types';
 
 interface AdminUserInterfacePayload {

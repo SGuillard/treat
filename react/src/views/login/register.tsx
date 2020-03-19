@@ -12,7 +12,7 @@ import Container from '@material-ui/core/Container';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { LoginApi } from './api-login';
-import API from '../../../API';
+import API from '../../API';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

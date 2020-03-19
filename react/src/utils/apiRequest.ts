@@ -1,5 +1,5 @@
 import axios, { Method } from 'axios';
-import { getToken, redirectToLoginPage } from '../containers/admin/login/api-login';
+import { getToken, redirectToLoginPage } from '../views/login/api-login';
 import API from '../API';
 import { castObject, castObjectList, castOptions } from '../helpers/castObjectToCamelOrSnakeCase';
 

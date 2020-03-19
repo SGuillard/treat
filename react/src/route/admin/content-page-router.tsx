@@ -1,14 +1,14 @@
 import React from 'react';
-import Calendar from '../../containers/admin/calendar/calendar';
-import Dashboard from '../../containers/admin/dashboard/dashboard';
-import Settings from '../../containers/admin/settings/settings';
+import Calendar from '../../views/calendar/calendar';
+import Dashboard from '../../views/dashboard/dashboard';
+import Settings from '../../views/settings/settings';
 import { pageType } from './admin-router';
 import AdminROUTES from './admin-routes';
-import SettingsAdminUserList from '../../containers/admin/settings/adminUsers/settings-admin-user-list';
-import SettingsServiceList from '../../containers/admin/settings/services/settings-service-list';
-import SettingsServiceForm from '../../containers/admin/settings/services/settings-service-form';
+import SettingsAdminUserList from '../../views/settings/adminUsers/settings-admin-user-list';
+import SettingsServiceList from '../../views/settings/services/settings-service-list';
+import SettingsServiceForm from '../../views/settings/services/settings-service-form';
 import SettingsAdminUserForm
-  from '../../containers/admin/settings/adminUsers/settings-admin-user-form';
+  from '../../views/settings/adminUsers/settings-admin-user-form';
 
 const ContentPageRouter = ({ page, params }: pageType) => {
   switch (page) {

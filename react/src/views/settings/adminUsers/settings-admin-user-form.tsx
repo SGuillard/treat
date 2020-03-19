@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Switch } from '@material-ui/core';
 import { AdminUserFormInterface } from '../../types/types';
-import { addEditAdminUser } from '../../../../store/actions/adminUsersActions';
+import { addEditAdminUser } from '../../../store/actions/adminUsersActions';
 
 interface SettingsAdminUserFormAddProps {
   addEditTeamMember: (User: AdminUserFormInterface) => (payload: any) => void;

@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, RouteComponentProps } from 'react-router-dom';
-import Register from '../containers/admin/login/register';
-import App from '../containers/app';
-import Login from '../containers/admin/login/login';
+import Register from '../views/login/register';
+import Login from '../views/login/login';
 import AdminRouter from './admin/admin-router';
 import AdminROUTES from './admin/admin-routes';
 
@@ -20,7 +19,6 @@ const Root = () => (
       <Route path={AdminROUTES.LOGIN.path} component={Login} />
       <Route path={AdminROUTES.REGISTER.path} component={Register} />
       {/* Others */}
-      <Route exact path="/" component={App} />
       <Route render={() => <h3>Not Found</h3>} />
     </Switch>
   </BrowserRouter>

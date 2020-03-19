@@ -1,6 +1,6 @@
 import axios from 'axios';
-import API from '../../../API';
-import AdminROUTES from '../../../route/admin/admin-routes';
+import API from '../../API';
+import AdminROUTES from '../../route/admin/admin-routes';
 
 const getStorageToken = () => localStorage.getItem('token');
 

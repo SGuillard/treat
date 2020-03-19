@@ -2,12 +2,10 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import BottomMenu from './bottom-menu';
-import ContentPageRouter from '../../../route/admin/content-page-router';
-import { initAdminUsers } from '../../../store/actions/adminUsersActions';
-import { initServiceList } from '../../../store/actions/ServicesActions';
-import AdminROUTES from '../../../route/admin/admin-routes';
-import axios from 'axios';
-import API from '../../../API';
+import ContentPageRouter from '../../route/admin/content-page-router';
+import { initAdminUsers, setLoginAction } from '../../store/actions/adminUsersActions';
+import { initServiceList } from '../../store/actions/ServicesActions';
+import AdminROUTES from '../../route/admin/admin-routes';
 
 interface mainProps {
   page: string,
@@ -15,17 +13,22 @@ interface mainProps {
   onInitService: any,
   adminUsers: any,
   isLogged: boolean,
+  setLogin: Function,
   params?: object
 }
 
-const Main = ({ page, onInitAdminUsers, onInitService, adminUsers, isLogged = false, params }: mainProps) => {
+const Main = ({ page, onInitAdminUsers, onInitService, adminUsers, setLogin, isLogged = false, params }: mainProps) => {
   useEffect(() => {
     onInitAdminUsers();
     onInitService();
   }, [onInitAdminUsers, onInitService]);
 
   if (!isLogged) {
-    return <Redirect push to={AdminROUTES.LOGIN.path} />;
+    if (localStorage.getItem('token')) {
+      setLogin(true);
+    } else {
+      return <Redirect push to={AdminROUTES.LOGIN.path} />;
+    }
   }
 
   return adminUsers ? (
@@ -44,6 +47,7 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: any) => ({
   onInitAdminUsers: () => dispatch(initAdminUsers()),
   onInitService: () => dispatch(initServiceList()),
+  setLogin: (isLogged: boolean) => setLoginAction(isLogged),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

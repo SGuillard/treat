@@ -3,7 +3,7 @@ import {
   SET_ADMIN_USER_ACTION, SET_LOGIN_ACTION,
   STATUS_ADMIN_USER_ACTION,
 } from './constants';
-import { AdminUserInterface } from '../../containers/admin/types/types';
+import { AdminUserInterface } from '../../views/types/types';
 import makeRequest  from '../../utils/apiRequest';
 import API from '../../API';
 import { RequestMethod } from '../../types';

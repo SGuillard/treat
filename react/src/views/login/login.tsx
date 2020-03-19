@@ -15,9 +15,9 @@ import { Link } from '@material-ui/core';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { LoginApi } from './api-login';
-import API from '../../../API';
-import { SET_LOGIN_ACTION } from '../../../store/actions/constants';
-import { setLoginAction, statusAdminUser } from '../../../store/actions/adminUsersActions';
+import API from '../../API';
+import { SET_LOGIN_ACTION } from '../../store/actions/constants';
+import { setLoginAction, statusAdminUser } from '../../store/actions/adminUsersActions';
 import { bindActionCreators } from 'redux';
 
 const useStyles = makeStyles((theme) => ({

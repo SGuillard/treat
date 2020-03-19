@@ -12,7 +12,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { EventSeat, HomeWork, People } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
-import AdminROUTES from '../../../route/admin/admin-routes';
+import AdminROUTES from '../../route/admin/admin-routes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
