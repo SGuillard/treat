@@ -7,17 +7,15 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import { Switch } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import { bindActionCreators } from 'redux';
-import { AdminUserInterface } from '../../types/types';
-import { statusAdminUser } from '../../../store/actions/adminUsersActions';
-import SettingsAdminUserForm from './settings-admin-user-form';
 import EditIcon from '@material-ui/icons/Edit';
 import { Redirect } from 'react-router-dom';
+import { AdminUserInterface } from '../../types/types';
+import { statusAdminUser } from '../../../store/actions/adminUsersActions';
 import AdminROUTES from '../../../route/admin/admin-routes';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -33,10 +31,8 @@ interface SettingsAdminUserListProps {
   changeStatusTeamMember: any
 }
 
-const SettingsAdminUserList = ({ adminUsers, changeStatusTeamMember } : SettingsAdminUserListProps) => {
+const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
   const classes = useStyles();
-  const [checked, setChecked] = useState<number[]>([1]);
-  const [showFormAdd, setShowFormAdd] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
   const [editId, setEditId] = useState<number>(0);
 
@@ -71,18 +67,15 @@ const SettingsAdminUserList = ({ adminUsers, changeStatusTeamMember } : Settings
     <Container component="main" maxWidth="xs">
       <Card>
         <CardHeader
-          action={
-            !showFormAdd ? <AddCircleOutlineIcon style={{ paddingTop: '15px' }} /> : ''
-          }
+          action={<AddCircleOutlineIcon style={{ paddingTop: '15px' }} />}
           title="My Team"
         />
-        { showFormAdd ? <SettingsAdminUserForm /> : '' }
-        { !showFormAdd ? displayTeamList() : '' }
+        {displayTeamList()}
       </Card>
     </Container>
   );
 
-  return edit ? <Redirect to={`${AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path}/${editId}`} /> : getView();
+  return edit ? <Redirect push to={`${AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path}/${editId}`} /> : getView();
 };
 
 const mapStateToProps = (state: any) => ({

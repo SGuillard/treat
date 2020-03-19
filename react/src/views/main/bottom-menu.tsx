@@ -34,9 +34,9 @@ const BottomMenu = ({ page }: pageType) => {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="Calendar" value={AdminROUTES.CALENDAR.name} icon={<CalendarTodayIcon />} />
-      <BottomNavigationAction label="Dashboard" value={AdminROUTES.DASHBOARD.name} icon={<DashboardIcon />} />
-      <BottomNavigationAction label="Settings" value={AdminROUTES.SETTINGS.name} icon={<SettingsIcon />} />
+      <BottomNavigationAction label="Calendar" value={AdminROUTES.CALENDAR.path} icon={<CalendarTodayIcon />} />
+      <BottomNavigationAction label="Dashboard" value={AdminROUTES.DASHBOARD.path} icon={<DashboardIcon />} />
+      <BottomNavigationAction label="Settings" value={AdminROUTES.SETTINGS.path} icon={<SettingsIcon />} />
     </BottomNavigation>
   );
 };
