@@ -102,7 +102,7 @@ const SettingsServiceForm = (props : SettingsServiceEditProps) => {
 };
 
 const MapStateToProps = (state: any, ownProps: any) => ({
-  service: state.services ?? state.services.list.find((service:any) => service.id === Number(ownProps.params.id)),
+  service: state.services.list.find((service:any) => service.id === Number(ownProps.params.id)),
 });
 
 export default connect(MapStateToProps)(SettingsServiceForm);

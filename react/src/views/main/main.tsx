@@ -8,16 +8,14 @@ import { initServiceList } from '../../store/actions/ServicesActions';
 import AdminROUTES from '../../route/admin/admin-routes';
 
 interface mainProps {
-  page: string,
   onInitAdminUsers: any,
   onInitService: any,
   adminUsers: any,
   isLogged: boolean,
   setLogin: Function,
-  params?: object
 }
 
-const Main = ({ page, onInitAdminUsers, onInitService, adminUsers, setLogin, isLogged = false, params }: mainProps) => {
+const Main = ({ onInitAdminUsers, onInitService, adminUsers, setLogin, isLogged = false }: mainProps) => {
   useEffect(() => {
     onInitAdminUsers();
     onInitService();
@@ -33,8 +31,8 @@ const Main = ({ page, onInitAdminUsers, onInitService, adminUsers, setLogin, isL
 
   return adminUsers ? (
     <div>
-      <ContentPageRouter page={page} params={params} />
-      <BottomMenu page={page} />
+      <ContentPageRouter />
+      <BottomMenu />
     </div>
   ) : (<p>Loading...</p>);
 };

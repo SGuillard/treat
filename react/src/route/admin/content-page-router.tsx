@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Calendar from '../../views/calendar/calendar';
 import Dashboard from '../../views/dashboard/dashboard';
 import Settings from '../../views/settings/settings';
@@ -9,8 +9,10 @@ import SettingsServiceList from '../../views/settings/services/settings-service-
 import SettingsServiceForm from '../../views/settings/services/settings-service-form';
 import SettingsAdminUserForm
   from '../../views/settings/adminUsers/settings-admin-user-form';
+import RouterContext from '../RouterContext';
 
-const ContentPageRouter = ({ page, params }: pageType) => {
+const ContentPageRouter = () => {
+  const { page, params } = useContext(RouterContext);
   switch (page) {
     case AdminROUTES.CALENDAR.name:
       return <Calendar />;

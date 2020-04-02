@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { makeStyles } from '@material-ui/core';
@@ -8,6 +8,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { useHistory } from 'react-router-dom';
 import { pageType } from '../../route/admin/admin-router';
 import AdminROUTES from '../../route/admin/admin-routes';
+import RouterContext from '../../route/RouterContext';
 
 const useStyles = makeStyles({
   root: {
@@ -19,9 +20,10 @@ const useStyles = makeStyles({
   },
 });
 
-const BottomMenu = ({ page }: pageType) => {
+const BottomMenu = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { page } = useContext(RouterContext);
   const [value, setValue] = React.useState(page);
 
   return (
