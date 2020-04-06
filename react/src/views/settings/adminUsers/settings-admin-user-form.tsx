@@ -1,4 +1,5 @@
 import React, {
+  useEffect,
   useReducer,
   useState,
 } from 'react';
@@ -44,6 +45,46 @@ const reducer = (state: any, { name, value }: reducerPayloadType) => ({
   [name]: value,
 });
 
+const RenderTitle = React.memo(({ value }: {value: any}) => (
+  <Typography component="h1" variant="h5">
+    {`${value ? 'Edit' : 'Add'} Team Member`}
+  </Typography>
+));
+
+const RenderTextField = React.memo(({ onChange, value, fieldName, label }: any) => (
+  <Grid item xs={12} sm={6}>
+    <TextField
+      required
+      id={fieldName}
+      name={fieldName}
+      label={label}
+      fullWidth
+      value={value}
+      onChange={onChange}
+    />
+  </Grid>
+));
+
+const RenderSwitchField = React.memo(({ value, onChange }: any) => (
+  <Grid item xs={12} sm={12}>
+    This member can take appointment
+    <Switch
+      edge="end"
+      onChange={onChange}
+      checked={value}
+      name="active"
+      value={value}
+      inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
+    />
+  </Grid>
+));
+
+const RenderAvatar = React.memo(({ className }: {className: string}) => (
+  <Avatar className={className}>
+    <AccountCircleIcon />
+  </Avatar>
+));
+
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
   const { adminUser, addEditTeamMember } = props;
@@ -76,48 +117,12 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <form className={classes.paper} onSubmit={handleSubmit}>
-        <Avatar className={classes.avatar}>
-          <AccountCircleIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          {`${adminUser ? 'Edit' : 'Add'} Team Member`}
-        </Typography>
+        <RenderAvatar className={classes.avatar} />
+        <RenderTitle value={adminUser} />
         <Grid container spacing={3} style={{ padding: '15px' }}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="firstName"
-              name="firstName"
-              label="First name"
-              fullWidth
-              autoComplete="fname"
-              value={firstName}
-              onChange={onChangeActionString}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="lastName"
-              name="lastName"
-              label="Last name"
-              fullWidth
-              autoComplete="lname"
-              value={lastName}
-              onChange={onChangeActionString}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12}>
-            This member can take appointment
-            <Switch
-              edge="end"
-              onChange={onChangeActionToggle}
-              checked={active}
-              name="active"
-              value={active}
-              inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
-            />
-          </Grid>
+          <RenderTextField onChange={onChangeActionString} value={firstName} fieldName="firstName" label="First Name" />
+          <RenderTextField onChange={onChangeActionString} value={lastName} fieldName="lastName" label="Last Name" />
+          <RenderSwitchField onChange={onChangeActionToggle} value={active} />
           <FormButtons onCancel={onCancel} />
         </Grid>
       </form>
