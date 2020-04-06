@@ -1,59 +1,76 @@
-import React, { FormEvent, useState } from 'react';
+import React, {
+  useReducer,
+  useState,
+} from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Switch } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import { AdminUserFormInterface } from '../../types/types';
+import { AdminUserFormInterface, AdminUserInterface } from '../../types/types';
 import { addEditAdminUser } from '../../../store/actions/adminUsersActions';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { useStyles } from './style';
 import FormButtons from '../../../uiComponents/FormButtons';
 
 interface SettingsAdminUserFormAddProps {
-  addEditTeamMember: (User: AdminUserFormInterface) => (payload: any) => void;
+  addEditTeamMember: (User: AdminUserInterface) => (payload: any) => void;
   history: any
   params?: object;
   adminUser?: AdminUserFormInterface;
 }
 
+interface reducerPayloadType {
+  name: string,
+  value: any
+}
+
+const initialArg = {
+  firstName: '',
+  lastName: '',
+  active: '',
+};
+
+const validateForm = (store: AdminUserFormInterface) => true;
+
+const reducer = (state: any, { name, value }: reducerPayloadType) => ({
+  ...state,
+  [name]: value,
+});
+
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
   const { adminUser, addEditTeamMember } = props;
-  const [firstName, setFirstName] = useState<string>(adminUser ? adminUser.firstName : '');
-  const [lastName, setLastName] = useState<string>(adminUser ? adminUser.lastName : '');
-  const [active, setActive] = useState<number>(adminUser ? adminUser.active : 1);
+
+  const [store, dispatch] = useReducer(reducer, adminUser ?? initialArg);
+
+  const { firstName, lastName, active } = store;
+
   const [redirect, setRedirect] = useState<boolean>(false);
 
-  const validateForm = () => firstName.length > 0 && lastName.length > 0;
-
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    if (validateForm()) {
-      const requestData: AdminUserFormInterface = { firstName: firstName, lastName: lastName, active: active };
-      // Add id in the request only if edit
-      if (adminUser) requestData.id = adminUser.id;
-      addEditTeamMember(requestData);
-      setFirstName('');
-      setLastName('');
-      setActive(1);
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (validateForm(store)) {
+      if (adminUser) dispatch({ name: 'id', value: adminUser.id });
+      addEditTeamMember(store);
       setRedirect(true);
     }
   };
 
-  const toggleActive = () => {
-    setActive(+!active);
-  };
-
   const onCancel = () => setRedirect(true);
+
+  const onChangeActionString = (e: React.ChangeEvent<HTMLInputElement>) => dispatch(e.target);
+
+  const onChangeActionToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVal = e.target.value !== 'true';
+    dispatch({ name: e.target.name, value: newVal });
+  };
 
   const getForm = () => (
     <Container component="main" maxWidth="xs">
@@ -63,7 +80,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
           <AccountCircleIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          { `${adminUser ? 'Edit' : 'Add'} Team Member`}
+          {`${adminUser ? 'Edit' : 'Add'} Team Member`}
         </Typography>
         <Grid container spacing={3} style={{ padding: '15px' }}>
           <Grid item xs={12} sm={6}>
@@ -75,7 +92,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
               fullWidth
               autoComplete="fname"
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={onChangeActionString}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -87,15 +104,17 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
               fullWidth
               autoComplete="lname"
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={onChangeActionString}
             />
           </Grid>
           <Grid item xs={12} sm={12}>
             This member can take appointment
             <Switch
               edge="end"
-              onChange={() => toggleActive()}
-              checked={!!active}
+              onChange={onChangeActionToggle}
+              checked={active}
+              name="active"
+              value={active}
               inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
             />
           </Grid>
@@ -109,11 +128,11 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
 };
 
 const MapStateToProps = (state: any, ownProps: any) => ({
-  adminUser: state.adminUsers.list.find((adminUser:any) => adminUser.id === Number(ownProps.params.id)),
+  adminUser: state.adminUsers.list.find((adminUser: any) => adminUser.id === Number(ownProps.params.id)),
 });
 
 const MapDispatchToProps = (dispatch: any) => bindActionCreators({
-  addEditTeamMember: (user: AdminUserFormInterface) => addEditAdminUser(user),
+  addEditTeamMember: (user: AdminUserInterface) => addEditAdminUser(user),
 }, dispatch);
 
 export default connect(MapStateToProps, MapDispatchToProps)(SettingsAdminUserForm);

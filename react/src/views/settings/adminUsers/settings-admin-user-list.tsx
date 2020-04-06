@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 interface SettingsAdminUserListProps {
-  adminUsers: any,
+  adminUsers: AdminUserInterface[],
   changeStatusTeamMember: any
 }
 
