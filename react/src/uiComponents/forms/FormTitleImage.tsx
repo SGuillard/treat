@@ -1,9 +1,19 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { makeStyles } from '@material-ui/core/styles';
 
-export const FormTitleImage = React.memo(({ className }: {className: string}) => (
-  <Avatar className={className}>
-    <AccountCircleIcon />
-  </Avatar>
-));
+const useStyles = makeStyles((theme) => ({
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+}));
+
+export const FormTitleImage = React.memo((props: any) => {
+  const classes = useStyles();
+  return (
+    <Avatar className={classes.avatar}>
+      {props.children}
+    </Avatar>
+  );
+});

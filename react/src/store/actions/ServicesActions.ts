@@ -1,7 +1,7 @@
 import {
   SET_SERVICE_ACTION,
 } from './constants';
-import makeRequest from '../../utils/apiRequest';
+import makeRequest from '../../utils/api/apiRequest';
 import API from '../../API';
 import { RequestMethod } from '../../types';
 import { ServiceInterface } from '../../views/types/types';

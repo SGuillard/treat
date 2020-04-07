@@ -1,6 +1,6 @@
 import axios, { Method } from 'axios';
-import API from '../API';
-import { castObject, castObjectList, castOptions } from '../helpers/castObjectToCamelOrSnakeCase';
+import API from '../../API';
+import { castObject, castObjectList, castOptions } from './castObjectToCamelOrSnakeCase';
 
 const makeRequest = (method: Method, slug: string, payload: {} = {}) => new Promise((resolve, reject) => {
   const data = castObject(payload, castOptions.ToSnake);

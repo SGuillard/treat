@@ -12,7 +12,7 @@ const addServiceReducer = (state: any = null, action: any) => updateObject(state
   list: action.payload,
 });
 
-export const servicesReducer: any = (state: any = { list: null }, action: any): any => {
+export const servicesReducer: any = (state: any = { list: [] }, action: any): any => {
   switch (action.type) {
     case ADD_SERVICE_ACTION:
       return addServiceReducer(state, action);
