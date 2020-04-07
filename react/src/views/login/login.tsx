@@ -16,6 +16,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import API from '../../API';
 import { setLoginAction } from '../../store/actions/globalActions';
+import { loginApi } from './login-helper';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,25 +44,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
 }));
-
-const loginApi = async (login: any, password: any) => {
-  const instance = axios.create({
-    headers: { 'Content-Type': 'application/json' },
-  });
-  try {
-    const getToken = await instance.request({
-      url: `${API.API_URL}${API.LOGIN}`,
-      method: 'post',
-      data: JSON.stringify({ username: login, password }),
-    });
-    return getToken;
-  } catch (e) {
-    if (e.response.status && e.response.status === 401) {
-      return false;
-    }
-    throw Error(e);
-  }
-};
 
 interface LoginProps {
   setLogin: Function,

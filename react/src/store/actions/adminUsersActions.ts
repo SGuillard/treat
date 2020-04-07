@@ -1,12 +1,12 @@
 import {
-  ADD_EDIT_ADMIN_USER_ACTION, REDIRECT_LOGIN,
+  ADD_EDIT_ADMIN_USER_ACTION,
   SET_ADMIN_USER_ACTION,
 } from './constants';
 import { AdminUserInterface } from '../../views/types/types';
 import makeRequest from '../../utils/apiRequest';
 import API from '../../API';
 import { RequestMethod } from '../../types';
-import { handleRequestErrors } from './helper-actions';
+import { handleInitialisationRequestErrors } from './helper-actions';
 
 interface AdminUserInterfacePayload {
   type: string,
@@ -31,7 +31,7 @@ export const setAdminUsersAction = (users: AdminUserInterface[]) => ({
 export const initAdminUsers = () => (dispatch: any) => {
   makeRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: any) => dispatch(
     setAdminUsersAction(response),
-  )).catch((e) => handleRequestErrors(e, dispatch));
+  )).catch((e) => handleInitialisationRequestErrors(e, dispatch));
 };
 
 export const addEditAdminUser = (payload: any) => (dispatch: any) => {
@@ -40,5 +40,5 @@ export const addEditAdminUser = (payload: any) => (dispatch: any) => {
   makeRequest(httpMethod,
     `${API.ADMIN_USER}${params}`, payload).then((response: any) => dispatch(
     addEditAdminUserAction(response),
-  )).catch((e) => handleRequestErrors(e, dispatch));
+  )).catch((e) => handleInitialisationRequestErrors(e, dispatch));
 };

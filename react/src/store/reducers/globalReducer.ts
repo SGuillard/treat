@@ -1,9 +1,10 @@
 import {
   REDIRECT_LOGIN,
 } from '../actions/constants';
+import { getStorageToken } from '../../views/login/login-helper';
 
 const initialState = {
-  isLogged: !!localStorage.getItem('token'),
+  isLogged: !!getStorageToken,
 };
 
 export const globalReducer: any = (state: any = initialState, action: any): any => {

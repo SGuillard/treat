@@ -11,8 +11,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { LoginApi } from './api-login';
+import { connect } from 'react-redux';
 import API from '../../API';
+import { loginApi } from './login-helper';
+import { setLoginAction } from '../../store/actions/globalActions';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Register() {
+const Register = ({ setLogin }: {setLogin: any}) => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -79,10 +81,15 @@ export default function Register() {
     event.preventDefault();
     if (validateForm()) {
       if (await handleRegistration()) {
-        const loginApi = new LoginApi(email, password);
-        loginApi.authenticate().then((token) => (!token ? setErrorCredentials(true) : setRedirect(
-          true,
-        )));
+        loginApi(email, password).then((response) => {
+          if (!response) {
+            setErrorCredentials(true);
+          } else {
+            localStorage.setItem('token', response.data.accessToken);
+            setLogin(true);
+          }
+        })
+          .catch((e) => console.log(e));
       }
     }
   };
@@ -220,4 +227,10 @@ export default function Register() {
   );
 
   return redirect ? <Redirect to="dashboard" /> : form();
-}
+};
+
+const MapDispatchToProps = (dispatch: any) => ({
+  setLogin: () => dispatch(setLoginAction(true)),
+});
+
+export default connect(null, MapDispatchToProps)(Register);

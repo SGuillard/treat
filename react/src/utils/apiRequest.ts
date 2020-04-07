@@ -1,12 +1,11 @@
 import axios, { Method } from 'axios';
 import API from '../API';
 import { castObject, castObjectList, castOptions } from '../helpers/castObjectToCamelOrSnakeCase';
-import { getToken, redirectToLoginPage } from '../views/login/login-helper';
 
 const makeRequest = (method: Method, slug: string, payload: {} = {}) => new Promise((resolve, reject) => {
   const data = castObject(payload, castOptions.ToSnake);
   const instance = axios.create({
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('token')}` },
   });
   instance.request({
     url: `${API.API_URL}${slug}`,

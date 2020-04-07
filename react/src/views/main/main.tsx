@@ -6,7 +6,6 @@ import ContentPageRouter from '../../route/admin/content-page-router';
 import { initAdminUsers } from '../../store/actions/adminUsersActions';
 import { initServiceList } from '../../store/actions/ServicesActions';
 import AdminROUTES from '../../route/admin/admin-routes';
-import { getToken } from '../login/login-helper';
 
 interface mainProps {
   onInitAdminUsers: any,
