@@ -1,12 +1,12 @@
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import React from 'react';
+import React, { useEffect } from 'react';
 
-interface FormButtonProps {
+interface FormActionButtonProps {
   onCancel: () => void;
 }
 
-export default (props: FormButtonProps) => {
+const FormActionButtons = React.memo((props: FormActionButtonProps) => {
   const { onCancel } = props;
 
   return (
@@ -23,4 +23,6 @@ export default (props: FormButtonProps) => {
       </Grid>
     </Grid>
   );
-};
+});
+
+export default FormActionButtons;

@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { EventSeat } from '@material-ui/icons';
 import { ServiceFormInterface } from '../../types/types';
 import { useStyles } from './style';
-import FormButtons from '../../../uiComponents/FormButtons';
+import FormActionButtons from '../../../uiComponents/forms/FormActionButtons';
 import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../../route/admin/admin-routes';
 
@@ -92,7 +92,7 @@ const SettingsServiceForm = (props : SettingsServiceEditProps) => {
               onChange={(e) => setPrice(e.target.value)}
             />
           </Grid>
-          <FormButtons onCancel={onCancel} />
+          <FormActionButtons onCancel={onCancel} />
         </Grid>
       </form>
     </Container>

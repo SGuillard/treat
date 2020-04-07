@@ -1,42 +1,25 @@
 import React, {
-  useEffect,
+  useCallback,
   useReducer,
   useState,
 } from 'react';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { Switch } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { AdminUserFormInterface, AdminUserInterface } from '../../types/types';
 import { addEditAdminUser } from '../../../store/actions/adminUsersActions';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { useStyles } from './style';
-import FormButtons from '../../../uiComponents/FormButtons';
-
-interface SettingsAdminUserFormAddProps {
-  addEditTeamMember: (User: AdminUserInterface) => (payload: any) => void;
-  history: any
-  params?: object;
-  adminUser?: AdminUserFormInterface;
-}
-
-interface reducerPayloadType {
-  name: string,
-  value: any
-}
-
-const initialArg = {
-  firstName: '',
-  lastName: '',
-  active: '',
-};
+import FormActionButtons from '../../../uiComponents/forms/FormActionButtons';
+import { reducerPayloadType, SettingsAdminUserFormAddProps } from './types';
+import { initialArg } from './admin-users-constants';
+import { FormTextField } from '../../../uiComponents/forms/FormTextField';
+import { FormTitle } from '../../../uiComponents/forms/FormTitle';
+import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField';
+import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage';
 
 const validateForm = (store: AdminUserFormInterface) => true;
 
@@ -44,46 +27,6 @@ const reducer = (state: any, { name, value }: reducerPayloadType) => ({
   ...state,
   [name]: value,
 });
-
-const RenderTitle = React.memo(({ value }: {value: any}) => (
-  <Typography component="h1" variant="h5">
-    {`${value ? 'Edit' : 'Add'} Team Member`}
-  </Typography>
-));
-
-const RenderTextField = React.memo(({ onChange, value, fieldName, label }: any) => (
-  <Grid item xs={12} sm={6}>
-    <TextField
-      required
-      id={fieldName}
-      name={fieldName}
-      label={label}
-      fullWidth
-      value={value}
-      onChange={onChange}
-    />
-  </Grid>
-));
-
-const RenderSwitchField = React.memo(({ value, onChange }: any) => (
-  <Grid item xs={12} sm={12}>
-    This member can take appointment
-    <Switch
-      edge="end"
-      onChange={onChange}
-      checked={value}
-      name="active"
-      value={value}
-      inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
-    />
-  </Grid>
-));
-
-const RenderAvatar = React.memo(({ className }: {className: string}) => (
-  <Avatar className={className}>
-    <AccountCircleIcon />
-  </Avatar>
-));
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
@@ -98,13 +41,14 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (validateForm(store)) {
+      // If edit mode, add user id for Back end
       if (adminUser) dispatch({ name: 'id', value: adminUser.id });
       addEditTeamMember(store);
       setRedirect(true);
     }
   };
 
-  const onCancel = () => setRedirect(true);
+  const onCancel = useCallback(() => setRedirect(true), []);
 
   const onChangeActionString = (e: React.ChangeEvent<HTMLInputElement>) => dispatch(e.target);
 
@@ -117,13 +61,13 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <form className={classes.paper} onSubmit={handleSubmit}>
-        <RenderAvatar className={classes.avatar} />
-        <RenderTitle value={adminUser} />
+        <FormTitleImage className={classes.avatar} />
+        <FormTitle title={`${adminUser ? 'Add' : 'Edit'} Team Member`} />
         <Grid container spacing={3} style={{ padding: '15px' }}>
-          <RenderTextField onChange={onChangeActionString} value={firstName} fieldName="firstName" label="First Name" />
-          <RenderTextField onChange={onChangeActionString} value={lastName} fieldName="lastName" label="Last Name" />
-          <RenderSwitchField onChange={onChangeActionToggle} value={active} />
-          <FormButtons onCancel={onCancel} />
+          <FormTextField onChange={onChangeActionString} value={firstName} fieldName="firstName" label="First Name" />
+          <FormTextField onChange={onChangeActionString} value={lastName} fieldName="lastName" label="Last Name" />
+          <FormSwitchField onChange={onChangeActionToggle} value={active} />
+          <FormActionButtons onCancel={onCancel} />
         </Grid>
       </form>
     </Container>
