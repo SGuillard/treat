@@ -10,7 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
 import { AdminUserFormInterface, AdminUserInterface } from '../../types/types';
-import { addEditAdminUser } from '../../../store/actions/adminUsersActions';
+import { addEditAdminUserAction } from '../../../store/actions/adminUsersActions';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { useStyles } from './style';
 import FormActionButtons from '../../../uiComponents/forms/FormActionButtons';
@@ -20,6 +20,10 @@ import { FormTextField } from '../../../uiComponents/forms/FormTextField';
 import { FormTitle } from '../../../uiComponents/forms/FormTitle';
 import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField';
 import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage';
+import { RequestMethod } from '../../../types';
+import makeRequest from '../../../utils/apiRequest';
+import API from '../../../API';
+import { handleInitialisationRequestErrors } from '../../../store/actions/helper-actions';
 
 const validateForm = (store: AdminUserFormInterface) => true;
 
@@ -43,8 +47,14 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
     if (validateForm(store)) {
       // If edit mode, add user id for Back end
       if (adminUser) dispatch({ name: 'id', value: adminUser.id });
-      addEditTeamMember(store);
-      setRedirect(true);
+      const httpMethod = adminUser ? RequestMethod.PUT : RequestMethod.POST;
+      const params = adminUser ? `/${adminUser.id}` : '';
+      makeRequest(httpMethod,
+        `${API.ADMIN_USER}${params}`, store).then((response: any) => {
+        addEditTeamMember(response);
+        setRedirect(true);
+      })
+        .catch((e) => console.log(e));
     }
   };
 
@@ -80,8 +90,8 @@ const MapStateToProps = (state: any, ownProps: any) => ({
   adminUser: state.adminUsers.list.find((adminUser: any) => adminUser.id === Number(ownProps.params.id)),
 });
 
-const MapDispatchToProps = (dispatch: any) => bindActionCreators({
-  addEditTeamMember: (user: AdminUserInterface) => addEditAdminUser(user),
-}, dispatch);
+const MapDispatchToProps = (dispatch: any) => ({
+  addEditTeamMember: (user: AdminUserInterface) => dispatch(addEditAdminUserAction(user)),
+});
 
 export default connect(MapStateToProps, MapDispatchToProps)(SettingsAdminUserForm);

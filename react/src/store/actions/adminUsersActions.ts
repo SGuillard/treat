@@ -33,12 +33,3 @@ export const initAdminUsers = () => (dispatch: any) => {
     setAdminUsersAction(response),
   )).catch((e) => handleInitialisationRequestErrors(e, dispatch));
 };
-
-export const addEditAdminUser = (payload: any) => (dispatch: any) => {
-  const httpMethod = payload.id ? RequestMethod.PUT : RequestMethod.POST;
-  const params = payload.id ? `/${payload.id}` : '';
-  makeRequest(httpMethod,
-    `${API.ADMIN_USER}${params}`, payload).then((response: any) => dispatch(
-    addEditAdminUserAction(response),
-  )).catch((e) => handleInitialisationRequestErrors(e, dispatch));
-};
