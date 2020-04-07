@@ -1,7 +1,7 @@
 import axios, { Method } from 'axios';
-import { getToken, redirectToLoginPage } from '../views/login/api-login';
 import API from '../API';
 import { castObject, castObjectList, castOptions } from '../helpers/castObjectToCamelOrSnakeCase';
+import { getToken, redirectToLoginPage } from '../views/login/login-helper';
 
 const makeRequest = (method: Method, slug: string, payload: {} = {}) => new Promise((resolve, reject) => {
   const data = castObject(payload, castOptions.ToSnake);
@@ -15,7 +15,9 @@ const makeRequest = (method: Method, slug: string, payload: {} = {}) => new Prom
   })
     // .then((response: any) => resolve(response.data.data))
     .then((response: any) => resolve(castObjectList(response.data.data, castOptions.ToCamel)))
-    .catch(() => reject(redirectToLoginPage()));
+    .catch((e) => {
+      reject(e);
+    });
 });
 
 export default makeRequest;

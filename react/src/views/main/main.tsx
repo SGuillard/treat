@@ -1,33 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import BottomMenu from './bottom-menu';
 import ContentPageRouter from '../../route/admin/content-page-router';
-import { initAdminUsers, setLoginAction } from '../../store/actions/adminUsersActions';
+import { initAdminUsers } from '../../store/actions/adminUsersActions';
 import { initServiceList } from '../../store/actions/ServicesActions';
 import AdminROUTES from '../../route/admin/admin-routes';
+import { getToken } from '../login/login-helper';
 
 interface mainProps {
   onInitAdminUsers: any,
   onInitService: any,
   adminUsers: any,
-  isLogged: boolean,
-  setLogin: Function,
+  isLogged: boolean
 }
 
-const Main = ({ onInitAdminUsers, onInitService, adminUsers, setLogin, isLogged = false }: mainProps) => {
+const Main = ({ onInitAdminUsers, onInitService, adminUsers, isLogged = true }: mainProps) => {
   useEffect(() => {
     onInitAdminUsers();
     onInitService();
   }, [onInitAdminUsers, onInitService]);
 
-  if (!isLogged) {
-    if (localStorage.getItem('token')) {
-      setLogin(true);
-    } else {
-      return <Redirect push to={AdminROUTES.LOGIN.path} />;
-    }
-  }
+  if (!isLogged) return <Redirect push to={AdminROUTES.LOGIN.path} />;
 
   return adminUsers ? (
     <div>
@@ -39,13 +33,12 @@ const Main = ({ onInitAdminUsers, onInitService, adminUsers, setLogin, isLogged 
 
 const mapStateToProps = (state: any) => ({
   adminUsers: state.adminUsers,
-  isLogged: state.adminUsers && state.adminUsers.isLogged,
+  isLogged: state.global.isLogged,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   onInitAdminUsers: () => dispatch(initAdminUsers()),
   onInitService: () => dispatch(initServiceList()),
-  setLogin: (isLogged: boolean) => setLoginAction(isLogged),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -11,11 +11,9 @@ import Container from '@material-ui/core/Container';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import { bindActionCreators } from 'redux';
 import EditIcon from '@material-ui/icons/Edit';
 import { Redirect } from 'react-router-dom';
 import { AdminUserInterface } from '../../types/types';
-import { statusAdminUser } from '../../../store/actions/adminUsersActions';
 import AdminROUTES from '../../../route/admin/admin-routes';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -28,7 +26,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface SettingsAdminUserListProps {
   adminUsers: AdminUserInterface[],
-  changeStatusTeamMember: any
 }
 
 const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
@@ -82,8 +79,5 @@ const mapStateToProps = (state: any) => ({
   adminUsers: state.adminUsers.list,
 });
 
-const MapDispatchToProps = (dispatch: any) => bindActionCreators({
-  changeStatusTeamMember: (userId: any) => statusAdminUser({ adminUserId: userId }),
-}, dispatch);
 
-export default connect(mapStateToProps, MapDispatchToProps)(SettingsAdminUserList);
+export default connect(mapStateToProps)(SettingsAdminUserList);

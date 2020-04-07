@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,11 +14,8 @@ import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Link } from '@material-ui/core';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { LoginApi } from './api-login';
 import API from '../../API';
-import { SET_LOGIN_ACTION } from '../../store/actions/constants';
-import { setLoginAction, statusAdminUser } from '../../store/actions/adminUsersActions';
-import { bindActionCreators } from 'redux';
+import { setLoginAction } from '../../store/actions/globalActions';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -66,8 +63,12 @@ const loginApi = async (login: any, password: any) => {
   }
 };
 
-const Login = (props: any) => {
-  const { setLogin, isLogged } = props;
+interface LoginProps {
+  setLogin: Function,
+  isLogged: boolean
+}
+
+const Login = ({ setLogin, isLogged }: LoginProps) => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -80,8 +81,6 @@ const Login = (props: any) => {
     const validateForm = () => email.length > 0 && password.length > 0;
 
     if (validateForm()) {
-      setLogin(true);
-
       loginApi(email, password).then((response) => {
         if (!response) {
           setErrorCredentials(true);
@@ -89,7 +88,8 @@ const Login = (props: any) => {
           localStorage.setItem('token', response.data.accessToken);
           setLogin(true);
         }
-      });
+      })
+        .catch((e) => console.log(e));
     } else {
       setErrorValidation(true);
     }
@@ -183,12 +183,12 @@ const Login = (props: any) => {
   return isLogged ? <Redirect to="dashboard" /> : form();
 };
 
-const MapDispatchToProps = (dispatch: any) => bindActionCreators({
-  setLogin: (isLogged: boolean) => setLoginAction(isLogged),
-}, dispatch);
-
 const MapStateToProps = (state: any) => ({
-  isLogged: state.adminUsers && state.adminUsers.isLogged,
+  isLogged: state.global.isLogged,
+});
+
+const MapDispatchToProps = (dispatch: any) => ({
+  setLogin: () => dispatch(setLoginAction(true)),
 });
 
 export default connect(MapStateToProps, MapDispatchToProps)(Login);

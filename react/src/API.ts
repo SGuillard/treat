@@ -4,7 +4,6 @@ const API = {
   REGISTRATION: '/register',
   ADMIN_USER: '/adminUser',
   SERVICE_ALL: '/services',
-  TEAM_STATUS: '/jjk'
 };
 
 export default API;
