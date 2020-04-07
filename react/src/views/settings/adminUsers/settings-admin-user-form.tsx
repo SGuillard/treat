@@ -23,20 +23,15 @@ import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage';
 import { RequestMethod } from '../../../types';
 import makeRequest from '../../../utils/apiRequest';
 import API from '../../../API';
-import { handleInitialisationRequestErrors } from '../../../store/actions/helper-actions';
+import { formReducer } from '../../../utils/forms/formReducer';
 
 const validateForm = (store: AdminUserFormInterface) => true;
-
-const reducer = (state: any, { name, value }: reducerPayloadType) => ({
-  ...state,
-  [name]: value,
-});
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
   const { adminUser, addEditTeamMember } = props;
 
-  const [store, dispatch] = useReducer(reducer, adminUser ?? initialArg);
+  const [store, dispatch] = useReducer(formReducer, adminUser ?? initialArg);
 
   const { firstName, lastName, active } = store;
 
