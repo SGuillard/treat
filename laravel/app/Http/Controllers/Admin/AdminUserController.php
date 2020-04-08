@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\AdminUser;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateAdminUserRequest;
 use App\Http\Resources\Admin\AdminUserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -64,7 +65,7 @@ class AdminUserController extends Controller
      * @param AdminUser $adminUser
      * @return AnonymousResourceCollection
      */
-    public function update(Request $request, AdminUser $adminUser)
+    public function update(UpdateAdminUserRequest $request, AdminUser $adminUser)
     {
         $adminUser->update($request->input());
         return $this->getAdminUserList();
