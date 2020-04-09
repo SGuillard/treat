@@ -19,87 +19,32 @@ import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage';
 import { RequestMethod } from '../../../types';
 import API from '../../../API';
 import { formReducer } from '../../../utils/forms/formReducer';
-import makeRequest from '../../../utils/api/apiRequest';
+import makeApiRequest, { errorObjectInterface, submitRequest } from '../../../utils/api/apiRequest';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage';
 import { castArrayList, castOptions } from '../../../utils/api/castObjectToCamelOrSnakeCase';
-
-const validateForm = (store: AdminUserFormInterface) => true;
-
-interface errorObjectInterface {
-  // Key is only used as a key when mapping over errors
-  key: number,
-  error: any,
-}
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
   const { adminUser, addEditTeamMember } = props;
-
   const [store, dispatch] = useReducer(formReducer, adminUser ?? initialArg);
-
   const { firstName, lastName, active } = store;
-
   const [redirect, setRedirect] = useState<boolean>(false);
-
-  const [errors, setErrors] = useState<errorObjectInterface[] | string>('');
+  const [errors, setErrors] = useState<errorObjectInterface[]>([]);
   const [fieldErrors, setFieldErrors] = useState<any>([]);
-
-  useEffect(() => {
-    console.log('init');
-    return () => {
-      console.log('destroy');
-    };
-  });
-
-  const handleErrors = (e: any) => {
-    switch (e.status) {
-      case 403:
-        setErrors(e.data.message);
-        break;
-      case 422:
-        const backendErrors = [e.data.errors];
-        const castedErrorFields = castArrayList(backendErrors, castOptions.ToCamel);
-        const errorMessages: errorObjectInterface[] = [];
-        castedErrorFields.map((fields:any, key: any) => {
-          const fieldNamesWithErrors = Object.keys(fields);
-          setFieldErrors(fieldNamesWithErrors);
-          Object.values(fields).map((fieldErrorMessages: any, index: number) => {
-            fieldErrorMessages.map((message: any) => {
-              errorMessages.push({
-                error: message,
-                key: parseInt(`${key}${index}`, 10),
-              });
-            });
-          });
-        });
-        setErrors(errorMessages);
-        break;
-      default:
-        setErrors('We encounter some issues with your request, please contact support');
-    }
-  };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (validateForm(store)) {
-      // If edit mode, add user id for Back end
-      if (adminUser) dispatch({ name: 'id', value: adminUser.id });
-      const httpMethod = adminUser ? RequestMethod.PUT : RequestMethod.POST;
-      const params = adminUser ? `/${adminUser.id}` : '';
-      makeRequest(httpMethod,
-        `${API.ADMIN_USER}${params}`, store).then((response: any) => {
-        addEditTeamMember(response);
-        setRedirect(false);
-      })
-        .catch((e) => {
-          handleErrors(e.response);
-        });
-    }
+    submitRequest(e, API.ADMIN_USER, store, adminUser).then((response: any) => {
+      addEditTeamMember(response);
+      setRedirect(false);
+    }).catch(({ errorMessages, errorFields }: any) => {
+      setFieldErrors(errorFields);
+      setErrors(errorMessages);
+    });
   };
 
   const onCancel = useCallback(() => setRedirect(true), []);
   const onChangeString = useCallback((e: React.ChangeEvent<HTMLInputElement>) => dispatch(e.target), []);
-
   const onChangeToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVal = e.target.value !== 'true';
     dispatch({ name: e.target.name, value: newVal });

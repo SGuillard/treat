@@ -1,7 +1,7 @@
 import {
   SET_SERVICE_ACTION,
 } from './constants';
-import makeRequest from '../../utils/api/apiRequest';
+import makeApiRequest from '../../utils/api/apiRequest';
 import API from '../../API';
 import { RequestMethod } from '../../types';
 import { ServiceInterface } from '../../views/types/types';
@@ -22,5 +22,5 @@ export const setServiceAction = (service: ServiceInterface[]) => ({
 });
 
 export const initServiceList = () => (dispatch: any) => {
-  makeRequest(RequestMethod.GET, `${API.SERVICE_ALL}`).then((response: any) => dispatch(setServiceAction(response)));
+  makeApiRequest(RequestMethod.GET, `${API.SERVICE_ALL}`).then((response: any) => dispatch(setServiceAction(response)));
 };

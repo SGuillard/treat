@@ -3,7 +3,7 @@ import {
   SET_ADMIN_USER_ACTION,
 } from './constants';
 import { AdminUserInterface } from '../../views/types/types';
-import makeRequest from '../../utils/api/apiRequest';
+import makeApiRequest from '../../utils/api/apiRequest';
 import API from '../../API';
 import { RequestMethod } from '../../types';
 import { handleInitialisationRequestErrors } from './helper-actions';
@@ -29,7 +29,7 @@ export const setAdminUsersAction = (users: AdminUserInterface[]) => ({
 });
 
 export const initAdminUsers = () => (dispatch: any) => {
-  makeRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: any) => dispatch(
+  makeApiRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: any) => dispatch(
     setAdminUsersAction(response),
   )).catch((e) => handleInitialisationRequestErrors(e, dispatch));
 };

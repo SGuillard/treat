@@ -24,8 +24,8 @@ class UpdateAdminUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|array',
-            'last_name' => 'required',
+//            'first_name' => 'required|array',
+//            'last_name' => 'required',
         ];
     }
 }
