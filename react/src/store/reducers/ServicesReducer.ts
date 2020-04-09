@@ -2,7 +2,7 @@ import {
   ADD_SERVICE_ACTION,
   SET_SERVICE_ACTION,
 } from '../actions/constants';
-import { updateObject } from '../actions/adminUsersActions';
+import updateObject from '../../utils/common/updateObject';
 
 const setServiceListReducer = (state: any = null, action: any) => updateObject(state, {
   list: action.payload,

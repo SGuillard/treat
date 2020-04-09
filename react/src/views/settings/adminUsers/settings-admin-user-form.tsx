@@ -16,12 +16,10 @@ import { FormTextField } from '../../../uiComponents/forms/FormTextField';
 import { FormTitle } from '../../../uiComponents/forms/FormTitle';
 import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField';
 import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage';
-import { RequestMethod } from '../../../types';
 import API from '../../../API';
 import { formReducer } from '../../../utils/forms/formReducer';
-import makeApiRequest, { errorObjectInterface, submitRequest } from '../../../utils/api/apiRequest';
+import { errorObjectInterface, submitRequest } from '../../../utils/api/apiRequest';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage';
-import { castArrayList, castOptions } from '../../../utils/api/castObjectToCamelOrSnakeCase';
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
@@ -36,7 +34,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
     e.preventDefault();
     submitRequest(e, API.ADMIN_USER, store, adminUser).then((response: any) => {
       addEditTeamMember(response);
-      setRedirect(false);
+      setRedirect(true);
     }).catch(({ errorMessages, errorFields }: any) => {
       setFieldErrors(errorFields);
       setErrors(errorMessages);

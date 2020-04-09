@@ -6,7 +6,7 @@ import { AdminUserInterface } from '../../views/types/types';
 import makeApiRequest from '../../utils/api/apiRequest';
 import API from '../../API';
 import { RequestMethod } from '../../types';
-import { handleInitialisationRequestErrors } from './helper-actions';
+import { handleInitialisationRequestErrors } from './globalActions';
 
 interface AdminUserInterfacePayload {
   type: string,
@@ -16,11 +16,6 @@ interface AdminUserInterfacePayload {
 export const addEditAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => ({
   type: ADD_EDIT_ADMIN_USER_ACTION,
   payload: user,
-});
-
-export const updateObject = (oldObject: any, updatedProperties: any) => ({
-  ...oldObject,
-  ...updatedProperties,
 });
 
 export const setAdminUsersAction = (users: AdminUserInterface[]) => ({

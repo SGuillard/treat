@@ -3,9 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
 export const FormTextField = React.memo(({ onChange, value, fieldName, label, errorFields }: any) => {
-  useEffect(() => {
-    console.log(fieldName);
-  });
 
   return (
     <Grid item xs={12} sm={6}>
