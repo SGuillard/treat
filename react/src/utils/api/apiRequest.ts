@@ -1,6 +1,6 @@
 import axios, { Method } from 'axios';
 import API from '../../API';
-import { castObject, castObjectList, castOptions } from './castObjectToCamelOrSnakeCase';
+import { castObject, castArrayList, castOptions } from './castObjectToCamelOrSnakeCase';
 
 const makeRequest = (method: Method, slug: string, payload: {} = {}) => new Promise((resolve, reject) => {
   const data = castObject(payload, castOptions.ToSnake);
@@ -13,7 +13,7 @@ const makeRequest = (method: Method, slug: string, payload: {} = {}) => new Prom
     data,
   })
     // .then((response: any) => resolve(response.data.data))
-    .then((response: any) => resolve(castObjectList(response.data.data, castOptions.ToCamel)))
+    .then((response: any) => resolve(castArrayList(response.data.data, castOptions.ToCamel)))
     .catch((e) => {
       reject(e);
     });
