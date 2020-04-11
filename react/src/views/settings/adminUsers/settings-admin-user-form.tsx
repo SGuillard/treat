@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, { useCallback, useReducer, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { AdminUserFormInterface, AdminUserInterface } from '../../types/types';
+import { AdminUserInterface } from '../../types/types';
 import { addEditAdminUserAction } from '../../../store/actions/adminUsersActions';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { useStyles } from './style';
@@ -28,11 +28,11 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const { firstName, lastName, active } = store;
   const [redirect, setRedirect] = useState<boolean>(false);
   const [errors, setErrors] = useState<errorObjectInterface[]>([]);
-  const [fieldErrors, setFieldErrors] = useState<any>([]);
+  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    submitRequest(e, API.ADMIN_USER, store, adminUser).then((response: any) => {
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    submitRequest(event, API.ADMIN_USER, store, adminUser).then((response: any) => {
       addEditTeamMember(response);
       setRedirect(true);
     }).catch(({ errorMessages, errorFields }: any) => {

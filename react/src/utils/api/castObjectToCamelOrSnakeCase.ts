@@ -29,7 +29,7 @@ export const castObject = (obj: any, type: castOptions) => {
 
 // Cast an array keys to camelCase or snake_case. Useful for mapping between
 // back end and front end
-export const castArrayList = (payload: any, type: castOptions) => {
+export const castArrayList = (payload: object[], type: castOptions): object[] => {
   const castedArrayList = [];
   for (let i = 0; i < payload.length; i += 1) {
     const obj = payload[i];

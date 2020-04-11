@@ -9,7 +9,7 @@ export interface AdminUserInterface extends AdminUserModel {
 }
 
 export interface AdminUserFormInterface extends AdminUserModel {
-  id?: number | null;
+  id?: number;
 }
 
 export interface ServiceModel {
