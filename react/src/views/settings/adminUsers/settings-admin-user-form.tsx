@@ -1,11 +1,11 @@
 import React, { useCallback, useReducer, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { AdminUserInterface } from '../../types/types';
+import { AdminUserFormInterface, AdminUserInterface } from '../../types/types';
 import { addEditAdminUserAction } from '../../../store/actions/adminUsersActions';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { useStyles } from './style';
@@ -18,34 +18,45 @@ import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField';
 import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage';
 import API from '../../../API';
 import { formReducer } from '../../../utils/forms/formReducer';
-import { errorObjectInterface, submitRequest } from '../../../utils/api/apiRequest';
+import {
+  errorHandlerResponseInterface,
+  errorObjectInterface,
+  submitRequest
+} from '../../../utils/api/apiRequest';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage';
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
-  const { adminUser, addEditTeamMember } = props;
-  const [store, dispatch] = useReducer(formReducer, adminUser ?? initialArg);
-  const { firstName, lastName, active } = store;
+  const { params } = props;
+  const adminUser = useSelector((state: any) => state.adminUsers.list.find((adminUserState: AdminUserInterface) => adminUserState.id === Number(
+    params && params.id,
+  )));
+  const dispatchReduxReducer = useDispatch();
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer,
+    adminUser ?? initialArg);
+  const { firstName, lastName, active } = componentState;
   const [redirect, setRedirect] = useState<boolean>(false);
   const [errors, setErrors] = useState<errorObjectInterface[]>([]);
   const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    submitRequest(event, API.ADMIN_USER, store, adminUser).then((response: any) => {
-      addEditTeamMember(response);
+    submitRequest(event, API.ADMIN_USER, componentState, adminUser).then((response: any) => {
+      dispatchReduxReducer(addEditAdminUserAction(response));
       setRedirect(true);
-    }).catch(({ errorMessages, errorFields }: any) => {
+    }).catch(({ errorMessages, errorFields }: errorHandlerResponseInterface) => {
       setFieldErrors(errorFields);
       setErrors(errorMessages);
     });
   };
 
   const onCancel = useCallback(() => setRedirect(true), []);
-  const onChangeString = useCallback((e: React.ChangeEvent<HTMLInputElement>) => dispatch(e.target), []);
+  const onChangeString = useCallback((e: React.ChangeEvent<HTMLInputElement>) => dispatchComponentReducer(
+    e.target,
+  ), []);
   const onChangeToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVal = e.target.value !== 'true';
-    dispatch({ name: e.target.name, value: newVal });
+    dispatchComponentReducer({ name: e.target.name, value: newVal });
   };
 
   const getForm = () => (
@@ -56,8 +67,20 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
         <FormTitle title={`${adminUser ? 'Add' : 'Edit'} Team Member`} />
         <FormErrorMessage show={errors.length > 0} errors={errors} />
         <Grid container spacing={3} style={{ padding: '15px' }}>
-          <FormTextField onChange={onChangeString} errorFields={fieldErrors} value={firstName} fieldName="firstName" label="First Name" />
-          <FormTextField onChange={onChangeString} errorFields={fieldErrors} value={lastName} fieldName="lastName" label="Last Name" />
+          <FormTextField
+            onChange={onChangeString}
+            errorFields={fieldErrors}
+            value={firstName}
+            fieldName="firstName"
+            label="First Name"
+          />
+          <FormTextField
+            onChange={onChangeString}
+            errorFields={fieldErrors}
+            value={lastName}
+            fieldName="lastName"
+            label="Last Name"
+          />
           <FormSwitchField onChange={onChangeToggle} value={active} />
           <FormActionButtons onCancel={onCancel} />
         </Grid>
@@ -68,12 +91,4 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   return redirect ? <Redirect push to={AdminROUTES.SETTINGS.ADMIN_USER_LIST.path} /> : getForm();
 };
 
-const MapStateToProps = (state: any, ownProps: any) => ({
-  adminUser: state.adminUsers.list.find((adminUser: any) => adminUser.id === Number(ownProps.params.id)),
-});
-
-const MapDispatchToProps = (dispatch: any) => ({
-  addEditTeamMember: (user: AdminUserInterface) => dispatch(addEditAdminUserAction(user)),
-});
-
-export default connect(MapStateToProps, MapDispatchToProps)(SettingsAdminUserForm);
+export default SettingsAdminUserForm;

@@ -8,7 +8,7 @@ import { AdminUserFormInterface } from '../../views/types/types';
 export interface errorObjectInterface {
   // Key is only used as an index for loop through component
   key: number,
-  error: any,
+  error: string,
 }
 
 interface serverResponseDataInterface {
@@ -33,6 +33,11 @@ interface serverErrorInterface {
   }
 }
 
+export interface errorHandlerResponseInterface {
+  errorFields: string[],
+  errorMessages: errorObjectInterface[],
+}
+
 export const makeApiRequest = (method: Method, slug: string, payload: {} = {}) => new Promise<object[]>((resolve, reject) => {
   const data = castObject(payload, castOptions.ToSnake);
   const instance = axios.create({
@@ -50,7 +55,7 @@ export const makeApiRequest = (method: Method, slug: string, payload: {} = {}) =
     });
 });
 
-const handleErrors = (serverError: serverErrorInterface) => {
+const handleErrors = (serverError: serverErrorInterface): errorHandlerResponseInterface => {
   let errorFields: string[] = [];
   let errorMessages: errorObjectInterface[] = [];
 

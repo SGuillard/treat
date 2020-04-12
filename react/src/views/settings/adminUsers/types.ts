@@ -1,9 +1,7 @@
-import { AdminUserFormInterface, AdminUserInterface } from '../../types/types';
-
 export interface SettingsAdminUserFormAddProps {
-  addEditTeamMember: (User: AdminUserInterface) => (payload: any) => void;
-  params?: object;
-  adminUser?: AdminUserFormInterface;
+  params?: {
+    id?: number,
+  };
 }
 
 export interface reducerPayloadType {
