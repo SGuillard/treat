@@ -11,10 +11,12 @@ import { useStyles } from './style';
 import FormActionButtons from '../../../uiComponents/forms/FormActionButtons';
 import { SettingsAdminUserFormAddProps } from './types';
 import { initialArg } from './admin-users-constants';
-import { FormTextField } from '../../../uiComponents/forms/FormTextField';
+import {
+  FormTextField
+} from '../../../uiComponents/forms/FormTextField/FormTextField';
 import { FormTitle } from '../../../uiComponents/forms/FormTitle';
 import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField';
-import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage';
+import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
 import API from '../../../API';
 import { formReducer } from '../../../utils/forms/formReducer';
 import {
@@ -25,6 +27,7 @@ import {
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage';
 import { ReduxState } from '../../../store/types';
 import { setAdminUsersAction } from '../../../store/actions/adminUsersActions';
+import { FormOnChangeFunctionInterface } from '../../../uiComponents/forms/FormTextField/type';
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
@@ -52,10 +55,10 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   };
 
   const onCancel = useCallback(() => setRedirect(true), []);
-  const onChangeString = useCallback((e: React.ChangeEvent<HTMLInputElement>) => dispatchComponentReducer(
+  const onChangeString = useCallback<FormOnChangeFunctionInterface>((e: React.ChangeEvent<HTMLInputElement>): void => dispatchComponentReducer(
     e.target,
   ), []);
-  const onChangeToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeToggle: FormOnChangeFunctionInterface = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newVal = e.target.value !== 'true';
     dispatchComponentReducer({ name: e.target.name, value: newVal });
   };
