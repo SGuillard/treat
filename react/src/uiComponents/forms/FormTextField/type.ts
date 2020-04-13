@@ -8,4 +8,5 @@ export interface FormTextFieldProps {
   fieldName: string,
   label: string,
   errorFields: string[],
+  type?: string,
 }

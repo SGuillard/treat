@@ -74,7 +74,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
       <CssBaseline />
       <form className={classes.paper} onSubmit={handleSubmit}>
         <FormTitleImage><AccountCircleIcon /></FormTitleImage>
-        <FormTitle title={`${adminUser ? 'Add' : 'Edit'} Team Member`} />
+        <FormTitle title={`${adminUser ? 'Edit' : 'Add'} Team Member`} />
         <FormErrorMessage show={errors.length > 0} errors={errors} />
         <Grid container spacing={3} style={{ padding: '15px' }}>
           <FormTextField

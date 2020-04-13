@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { FormTextFieldProps } from './type';
 
-export const FormTextField = React.memo(({ onChange, value, fieldName, label, errorFields }: FormTextFieldProps) => (
+export const FormTextField = React.memo(({ onChange, value, fieldName, label, errorFields, type = 'text' }: FormTextFieldProps) => (
   <Grid item xs={12} sm={6}>
     <TextField
       // required
@@ -14,6 +14,7 @@ export const FormTextField = React.memo(({ onChange, value, fieldName, label, er
       value={value}
       onChange={onChange}
       error={errorFields.includes(fieldName)}
+      type={type}
     />
   </Grid>
 ));
