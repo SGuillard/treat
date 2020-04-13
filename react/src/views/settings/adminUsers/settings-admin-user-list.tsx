@@ -15,6 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { Redirect } from 'react-router-dom';
 import { AdminUserInterface } from '../../types/types';
 import AdminROUTES from '../../../route/admin/admin-routes';
+import { ReduxState } from '../../../store/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -75,7 +76,7 @@ const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
   return redirect ? <Redirect push to={redirectUrl} /> : getView();
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: ReduxState) => ({
   adminUsers: state.adminUsers.list,
 });
 

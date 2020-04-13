@@ -1,5 +1,4 @@
 import {
-  ADD_EDIT_ADMIN_USER_ACTION,
   SET_ADMIN_USER_ACTION,
 } from './constants';
 import { AdminUserInterface } from '../../views/types/types';
@@ -8,11 +7,6 @@ import API from '../../API';
 import { RequestMethod } from '../../types';
 import { handleInitialisationRequestErrors } from './globalActions';
 import { AdminUserReducerActionPayload } from '../types';
-
-export const addEditAdminUserAction = (user: AdminUserInterface[]): AdminUserReducerActionPayload => ({
-  type: ADD_EDIT_ADMIN_USER_ACTION,
-  payload: user,
-});
 
 export const setAdminUsersAction = (users: AdminUserInterface[]): AdminUserReducerActionPayload => ({
   type: SET_ADMIN_USER_ACTION,

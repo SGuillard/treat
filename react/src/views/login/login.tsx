@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { setLoginAction } from '../../store/actions/globalActions';
 import { loginApi } from './login-helper';
 import { useStyles } from './style';
+import { GlobalStateInterface, ReduxState } from '../../store/types';
 
 interface LoginProps {
   setLogin: Function,
@@ -136,7 +137,7 @@ const Login = ({ setLogin, isLogged }: LoginProps) => {
   return isLogged ? <Redirect to="dashboard" /> : form();
 };
 
-const MapStateToProps = (state: any) => ({
+const MapStateToProps = (state: ReduxState) => ({
   isLogged: state.global.isLogged,
 });
 

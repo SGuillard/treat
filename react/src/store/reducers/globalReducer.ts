@@ -9,7 +9,7 @@ const initialState = {
   isLogged: !!getStorageToken,
 };
 
-const setLoggin = (state: any, action: GlobalReducerActionInterface) => updateObject(state, {
+const setLoggin = (state: GlobalStateInterface, action: GlobalReducerActionInterface) => updateObject(state, {
   isLogged: action.payload,
 });
 

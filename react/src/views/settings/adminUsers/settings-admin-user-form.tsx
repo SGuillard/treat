@@ -6,7 +6,6 @@ import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { AdminUserInterface } from '../../types/types';
-import { addEditAdminUserAction } from '../../../store/actions/adminUsersActions';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { useStyles } from './style';
 import FormActionButtons from '../../../uiComponents/forms/FormActionButtons';
@@ -25,6 +24,7 @@ import {
 } from '../../../utils/api/apiRequest';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage';
 import { ReduxState } from '../../../store/types';
+import { setAdminUsersAction } from '../../../store/actions/adminUsersActions';
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
@@ -43,7 +43,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     submitRequest(event, API.ADMIN_USER, componentState, adminUser).then((response: object[]) => {
-      dispatchReduxReducer(addEditAdminUserAction(response as AdminUserInterface[]));
+      dispatchReduxReducer(setAdminUsersAction(response as AdminUserInterface[]));
       setRedirect(true);
     }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
       setFieldErrors(errorFields);

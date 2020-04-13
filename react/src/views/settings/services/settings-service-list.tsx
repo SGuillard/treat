@@ -13,6 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { ServiceInterface } from '../../types/types';
+import { ReduxState } from '../../../store/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -70,7 +71,7 @@ const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
   return redirect ? <Redirect push to={redirectUrl} /> : getView();
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: ReduxState) => ({
   serviceList: state.services.list,
 });
 

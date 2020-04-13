@@ -6,6 +6,7 @@ import ContentPageRouter from '../../route/admin/content-page-router';
 import { initAdminUsers } from '../../store/actions/adminUsersActions';
 import { initServiceList } from '../../store/actions/ServicesActions';
 import AdminROUTES from '../../route/admin/admin-routes';
+import { ReduxState } from '../../store/types';
 
 interface mainProps {
   onInitAdminUsers: any,
@@ -30,7 +31,7 @@ const Main = ({ onInitAdminUsers, onInitService, adminUsers, isLogged = true }: 
   ) : (<p>Loading...</p>);
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: ReduxState) => ({
   adminUsers: state.adminUsers,
   isLogged: state.global.isLogged,
 });
