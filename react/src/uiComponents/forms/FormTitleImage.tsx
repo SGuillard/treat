@@ -1,19 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
+import { useStyles } from './style';
 
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-}));
-
-export const FormTitleImage = React.memo((props: any) => {
+export const FormTitleImage = React.memo(({ children }: {children: ReactElement}) => {
   const classes = useStyles();
   return (
     <Avatar className={classes.avatar}>
-      {props.children}
+      {children}
     </Avatar>
   );
 });
