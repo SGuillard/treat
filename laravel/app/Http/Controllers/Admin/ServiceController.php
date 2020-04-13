@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Resources\Admin\ServiceResource;
 use App\Service;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
@@ -23,8 +25,8 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -38,7 +40,7 @@ class ServiceController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -48,28 +50,33 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Service $service
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateServiceRequest $request, Service $service)
     {
-        //
+        $service->update($request->input());
+        return $this->getServiceList();
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
         //
     }
 
-    private function getSalon()
-    {
+    /**
+     * Get salon for authenticated user
+     *
+     * @return string
+     */
+    private function getSalon() {
         $user = Auth::user();
         return $user->salon;
     }
