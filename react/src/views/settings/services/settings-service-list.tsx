@@ -14,21 +14,11 @@ import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { ServiceInterface } from '../../types/types';
 import { ReduxState } from '../../../store/types';
-
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
-interface SettingsServiceListProps {
-  serviceList: any,
-}
+import { SettingsServiceListProps } from './type';
+import { useStyleList } from './style';
 
 const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
-  const classes = useStyles();
+  const classes = useStyleList();
   const [redirect, setRedirect] = useState<boolean>(false);
   const [redirectUrl, setRedirectUrl] = useState<string>(AdminROUTES.SETTINGS.SERVICE_EDIT.path);
 

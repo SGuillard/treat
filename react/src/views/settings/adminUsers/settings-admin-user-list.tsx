@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -16,21 +15,11 @@ import { Redirect } from 'react-router-dom';
 import { AdminUserInterface } from '../../types/types';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { ReduxState } from '../../../store/types';
-
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
-interface SettingsAdminUserListProps {
-  adminUsers: AdminUserInterface[],
-}
+import { useStyleList } from './style';
+import { SettingsAdminUserListProps } from './types';
 
 const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
-  const classes = useStyles();
+  const classes = useStyleList();
   const [redirect, setRedirect] = useState<boolean>(false);
   const [redirectUrl, setRedirectUrl] = useState<string>(AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path);
 

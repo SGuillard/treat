@@ -7,10 +7,9 @@ import { Redirect } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { AdminUserInterface } from '../../types/types';
 import AdminROUTES from '../../../route/admin/admin-routes';
-import { useStyles } from './style';
+import { useStyleForm } from './style';
 import FormActionButtons from '../../../uiComponents/forms/FormActionButtons/FormActionButtons';
 import { SettingsAdminUserFormAddProps } from './types';
-import { initialArg } from './admin-users-constants';
 import {
   FormTextField
 } from '../../../uiComponents/forms/FormTextField/FormTextField';
@@ -29,9 +28,10 @@ import { ReduxState } from '../../../store/types';
 import { setAdminUsersAction } from '../../../store/actions/adminUsersActions';
 import { FormOnChangeFunctionInterface } from '../../../uiComponents/forms/FormTextField/type';
 import formLoader from '../../../utils/forms/formLoader';
+import { initialArg } from './constants';
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
-  const classes = useStyles();
+  const classes = useStyleForm();
   const { params } = props;
   const adminUser = useSelector((state: ReduxState) => state.adminUsers.list.find((adminUserState: AdminUserInterface) => adminUserState.id === Number(
     params && params.id,

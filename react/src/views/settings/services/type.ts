@@ -3,3 +3,7 @@ export interface SettingsServiceEditProps {
     id?: number
   }
 }
+
+export interface SettingsServiceListProps {
+  serviceList: any,
+}

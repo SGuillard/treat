@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,5 +24,13 @@ export const useStyles = makeStyles((theme) => ({
     padding: '10px',
     color: 'white',
     textAlign: 'center',
+  },
+}));
+
+export const useStyleList = makeStyles((theme: Theme) => createStyles({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
   },
 }));
