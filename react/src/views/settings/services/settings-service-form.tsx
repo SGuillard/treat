@@ -12,7 +12,7 @@ import { useStyles } from './style';
 import FormActionButtons from '../../../uiComponents/forms/FormActionButtons';
 import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../../route/admin/admin-routes';
-import { GlobalStateInterface, ReduxState } from '../../../store/types';
+import { ReduxState } from '../../../store/types';
 
 interface SettingsServiceEditProps {
   service?: ServiceFormInterface,
