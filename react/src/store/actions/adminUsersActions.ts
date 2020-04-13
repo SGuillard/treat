@@ -7,24 +7,20 @@ import makeApiRequest from '../../utils/api/apiRequest';
 import API from '../../API';
 import { RequestMethod } from '../../types';
 import { handleInitialisationRequestErrors } from './globalActions';
+import { AdminUserReducerActionPayload } from '../types';
 
-interface AdminUserInterfacePayload {
-  type: string,
-  payload: AdminUserInterface,
-}
-
-export const addEditAdminUserAction = (user: AdminUserInterface): AdminUserInterfacePayload => ({
+export const addEditAdminUserAction = (user: AdminUserInterface[]): AdminUserReducerActionPayload => ({
   type: ADD_EDIT_ADMIN_USER_ACTION,
   payload: user,
 });
 
-export const setAdminUsersAction = (users: AdminUserInterface[]) => ({
+export const setAdminUsersAction = (users: AdminUserInterface[]): AdminUserReducerActionPayload => ({
   type: SET_ADMIN_USER_ACTION,
   payload: users,
 });
 
 export const initAdminUsers = () => (dispatch: any) => {
-  makeApiRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: any) => dispatch(
-    setAdminUsersAction(response),
+  makeApiRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: object[]) => dispatch(
+    setAdminUsersAction(response as AdminUserInterface[]),
   )).catch((e) => handleInitialisationRequestErrors(e, dispatch));
 };

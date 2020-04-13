@@ -41,8 +41,8 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    submitRequest(event, API.ADMIN_USER, componentState, adminUser).then((response: any) => {
-      dispatchReduxReducer(addEditAdminUserAction(response));
+    submitRequest(event, API.ADMIN_USER, componentState, adminUser).then((response: object[]) => {
+      dispatchReduxReducer(addEditAdminUserAction(response as AdminUserInterface[]));
       setRedirect(true);
     }).catch(({ errorMessages, errorFields }: errorHandlerResponseInterface) => {
       setFieldErrors(errorFields);
