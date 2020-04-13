@@ -24,18 +24,8 @@ import { FormTitle } from '../../../uiComponents/forms/FormTitle/FormTitle';
 import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
 import formLoader from '../../../utils/forms/formLoader';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
-
-interface SettingsServiceEditProps {
-  params?: {
-    id?: number
-  }
-}
-
-const initialArgs = {
-  name: '',
-  duration: 15,
-  price: '',
-};
+import { SettingsServiceEditProps } from './type';
+import { initialArgs } from './constants';
 
 const SettingsServiceForm = (props: SettingsServiceEditProps) => {
   const classes = useStyles();
