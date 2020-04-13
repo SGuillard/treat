@@ -28,6 +28,7 @@ import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/F
 import { ReduxState } from '../../../store/types';
 import { setAdminUsersAction } from '../../../store/actions/adminUsersActions';
 import { FormOnChangeFunctionInterface } from '../../../uiComponents/forms/FormTextField/type';
+import formLoader from '../../../utils/forms/formLoader';
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
@@ -40,11 +41,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
     adminUser ?? initialArg);
 
   useEffect(() => {
-    if (adminUser) {
-      for (const [key, value] of Object.entries(adminUser)) {
-        dispatchComponentReducer({ name: key, value: value });
-      }
-    }
+    formLoader(adminUser, dispatchComponentReducer);
   }, [adminUser]);
 
   const { firstName, lastName, active } = componentState;
