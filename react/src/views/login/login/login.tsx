@@ -12,10 +12,10 @@ import Container from '@material-ui/core/Container';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Link } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { setLoginAction } from '../../store/actions/globalActions';
-import { loginApi } from './login-helper';
+import { setLoginAction } from '../../../store/actions/globalActions';
+import { loginApi } from '../login-helper';
 import { useStyles } from './style';
-import { ReduxState } from '../../store/types';
+import { ReduxState } from '../../../store/types';
 
 interface LoginProps {
   setLogin: Function,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, RouteComponentProps } from 'react-router-dom';
-import Register from '../views/login/register';
-import Login from '../views/login/login';
+import Register from '../views/login/register/register';
+import Login from '../views/login/login/login';
 import AdminRouter from './admin/admin-router';
 import AdminROUTES from './admin/admin-routes';
 
