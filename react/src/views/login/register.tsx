@@ -87,6 +87,7 @@ const Register = ({ setLogin }: {setLogin: any}) => {
           } else {
             localStorage.setItem('token', response.data.accessToken);
             setLogin(true);
+            setRedirect(true);
           }
         })
           .catch((e) => console.log(e));

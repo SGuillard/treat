@@ -1,6 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface FormActionButtonProps {
   onCancel: () => void;

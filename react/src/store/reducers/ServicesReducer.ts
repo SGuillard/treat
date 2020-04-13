@@ -3,7 +3,6 @@ import {
   SET_SERVICE_ACTION,
 } from '../actions/constants';
 import updateObject from '../../utils/common/updateObject';
-import { ServiceInterface } from '../../views/types/types';
 import { ServiceReducerActionInterface, ServiceStateInterface } from '../types';
 
 const setServiceListReducer = (state: ServiceStateInterface = null, action: ServiceReducerActionInterface) => updateObject(state, {

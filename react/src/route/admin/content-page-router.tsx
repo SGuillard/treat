@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import Calendar from '../../views/calendar/calendar';
 import Dashboard from '../../views/dashboard/dashboard';
 import Settings from '../../views/settings/settings';
-import { pageType } from './admin-router';
 import AdminROUTES from './admin-routes';
 import SettingsAdminUserList from '../../views/settings/adminUsers/settings-admin-user-list';
 import SettingsServiceList from '../../views/settings/services/settings-service-list';

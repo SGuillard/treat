@@ -1,11 +1,11 @@
 import React, { useCallback, useReducer, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { AdminUserFormInterface, AdminUserInterface } from '../../types/types';
+import { AdminUserInterface } from '../../types/types';
 import { addEditAdminUserAction } from '../../../store/actions/adminUsersActions';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { useStyles } from './style';
@@ -21,7 +21,7 @@ import { formReducer } from '../../../utils/forms/formReducer';
 import {
   ErrorHandlerResponseInterface,
   ErrorObjectInterface,
-  submitRequest
+  submitRequest,
 } from '../../../utils/api/apiRequest';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage';
 

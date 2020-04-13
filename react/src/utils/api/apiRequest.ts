@@ -78,6 +78,7 @@ const handleErrors = (serverError: ServerErrorInterface): ErrorHandlerResponseIn
           });
           return null;
         });
+        return null;
       });
       return null;
     });
