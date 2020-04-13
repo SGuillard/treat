@@ -4,27 +4,17 @@ import {
 } from '../actions/constants';
 import updateObject from '../../utils/common/updateObject';
 import { ServiceInterface } from '../../views/types/types';
+import { ServiceReducerActionInterface, ServiceStateInterface } from '../types';
 
-interface serviceStateInitiatedInterface {
-  list: ServiceInterface
-}
-
-type serviceStateInterface = serviceStateInitiatedInterface | null;
-
-interface serviceReducerActionInterface {
-  type: string,
-  payload: ServiceInterface[]
-}
-
-const setServiceListReducer = (state: any = null, action: any) => updateObject(state, {
+const setServiceListReducer = (state: ServiceStateInterface = null, action: ServiceReducerActionInterface) => updateObject(state, {
   list: action.payload,
 });
 
-const addServiceReducer = (state: any = null, action: any) => updateObject(state, {
+const addServiceReducer = (state: ServiceStateInterface = null, action: ServiceReducerActionInterface) => updateObject(state, {
   list: action.payload,
 });
 
-export const servicesReducer: any = (state: serviceStateInterface = null, action: any): any => {
+export const servicesReducer: any = (state: ServiceStateInterface = null, action: ServiceReducerActionInterface): any => {
   switch (action.type) {
     case ADD_SERVICE_ACTION:
       return addServiceReducer(state, action);

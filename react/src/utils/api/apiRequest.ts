@@ -5,37 +5,37 @@ import { RequestMethod } from '../../types';
 import { formReducer } from '../forms/formReducer';
 import { AdminUserFormInterface } from '../../views/types/types';
 
-export interface errorObjectInterface {
+export interface ErrorObjectInterface {
   // Key is only used as an index for loop through component
   key: number,
   error: string,
 }
 
-interface serverResponseDataInterface {
+interface ServerResponseDataInterface {
   data: object[]
 }
 
-interface serverResponseInterface {
-  data: serverResponseDataInterface
+interface ServerResponseInterface {
+  data: ServerResponseDataInterface
 }
 
-type fieldErrorMessageInterface = string[];
+type FieldErrorMessageType = string[];
 
-interface fieldErrorsInterface {
-  [fieldName: string] : fieldErrorMessageInterface
+interface FieldErrorsInterface {
+  [fieldName: string] : FieldErrorMessageType
 }
 
-interface serverErrorInterface {
+interface ServerErrorInterface {
   status: number
   data : {
     message: string,
-    errors: fieldErrorsInterface,
+    errors: FieldErrorsInterface,
   }
 }
 
-export interface errorHandlerResponseInterface {
+export interface ErrorHandlerResponseInterface {
   errorFields: string[],
-  errorMessages: errorObjectInterface[],
+  errorMessages: ErrorObjectInterface[],
 }
 
 export const makeApiRequest = (method: Method, slug: string, payload: {} = {}) => new Promise<object[]>((resolve, reject) => {
@@ -49,15 +49,15 @@ export const makeApiRequest = (method: Method, slug: string, payload: {} = {}) =
     data,
   })
     // .then((response: any) => resolve(response.data.data))
-    .then((response: serverResponseInterface) => resolve(castArrayList(response.data.data, castOptions.ToCamel)))
-    .catch((errors: serverErrorInterface) => {
+    .then((response: ServerResponseInterface) => resolve(castArrayList(response.data.data, castOptions.ToCamel)))
+    .catch((errors: ServerErrorInterface) => {
       reject(errors);
     });
 });
 
-const handleErrors = (serverError: serverErrorInterface): errorHandlerResponseInterface => {
+const handleErrors = (serverError: ServerErrorInterface): ErrorHandlerResponseInterface => {
   let errorFields: string[] = [];
-  let errorMessages: errorObjectInterface[] = [];
+  let errorMessages: ErrorObjectInterface[] = [];
 
   if (serverError.status === 403) {
     errorMessages = [{
@@ -66,11 +66,11 @@ const handleErrors = (serverError: serverErrorInterface): errorHandlerResponseIn
     }];
   } else if (serverError.status === 422) {
     const backendErrors = [serverError.data.errors];
-    const castedErrorFields = castArrayList(backendErrors, castOptions.ToCamel) as fieldErrorsInterface[];
-    castedErrorFields.map((fields: fieldErrorsInterface, key: number) => {
+    const castedErrorFields = castArrayList(backendErrors, castOptions.ToCamel) as FieldErrorsInterface[];
+    castedErrorFields.map((fields: FieldErrorsInterface, key: number) => {
       const fieldNamesWithErrors = Object.keys(fields);
       errorFields = fieldNamesWithErrors;
-      Object.values(fields).map((fieldErrorMessages: fieldErrorMessageInterface, index: number) => {
+      Object.values(fields).map((fieldErrorMessages: FieldErrorMessageType, index: number) => {
         fieldErrorMessages.map((message: string) => {
           errorMessages.push({
             error: message,
@@ -99,7 +99,7 @@ export const submitRequest = (e: React.FormEvent, url: string, store: any, editE
     `${url}${params}`, requestData).then((response: object[]) => {
     resolve(response);
   })
-    .catch((serverErrors: {response: serverErrorInterface}) => {
+    .catch((serverErrors: {response: ServerErrorInterface}) => {
       const requestErrors = handleErrors(serverErrors.response);
       reject(requestErrors);
     });

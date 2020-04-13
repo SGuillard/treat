@@ -19,8 +19,8 @@ import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage';
 import API from '../../../API';
 import { formReducer } from '../../../utils/forms/formReducer';
 import {
-  errorHandlerResponseInterface,
-  errorObjectInterface,
+  ErrorHandlerResponseInterface,
+  ErrorObjectInterface,
   submitRequest
 } from '../../../utils/api/apiRequest';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage';
@@ -36,7 +36,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
     adminUser ?? initialArg);
   const { firstName, lastName, active } = componentState;
   const [redirect, setRedirect] = useState<boolean>(false);
-  const [errors, setErrors] = useState<errorObjectInterface[]>([]);
+  const [errors, setErrors] = useState<ErrorObjectInterface[]>([]);
   const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -44,7 +44,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
     submitRequest(event, API.ADMIN_USER, componentState, adminUser).then((response: object[]) => {
       dispatchReduxReducer(addEditAdminUserAction(response as AdminUserInterface[]));
       setRedirect(true);
-    }).catch(({ errorMessages, errorFields }: errorHandlerResponseInterface) => {
+    }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
       setFieldErrors(errorFields);
       setErrors(errorMessages);
     });

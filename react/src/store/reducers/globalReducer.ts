@@ -3,17 +3,17 @@ import {
 } from '../actions/constants';
 import { getStorageToken } from '../../views/login/login-helper';
 import updateObject from '../../utils/common/updateObject';
-import { globalReducerActionInterface, globalStateInterface } from '../types';
+import { GlobalReducerActionInterface, GlobalStateInterface } from '../types';
 
 const initialState = {
   isLogged: !!getStorageToken,
 };
 
-const setLoggin = (state: any, action: globalReducerActionInterface) => updateObject(state, {
+const setLoggin = (state: any, action: GlobalReducerActionInterface) => updateObject(state, {
   isLogged: action.payload,
 });
 
-export const globalReducer: any = (state: globalStateInterface = initialState, action: globalReducerActionInterface): any => {
+export const globalReducer: any = (state: GlobalStateInterface = initialState, action: GlobalReducerActionInterface): any => {
   switch (action.type) {
     case REDIRECT_LOGIN:
       return setLoggin(state, action);
