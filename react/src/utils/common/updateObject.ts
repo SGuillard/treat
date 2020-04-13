@@ -1,4 +1,4 @@
-const updateObject = (oldObject: any, updatedProperties: any) => ({
+const updateObject = (oldObject: object, updatedProperties: object) => ({
   ...oldObject,
   ...updatedProperties,
 });

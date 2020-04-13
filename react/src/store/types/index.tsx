@@ -6,11 +6,9 @@ export interface ReduxState {
   services: ServiceStateInterface
 }
 
-interface AdminUsersReducerStateInitiated {
+export interface AdminUsersStateInterface {
   list: AdminUserInterface[];
 }
-
-export type AdminUsersStateInterface = AdminUsersReducerStateInitiated | null;
 
 export interface AdminUserReducerActionPayload {
   type: string,
@@ -26,11 +24,9 @@ export interface GlobalReducerActionInterface {
   payload: boolean,
 }
 
-interface ServiceStateInitiatedInterface {
-  list: ServiceInterface
+export interface ServiceStateInterface {
+  list: ServiceInterface[]
 }
-
-export type ServiceStateInterface = ServiceStateInitiatedInterface | null;
 
 export interface ServiceReducerActionInterface {
   type: string,

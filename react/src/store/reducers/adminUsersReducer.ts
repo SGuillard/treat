@@ -8,20 +8,20 @@ import {
   AdminUsersStateInterface
 } from '../types';
 
-const setAdminUsersReducer = (state: AdminUsersStateInterface = null, action: AdminUserReducerActionPayload) => updateObject(state, {
+const adminUsersStateInitialValues = {
+  list: [],
+};
+
+const updateAdminUsersState = (state: AdminUsersStateInterface = adminUsersStateInitialValues, action: AdminUserReducerActionPayload) => updateObject(state, {
   list: action.payload,
 });
 
-const addAdminUsersReducer = (state: AdminUsersStateInterface = null, action: AdminUserReducerActionPayload) => updateObject(state, {
-  list: action.payload,
-});
-
-export const adminUsersReducer = (state: AdminUsersStateInterface = null, action: AdminUserReducerActionPayload): any => {
+export const adminUsersReducer = (state: AdminUsersStateInterface = adminUsersStateInitialValues, action: AdminUserReducerActionPayload): any => {
   switch (action.type) {
     case ADD_EDIT_ADMIN_USER_ACTION:
-      return addAdminUsersReducer(state, action);
+      return updateAdminUsersState(state, action);
     case SET_ADMIN_USER_ACTION:
-      return setAdminUsersReducer(state, action);
+      return updateAdminUsersState(state, action);
     default: return state;
   }
 };

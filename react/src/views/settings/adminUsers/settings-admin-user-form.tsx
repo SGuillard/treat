@@ -24,11 +24,12 @@ import {
   submitRequest,
 } from '../../../utils/api/apiRequest';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage';
+import { ReduxState } from '../../../store/types';
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyles();
   const { params } = props;
-  const adminUser = useSelector((state: any) => state.adminUsers.list.find((adminUserState: AdminUserInterface) => adminUserState.id === Number(
+  const adminUser = useSelector((state: ReduxState) => state.adminUsers.list.find((adminUserState: AdminUserInterface) => adminUserState.id === Number(
     params && params.id,
   )));
   const dispatchReduxReducer = useDispatch();
