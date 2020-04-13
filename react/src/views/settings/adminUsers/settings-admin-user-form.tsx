@@ -14,7 +14,7 @@ import { initialArg } from './admin-users-constants';
 import {
   FormTextField
 } from '../../../uiComponents/forms/FormTextField/FormTextField';
-import { FormTitle } from '../../../uiComponents/forms/FormTitle';
+import { FormTitle } from '../../../uiComponents/forms/FormTitle/FormTitle';
 import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField/FormSwitchField';
 import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
 import API from '../../../API';
