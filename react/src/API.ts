@@ -3,7 +3,7 @@ const API = {
   LOGIN: '/login',
   REGISTRATION: '/register',
   ADMIN_USER: '/adminUser',
-  SERVICE_ALL: '/services',
+  SERVICES: '/services',
 };
 
 export default API;

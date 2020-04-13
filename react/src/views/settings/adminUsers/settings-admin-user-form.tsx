@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { useDispatch, useSelector } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -38,6 +38,15 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const dispatchReduxReducer = useDispatch();
   const [componentState, dispatchComponentReducer] = useReducer(formReducer,
     adminUser ?? initialArg);
+
+  useEffect(() => {
+    if (adminUser) {
+      for (const [key, value] of Object.entries(adminUser)) {
+        dispatchComponentReducer({ name: key, value: value });
+      }
+    }
+  }, [adminUser]);
+
   const { firstName, lastName, active } = componentState;
   const [redirect, setRedirect] = useState<boolean>(false);
   const [errors, setErrors] = useState<ErrorObjectInterface[]>([]);

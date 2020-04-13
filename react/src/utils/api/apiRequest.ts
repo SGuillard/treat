@@ -3,7 +3,7 @@ import API from '../../API';
 import { castObject, castArrayList, castOptions } from './castObjectToCamelOrSnakeCase';
 import { RequestMethod } from '../../types';
 import { formReducer } from '../forms/formReducer';
-import { AdminUserFormInterface } from '../../views/types/types';
+import { AdminUserFormInterface, ServiceFormInterface } from '../../views/types/types';
 
 export interface ErrorObjectInterface {
   // Key is only used as an index for loop through component
@@ -32,6 +32,8 @@ interface ServerErrorInterface {
     errors: FieldErrorsInterface,
   }
 }
+
+type formEntity = AdminUserFormInterface | ServiceFormInterface;
 
 export interface ErrorHandlerResponseInterface {
   errorFields: string[],
@@ -91,7 +93,7 @@ const handleErrors = (serverError: ServerErrorInterface): ErrorHandlerResponseIn
   return { errorMessages, errorFields };
 };
 
-export const submitRequest = (e: React.FormEvent, url: string, store: any, editEntity?: AdminUserFormInterface) => new Promise<object[]>((resolve, reject) => {
+export const submitRequest = (e: React.FormEvent, url: string, store: any, editEntity?: formEntity) => new Promise<object[]>((resolve, reject) => {
   // If edit mode, add user id for Back end
   const requestData = editEntity ? formReducer(store, { name: 'id', value: editEntity.id }) : store;
   const httpMethod = editEntity ? RequestMethod.PUT : RequestMethod.POST;

@@ -12,5 +12,5 @@ export const setServiceAction = (service: ServiceInterface[]) => ({
 });
 
 export const initServiceList = () => (dispatch: any) => {
-  makeApiRequest(RequestMethod.GET, `${API.SERVICE_ALL}`).then((response: any) => dispatch(setServiceAction(response)));
+  makeApiRequest(RequestMethod.GET, `${API.SERVICES}`).then((response: any) => dispatch(setServiceAction(response)));
 };

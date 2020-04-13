@@ -1,5 +1,5 @@
-import React, { FormEvent, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { FormEvent, useCallback, useReducer, useState } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
@@ -7,88 +7,101 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { EventSeat } from '@material-ui/icons';
-import { ServiceFormInterface } from '../../types/types';
+import { Redirect } from 'react-router-dom';
+import { AdminUserInterface, ServiceFormInterface, ServiceInterface } from '../../types/types';
 import { useStyles } from './style';
 import FormActionButtons from '../../../uiComponents/forms/FormActionButtons/FormActionButtons';
-import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { ReduxState } from '../../../store/types';
+import { formReducer } from '../../../utils/forms/formReducer';
+import { initialArg } from '../adminUsers/admin-users-constants';
+import {
+  ErrorHandlerResponseInterface,
+  ErrorObjectInterface,
+  submitRequest,
+} from '../../../utils/api/apiRequest';
+import API from '../../../API';
+import { setAdminUsersAction } from '../../../store/actions/adminUsersActions';
+import { setServiceAction } from '../../../store/actions/ServicesActions';
+import { FormTextField } from '../../../uiComponents/forms/FormTextField/FormTextField';
+import { FormOnChangeFunctionInterface } from '../../../uiComponents/forms/FormTextField/type';
+import { FormTitle } from '../../../uiComponents/forms/FormTitle/FormTitle';
+import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
 
 interface SettingsServiceEditProps {
-  service?: ServiceFormInterface,
-  params?: object
+  params?: {
+    id?: number
+  }
 }
 
-const SettingsServiceForm = (props : SettingsServiceEditProps) => {
+const SettingsServiceForm = (props: SettingsServiceEditProps) => {
   const classes = useStyles();
-  const { service } = props;
-  const [name, setName] = useState<string>(service ? service.name : '');
-  const [duration, setDuration] = useState<number>(service ? service.duration : 0);
-  const [price, setPrice] = useState<string>(service ? service.price : '');
+  const service = useSelector((state: ReduxState) => state.services.list.find((serviceRedux: ServiceInterface) => serviceRedux.id === Number(
+    props.params && props.params.id,
+  )));
+  const dispatchReduxReducer = useDispatch();
   const [redirect, setRedirect] = useState<boolean>(false);
+  const [errors, setErrors] = useState<ErrorObjectInterface[]>([]);
+  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
-  const validateForm = () => true;
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer,
+    service ?? { name: '', duration: '', price: '' });
+
+  const { name, duration, price } = componentState;
 
   const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    if (validateForm()) {
-      const requestData: ServiceFormInterface = { name: name, duration: duration, price: price };
-      // Add id in the request only if edit
-      if (service) requestData.id = service.id;
-      // addEditTeamMember(requestData);
-      // setFirstName('');
-      // setLastName('');
-      // setActive(1);
-      // setRedirect(true);
-    }
+    submitRequest(event, API.SERVICES, componentState, service).then((response: object[]) => {
+      dispatchReduxReducer(setServiceAction(response as ServiceInterface[]));
+      setRedirect(true);
+    }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
+      setFieldErrors(errorFields);
+      setErrors(errorMessages);
+    });
   };
 
-  const onCancel = () => setRedirect(true);
+  const onCancel = useCallback(() => setRedirect(true), []);
+  const onChangeString = useCallback<FormOnChangeFunctionInterface>((e: React.ChangeEvent<HTMLInputElement>): void => dispatchComponentReducer(
+    e.target,
+  ), []);
+  const onChangeNumber = useCallback<FormOnChangeFunctionInterface>((e: React.ChangeEvent<HTMLInputElement>): void => dispatchComponentReducer(
+    { name: e.target.name, value: parseInt(e.currentTarget.value, 10) },
+  ), []);
+
 
   const getForm = () => (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <form className={classes.paper} onSubmit={handleSubmit}>
-        <Avatar className={classes.avatar}>
+        <FormTitleImage>
           <EventSeat />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Edit my service
-        </Typography>
+        </FormTitleImage>
+        <FormTitle title={`${service ? 'Add' : 'Edit'} Service`} />
         <Grid container spacing={3} style={{ padding: '15px' }}>
           <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="Name"
-              name="Name"
-              label="Name"
-              fullWidth
-              onChange={(e) => setName(e.target.value)}
+            <FormTextField
+              onChange={onChangeString}
+              errorFields={fieldErrors}
               value={name}
+              fieldName="name"
+              label="Name"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="Duration"
-              name="duration"
-              label="Duration (min)"
-              fullWidth
-              autoComplete="lname"
+            <FormTextField
+              onChange={onChangeNumber}
+              errorFields={fieldErrors}
               value={duration}
-              onChange={(e) => setDuration(parseInt(e.currentTarget.value, 10))}
+              fieldName="duration"
+              label="Duration"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="Price"
-              name="price"
-              label="Price ($)"
-              fullWidth
-              autoComplete="lprice"
+            <FormTextField
+              onChange={onChangeNumber}
+              errorFields={fieldErrors}
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              fieldName="price"
+              label="Price ($)"
             />
           </Grid>
           <FormActionButtons onCancel={onCancel} />
@@ -100,8 +113,4 @@ const SettingsServiceForm = (props : SettingsServiceEditProps) => {
   return redirect ? <Redirect push to={AdminROUTES.SETTINGS.ADMIN_USER_LIST.path} /> : getForm();
 };
 
-const MapStateToProps = (state: ReduxState, ownProps: any) => ({
-  service: state.services.list.find((service:any) => service.id === Number(ownProps.params.id)),
-});
-
-export default connect(MapStateToProps)(SettingsServiceForm);
+export default SettingsServiceForm;
