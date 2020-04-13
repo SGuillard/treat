@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import { EventSeat } from '@material-ui/icons';
 import { ServiceFormInterface } from '../../types/types';
 import { useStyles } from './style';
-import FormActionButtons from '../../../uiComponents/forms/FormActionButtons';
+import FormActionButtons from '../../../uiComponents/forms/FormActionButtons/FormActionButtons';
 import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { ReduxState } from '../../../store/types';

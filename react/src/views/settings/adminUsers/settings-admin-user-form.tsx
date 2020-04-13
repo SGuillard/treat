@@ -8,14 +8,14 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { AdminUserInterface } from '../../types/types';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { useStyles } from './style';
-import FormActionButtons from '../../../uiComponents/forms/FormActionButtons';
+import FormActionButtons from '../../../uiComponents/forms/FormActionButtons/FormActionButtons';
 import { SettingsAdminUserFormAddProps } from './types';
 import { initialArg } from './admin-users-constants';
 import {
   FormTextField
 } from '../../../uiComponents/forms/FormTextField/FormTextField';
 import { FormTitle } from '../../../uiComponents/forms/FormTitle';
-import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField';
+import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField/FormSwitchField';
 import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
 import API from '../../../API';
 import { formReducer } from '../../../utils/forms/formReducer';
@@ -24,7 +24,7 @@ import {
   ErrorObjectInterface,
   submitRequest,
 } from '../../../utils/api/apiRequest';
-import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage';
+import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
 import { ReduxState } from '../../../store/types';
 import { setAdminUsersAction } from '../../../store/actions/adminUsersActions';
 import { FormOnChangeFunctionInterface } from '../../../uiComponents/forms/FormTextField/type';

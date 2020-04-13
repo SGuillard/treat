@@ -1,10 +1,7 @@
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import React from 'react';
-
-interface FormActionButtonProps {
-  onCancel: () => void;
-}
+import { FormActionButtonProps } from './type';
 
 const FormActionButtons = React.memo((props: FormActionButtonProps) => {
   const { onCancel } = props;
