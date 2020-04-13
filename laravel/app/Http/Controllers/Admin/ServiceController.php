@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\ServiceResource;
+use App\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,24 +17,27 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return ServiceResource::collection($this->getSalon()->services);
+        return $this->getServiceList();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $newService = Service::create($request->input());
+        $salon = $this->getSalon();
+        $salon->services()->save($newService);
+        return $this->getServiceList();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -44,8 +48,8 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -56,7 +60,7 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -64,8 +68,14 @@ class ServiceController extends Controller
         //
     }
 
-    private function getSalon() {
+    private function getSalon()
+    {
         $user = Auth::user();
         return $user->salon;
+    }
+
+    private function getServiceList()
+    {
+        return ServiceResource::collection($this->getSalon()->services);
     }
 }

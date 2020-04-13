@@ -30,7 +30,7 @@ const AdminROUTES = {
     },
     SERVICE_EDIT: {
       path: '/admin/services/edit',
-      pathWithId: '/admin/services/edit/:id',
+      pathWithId: '/admin/services/edit/:id?',
       name: 'settings/services/edit',
     },
   },

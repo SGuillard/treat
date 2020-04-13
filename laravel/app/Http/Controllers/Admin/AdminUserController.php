@@ -43,7 +43,7 @@ class AdminUserController extends Controller
     {
         $newUser = AdminUser::create($request->input());
         $salon = $this->getSalon();
-        $salon->AdminUsers()->save($newUser);
+        $salon->adminUsers()->save($newUser);
         return $this->getAdminUserList();
     }
 

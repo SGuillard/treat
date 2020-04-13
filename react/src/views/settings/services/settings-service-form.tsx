@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useReducer, useState } from 'react';
+import React, { FormEvent, useCallback, useEffect, useReducer, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -27,12 +27,20 @@ import { FormTextField } from '../../../uiComponents/forms/FormTextField/FormTex
 import { FormOnChangeFunctionInterface } from '../../../uiComponents/forms/FormTextField/type';
 import { FormTitle } from '../../../uiComponents/forms/FormTitle/FormTitle';
 import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
+import formLoader from '../../../utils/forms/formLoader';
+import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
 
 interface SettingsServiceEditProps {
   params?: {
     id?: number
   }
 }
+
+const initialArgs = {
+  name: '',
+  duration: 15,
+  price: '',
+};
 
 const SettingsServiceForm = (props: SettingsServiceEditProps) => {
   const classes = useStyles();
@@ -45,11 +53,16 @@ const SettingsServiceForm = (props: SettingsServiceEditProps) => {
   const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   const [componentState, dispatchComponentReducer] = useReducer(formReducer,
-    service ?? { name: '', duration: '', price: '' });
+    service ?? initialArgs);
+
+  useEffect(() => {
+    formLoader(service, dispatchComponentReducer);
+  }, [service]);
 
   const { name, duration, price } = componentState;
 
   const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
     submitRequest(event, API.SERVICES, componentState, service).then((response: object[]) => {
       dispatchReduxReducer(setServiceAction(response as ServiceInterface[]));
       setRedirect(true);
@@ -67,7 +80,6 @@ const SettingsServiceForm = (props: SettingsServiceEditProps) => {
     { name: e.target.name, value: parseInt(e.currentTarget.value, 10) },
   ), []);
 
-
   const getForm = () => (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -76,6 +88,7 @@ const SettingsServiceForm = (props: SettingsServiceEditProps) => {
           <EventSeat />
         </FormTitleImage>
         <FormTitle title={`${service ? 'Add' : 'Edit'} Service`} />
+        <FormErrorMessage show={errors.length > 0} errors={errors} />
         <Grid container spacing={3} style={{ padding: '15px' }}>
           <Grid item xs={12} sm={6}>
             <FormTextField
@@ -110,7 +123,7 @@ const SettingsServiceForm = (props: SettingsServiceEditProps) => {
     </Container>
   );
 
-  return redirect ? <Redirect push to={AdminROUTES.SETTINGS.ADMIN_USER_LIST.path} /> : getForm();
+  return redirect ? <Redirect push to={AdminROUTES.SETTINGS.SERVICE_LIST.path} /> : getForm();
 };
 
 export default SettingsServiceForm;
