@@ -1,6 +1,5 @@
 import React from 'react';
 import { useStyles } from './style';
-import { ErrorObjectInterface } from '../../../utils/api/apiRequest';
 import { FormErrorMessageProps } from './type';
 
 export const FormErrorMessage = React.memo(({ errors, show }: FormErrorMessageProps) => {
