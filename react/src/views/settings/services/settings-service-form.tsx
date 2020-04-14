@@ -1,5 +1,5 @@
-import React, { FormEvent, useCallback, useEffect, useReducer, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useReducer } from 'react';
+import { useSelector } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -11,15 +11,7 @@ import FormActionButtons from '../../../uiComponents/forms/FormActionButtons/For
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { ReduxState } from '../../../store/types';
 import { formReducer } from '../../../utils/forms/formReducer';
-import {
-  ErrorHandlerResponseInterface,
-  ErrorObjectInterface,
-  submitRequest,
-} from '../../../utils/api/apiRequest';
-import API from '../../../API';
-import { setServiceAction } from '../../../store/actions/ServicesActions';
 import { FormTextField } from '../../../uiComponents/forms/FormTextField/FormTextField';
-import { FormOnChangeFunctionInterface } from '../../../uiComponents/forms/FormTextField/type';
 import { FormTitle } from '../../../uiComponents/forms/FormTitle/FormTitle';
 import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
 import formLoader from '../../../utils/forms/formLoader';

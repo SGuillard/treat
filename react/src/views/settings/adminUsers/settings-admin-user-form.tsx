@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { useStyleForm } from './style';
 import FormActionButtons from '../../../uiComponents/forms/FormActionButtons/FormActionButtons';
 import { SettingsAdminUserFormAddProps } from './types';
 import {
-  FormTextField
+  FormTextField,
 } from '../../../uiComponents/forms/FormTextField/FormTextField';
 import { FormTitle } from '../../../uiComponents/forms/FormTitle/FormTitle';
 import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField/FormSwitchField';
@@ -27,6 +27,7 @@ import { useFormActionHandler } from '../../../utils/forms/hooks/useFormActionHa
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyleForm();
   const { params } = props;
+
   const adminUser = useSelector((state: ReduxState) => state.adminUsers.list.find((adminUserState: AdminUserInterface) => adminUserState.id === Number(
     params && params.id,
   )));
