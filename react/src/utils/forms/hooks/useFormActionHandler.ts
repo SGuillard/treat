@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
 import React, { FormEvent, useCallback, useState } from 'react';
-import axios from 'axios';
 import {
   submitRequest,
 } from '../../api/apiRequest';

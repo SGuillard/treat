@@ -14,7 +14,7 @@ export const FormTextField = React.memo(({ onChange, value, fieldName, label, er
       onChange={onChange}
       error={errorFields.includes(fieldName)}
       type={type}
-      variant="outlined"
+      // variant="outlined"
       autoFocus
     />
   </Grid>
