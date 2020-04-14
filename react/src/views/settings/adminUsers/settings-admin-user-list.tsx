@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -16,17 +16,14 @@ import { AdminUserInterface } from '../../types/types';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { ReduxState } from '../../../store/types';
 import { useStyleList } from './style';
-import { SettingsAdminUserListProps } from './types';
+import { useListRedirection } from '../../../utils/common/hooks/useListRedirection';
 
-const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
+const SettingsAdminUserList = () => {
   const classes = useStyleList();
-  const [redirect, setRedirect] = useState<boolean>(false);
-  const [redirectUrl, setRedirectUrl] = useState<string>(AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path);
 
-  const editElement = (id: number) => {
-    setRedirect(true);
-    setRedirectUrl(`${AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path}/${id}`);
-  };
+  const adminUsers: AdminUserInterface[] = useSelector((state: ReduxState) => state.adminUsers.list);
+
+  const { redirect, redirectUrl, editElement, redirectToAdd } = useListRedirection(AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path);
 
   const displayTeamList = () => (
     <List dense className={classes.root}>
@@ -54,7 +51,7 @@ const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
     <Container component="main" maxWidth="xs">
       <Card>
         <CardHeader
-          action={<AddCircleOutlineIcon style={{ paddingTop: '15px' }} onClick={() => setRedirect(true)} />}
+          action={<AddCircleOutlineIcon style={{ paddingTop: '15px' }} onClick={redirectToAdd} />}
           title="My Team"
         />
         {displayTeamList()}
@@ -65,9 +62,4 @@ const SettingsAdminUserList = ({ adminUsers } : SettingsAdminUserListProps) => {
   return redirect ? <Redirect push to={redirectUrl} /> : getView();
 };
 
-const mapStateToProps = (state: ReduxState) => ({
-  adminUsers: state.adminUsers.list,
-});
-
-
-export default connect(mapStateToProps)(SettingsAdminUserList);
+export default SettingsAdminUserList;

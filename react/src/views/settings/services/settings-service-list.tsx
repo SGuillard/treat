@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -13,18 +13,15 @@ import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../../route/admin/admin-routes';
 import { ServiceInterface } from '../../types/types';
 import { ReduxState } from '../../../store/types';
-import { SettingsServiceListProps } from './type';
 import { useStyleList } from './style';
+import { useListRedirection } from '../../../utils/common/hooks/useListRedirection';
 
-const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
+const SettingsServiceList = () => {
   const classes = useStyleList();
-  const [redirect, setRedirect] = useState<boolean>(false);
-  const [redirectUrl, setRedirectUrl] = useState<string>(AdminROUTES.SETTINGS.SERVICE_EDIT.path);
 
-  const editElement = (id: number) => {
-    setRedirect(true);
-    setRedirectUrl(`${AdminROUTES.SETTINGS.SERVICE_EDIT.path}/${id}`);
-  };
+  const serviceList: ServiceInterface[] = useSelector((state: ReduxState) => state.services.list);
+
+  const { redirect, redirectUrl, editElement, redirectToAdd } = useListRedirection(AdminROUTES.SETTINGS.SERVICE_EDIT.path);
 
   const displayTeamList = () => (
     <List dense className={classes.root}>
@@ -48,7 +45,7 @@ const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
       <Card>
         <CardHeader
           action={
-            <AddCircleOutlineIcon style={{ paddingTop: '15px' }} onClick={() => setRedirect(true)} />
+            <AddCircleOutlineIcon style={{ paddingTop: '15px' }} onClick={redirectToAdd} />
           }
           title="My Services"
         />
@@ -60,8 +57,4 @@ const SettingsServiceList = ({ serviceList } : SettingsServiceListProps) => {
   return redirect ? <Redirect push to={redirectUrl} /> : getView();
 };
 
-const mapStateToProps = (state: ReduxState) => ({
-  serviceList: state.services.list,
-});
-
-export default connect(mapStateToProps)(SettingsServiceList);
+export default SettingsServiceList;
