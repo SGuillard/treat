@@ -3,42 +3,15 @@ import API from '../../API';
 import { castObject, castArrayList, castOptions } from './castObjectToCamelOrSnakeCase';
 import { RequestMethod } from '../../types';
 import { formReducer } from '../forms/formReducer';
-import { AdminUserFormInterface, ServiceFormInterface } from '../../views/types/types';
-
-export interface ErrorObjectInterface {
-  // Key is only used as an index for loop through component
-  key: number,
-  error: string,
-}
-
-interface ServerResponseDataInterface {
-  data: object[]
-}
-
-interface ServerResponseInterface {
-  data: ServerResponseDataInterface
-}
-
-type FieldErrorMessageType = string[];
-
-interface FieldErrorsInterface {
-  [fieldName: string] : FieldErrorMessageType
-}
-
-interface ServerErrorInterface {
-  status: number
-  data : {
-    message: string,
-    errors: FieldErrorsInterface,
-  }
-}
-
-type formEntity = AdminUserFormInterface | ServiceFormInterface;
-
-export interface ErrorHandlerResponseInterface {
-  errorFields: string[],
-  errorMessages: ErrorObjectInterface[],
-}
+import {
+  ErrorHandlerResponseInterface,
+  ErrorObjectInterface,
+  FieldErrorMessageType,
+  FieldErrorsInterface,
+  formEntity,
+  ServerErrorInterface,
+  ServerResponseInterface
+} from './type';
 
 export const makeApiRequest = (method: Method, slug: string, payload: {} = {}) => new Promise<object[]>((resolve, reject) => {
   const data = castObject(payload, castOptions.ToSnake);

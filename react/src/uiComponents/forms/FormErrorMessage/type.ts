@@ -1,4 +1,4 @@
-import { ErrorObjectInterface } from '../../../utils/api/apiRequest';
+import { ErrorObjectInterface } from '../../../utils/api/type';
 
 export interface FormErrorMessageProps {
   show: boolean,

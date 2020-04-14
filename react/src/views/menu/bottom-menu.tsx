@@ -1,23 +1,14 @@
 import React, { useContext } from 'react';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import { makeStyles } from '@material-ui/core';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { useHistory } from 'react-router-dom';
 import AdminROUTES from '../../route/admin/admin-routes';
 import RouterContext from '../../route/RouterContext';
+import { useStyles } from './style';
 
-const useStyles = makeStyles({
-  root: {
-    overflow: 'hidden',
-    position: 'fixed',
-    bottom: 0,
-    width: '100%',
-    zIndex: 2,
-  },
-});
 
 const BottomMenu = () => {
   const classes = useStyles();

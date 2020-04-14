@@ -1,14 +1,13 @@
 import { useDispatch } from 'react-redux';
 import React, { FormEvent, useCallback, useState } from 'react';
 import {
-  ErrorHandlerResponseInterface,
-  ErrorObjectInterface,
   submitRequest
 } from '../../api/apiRequest';
 import API from '../../../API';
 import { setServiceAction } from '../../../store/actions/ServicesActions';
 import { AdminUserInterface, ServiceInterface } from '../../../views/types/types';
 import { setAdminUsersAction } from '../../../store/actions/adminUsersActions';
+import { ErrorHandlerResponseInterface, ErrorObjectInterface } from '../../api/type';
 
 export const useFormActionHandler = (componentState: any, entity: any) => {
   const dispatchReduxReducer = useDispatch();
