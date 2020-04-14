@@ -16,19 +16,13 @@ import {
 import { FormTitle } from '../../../uiComponents/forms/FormTitle/FormTitle';
 import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField/FormSwitchField';
 import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
-import API from '../../../API';
 import { formReducer } from '../../../utils/forms/formReducer';
-import {
-  ErrorHandlerResponseInterface,
-  ErrorObjectInterface,
-  submitRequest,
-} from '../../../utils/api/apiRequest';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
 import { ReduxState } from '../../../store/types';
-import { setAdminUsersAction } from '../../../store/actions/adminUsersActions';
-import { FormOnChangeFunctionInterface } from '../../../uiComponents/forms/FormTextField/type';
 import formLoader from '../../../utils/forms/formLoader';
 import { initialArg } from './constants';
+import { useChangeHandler } from '../../../utils/forms/hooks/useChangeHandler';
+import { useFormActionHandler } from '../../../utils/forms/hooks/useFormActionHandler';
 
 const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const classes = useStyleForm();
@@ -36,7 +30,7 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   const adminUser = useSelector((state: ReduxState) => state.adminUsers.list.find((adminUserState: AdminUserInterface) => adminUserState.id === Number(
     params && params.id,
   )));
-  const dispatchReduxReducer = useDispatch();
+
   const [componentState, dispatchComponentReducer] = useReducer(formReducer,
     adminUser ?? initialArg);
 
@@ -45,34 +39,15 @@ const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
   }, [adminUser]);
 
   const { firstName, lastName, active } = componentState;
-  const [redirect, setRedirect] = useState<boolean>(false);
-  const [errors, setErrors] = useState<ErrorObjectInterface[]>([]);
-  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    submitRequest(event, API.ADMIN_USER, componentState, adminUser).then((response: object[]) => {
-      dispatchReduxReducer(setAdminUsersAction(response as AdminUserInterface[]));
-      setRedirect(true);
-    }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
-      setFieldErrors(errorFields);
-      setErrors(errorMessages);
-    });
-  };
+  const { onChangeString, onChangeToggle } = useChangeHandler(dispatchComponentReducer);
 
-  const onCancel = useCallback(() => setRedirect(true), []);
-  const onChangeString = useCallback<FormOnChangeFunctionInterface>((e: React.ChangeEvent<HTMLInputElement>): void => dispatchComponentReducer(
-    e.target,
-  ), []);
-  const onChangeToggle: FormOnChangeFunctionInterface = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const newVal = e.target.value !== 'true';
-    dispatchComponentReducer({ name: e.target.name, value: newVal });
-  };
+  const { handleSubmitAdminUserForm, errors, fieldErrors, redirect, onCancel } = useFormActionHandler(componentState, adminUser);
 
   const getForm = () => (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <form className={classes.paper} onSubmit={handleSubmit}>
+      <form className={classes.paper} onSubmit={handleSubmitAdminUserForm}>
         <FormTitleImage><AccountCircleIcon /></FormTitleImage>
         <FormTitle title={`${adminUser ? 'Edit' : 'Add'} Team Member`} />
         <FormErrorMessage show={errors.length > 0} errors={errors} />

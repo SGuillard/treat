@@ -26,16 +26,14 @@ import formLoader from '../../../utils/forms/formLoader';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
 import { SettingsServiceEditProps } from './type';
 import { initialArgs } from './constants';
+import { useChangeHandler } from '../../../utils/forms/hooks/useChangeHandler';
+import { useFormActionHandler } from '../../../utils/forms/hooks/useFormActionHandler';
 
 const SettingsServiceForm = (props: SettingsServiceEditProps) => {
   const classes = useStyles();
   const service = useSelector((state: ReduxState) => state.services.list.find((serviceRedux: ServiceInterface) => serviceRedux.id === Number(
     props.params && props.params.id,
   )));
-  const dispatchReduxReducer = useDispatch();
-  const [redirect, setRedirect] = useState<boolean>(false);
-  const [errors, setErrors] = useState<ErrorObjectInterface[]>([]);
-  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   const [componentState, dispatchComponentReducer] = useReducer(formReducer,
     service ?? initialArgs);
@@ -44,41 +42,16 @@ const SettingsServiceForm = (props: SettingsServiceEditProps) => {
     formLoader(service, dispatchComponentReducer);
   }, [service]);
 
+  const { onChangeString, onChangeNumber, onChangeDecimal } = useChangeHandler(dispatchComponentReducer);
+
+  const { handleSubmitServiceForm, errors, fieldErrors, redirect, onCancel } = useFormActionHandler(componentState, service);
+
   const { name, duration, price } = componentState;
-
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    submitRequest(event, API.SERVICES, componentState, service).then((response: object[]) => {
-      dispatchReduxReducer(setServiceAction(response as ServiceInterface[]));
-      setRedirect(true);
-    }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
-      setFieldErrors(errorFields);
-      setErrors(errorMessages);
-    });
-  };
-
-  const onCancel = useCallback(() => setRedirect(true), []);
-  const onChangeString = useCallback<FormOnChangeFunctionInterface>((e: React.ChangeEvent<HTMLInputElement>): void => dispatchComponentReducer(
-    e.target,
-  ), []);
-  const onChangeNumber = useCallback<FormOnChangeFunctionInterface>((e: React.ChangeEvent<HTMLInputElement>): void => {
-    const parsedInt = parseInt(e.currentTarget.value, 10);
-    dispatchComponentReducer(
-      { name: e.target.name, value: Number.isNaN(parsedInt) ? '' : parsedInt },
-    );
-  }, []);
-
-  const onChangeDecimal = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
-    const parsedFloat = parseFloat(e.currentTarget.value);
-    dispatchComponentReducer(
-      { name: e.target.name, value: Number.isNaN(parsedFloat) ? '' : parsedFloat },
-    );
-  }, []);
 
   const getForm = () => (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <form className={classes.paper} onSubmit={handleSubmit}>
+      <form className={classes.paper} onSubmit={handleSubmitServiceForm}>
         <FormTitleImage>
           <EventSeat />
         </FormTitleImage>
