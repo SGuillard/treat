@@ -3,18 +3,26 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\AdminUser;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\RegistrationRequest;
+use App\Http\Resources\Admin\AdminUserResource;
 
-class RegisterController
+class RegistrationController extends Controller
 {
-
-    public function create(Request $request) {
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return AdminUserResource
+     */
+    public function store(RegistrationRequest $request)
+    {
         $adminUser = new AdminUser();
         $adminUser->first_name = $request->firstName;
         $adminUser->last_name = $request->lastName;
         $adminUser->phone = $request->phone;
         $adminUser->email = $request->email;
+        $adminUser->active = true;
         $adminUser->password = md5($request->password);
         $adminUser->save();
 
@@ -24,7 +32,6 @@ class RegisterController
 
         $salon->adminUsers()->save($adminUser);
 
-        return [];
+        return new AdminUserResource($adminUser);;
     }
-
 }

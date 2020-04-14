@@ -1,88 +1,31 @@
-import React, { FormEvent, useState } from 'react';
+import React, { useReducer } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import API from '../../../API';
-import { loginApi } from '../login-helper';
-import { setLoginAction } from '../../../store/actions/globalActions';
 import { useStyles } from './style';
+import { useFormActionHandler } from '../../../utils/forms/hooks/useFormActionHandler';
+import { formReducer } from '../../../utils/forms/formReducer';
+import { useChangeHandler } from '../../../utils/forms/hooks/useChangeHandler';
+import { FormTextField } from '../../../uiComponents/forms/FormTextField/FormTextField';
+import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
+import { initialArg } from './constants';
 
-const Register = ({ setLogin }: {setLogin: any}) => {
+const Register = () => {
   const classes = useStyles();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [salon, setSalon] = useState('');
-  const [errorCredentials, setErrorCredentials] = useState(false);
-  const [errorValidation] = useState(false);
-  const [redirect, setRedirect] = useState(false);
 
-  const handleRegistration = async () => {
-    const instance = axios.create({
-      headers: { 'Content-Type': 'application/json' },
-    });
-    try {
-      await instance.request({
-        url: `${API.API_URL}${API.REGISTRATION}`,
-        method: 'post',
-        data: JSON.stringify({
-          email, password, firstName, lastName, phone, salon,
-        }),
-      });
-    } catch (e) {
-      if (e.response.status && e.response.status !== 200) {
-        return false;
-      }
-    }
-    return true;
-  };
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, initialArg);
 
-  const validateForm = () => email.length >= 0 && password.length >= 0;
+  const { email, password, firstName, lastName, phone, salon } = componentState;
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-    if (validateForm()) {
-      if (await handleRegistration()) {
-        loginApi(email, password).then((response) => {
-          if (!response) {
-            setErrorCredentials(true);
-          } else {
-            localStorage.setItem('token', response.data.accessToken);
-            setLogin(true);
-            setRedirect(true);
-          }
-        })
-          .catch((e) => console.log(e));
-      }
-    }
-  };
+  const { handleRegistration, errors, fieldErrors, redirect } = useFormActionHandler(componentState);
 
-  const displayErrorMessage = () => {
-    let message = '';
-    if (errorValidation) {
-      message = 'Please enter valid credentials';
-    } else if (errorCredentials) {
-      message = 'Wrong mail/password combination';
-    } else {
-      message = 'Something went wrong, support has been informed';
-    }
-    return (
-      <div className={classes.error}>
-        {message}
-      </div>
-    );
-  };
+  const { onChangeString } = useChangeHandler(dispatchComponentReducer);
 
   const form = () => (
     <Container component="main" maxWidth="xs">
@@ -94,91 +37,64 @@ const Register = ({ setLogin }: {setLogin: any}) => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form} noValidate onSubmit={handleRegistration}>
           <Grid container spacing={2}>
+            <FormErrorMessage show={errors.length > 0} errors={errors} />
             <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
+              <FormTextField
+                onChange={onChangeString}
+                errorFields={fieldErrors}
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                fieldName="firstName"
+                label="First Name"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
+              <FormTextField
+                onChange={onChangeString}
+                errorFields={fieldErrors}
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                fieldName="lastName"
+                label="Last Name"
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                autoComplete="fname"
-                name="phone"
-                variant="outlined"
-                required
-                fullWidth
-                id="phone"
-                label="Phone"
-                autoFocus
+              <FormTextField
+                onChange={onChangeString}
+                errorFields={fieldErrors}
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                fieldName="phone"
+                label="Phone"
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="business"
-                label="Name of my business"
-                name="business"
-                autoComplete="business"
+              <FormTextField
+                onChange={onChangeString}
+                errorFields={fieldErrors}
                 value={salon}
-                onChange={(e) => setSalon(e.target.value)}
+                fieldName="salon"
+                label="Name of my business"
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+              <FormTextField
+                onChange={onChangeString}
+                errorFields={fieldErrors}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                fieldName="email"
+                label="Email Address"
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+              <FormTextField
+                onChange={onChangeString}
+                errorFields={fieldErrors}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                fieldName="password"
+                label="Password"
               />
             </Grid>
           </Grid>
-          {errorValidation || errorCredentials ? displayErrorMessage() : ''}
           <Button
             type="submit"
             fullWidth
@@ -203,8 +119,4 @@ const Register = ({ setLogin }: {setLogin: any}) => {
   return redirect ? <Redirect to="dashboard" /> : form();
 };
 
-const MapDispatchToProps = (dispatch: any) => ({
-  setLogin: () => dispatch(setLoginAction(true)),
-});
-
-export default connect(null, MapDispatchToProps)(Register);
+export default Register;

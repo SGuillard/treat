@@ -6,7 +6,6 @@ import { FormTextFieldProps } from './type';
 export const FormTextField = React.memo(({ onChange, value, fieldName, label, errorFields, type = 'text' }: FormTextFieldProps) => (
   <Grid item xs={12} sm={6}>
     <TextField
-        // required
       id={fieldName}
       name={fieldName}
       label={label}
@@ -15,6 +14,8 @@ export const FormTextField = React.memo(({ onChange, value, fieldName, label, er
       onChange={onChange}
       error={errorFields.includes(fieldName)}
       type={type}
+      variant="outlined"
+      autoFocus
     />
   </Grid>
 ));

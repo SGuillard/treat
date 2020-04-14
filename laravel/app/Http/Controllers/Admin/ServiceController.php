@@ -71,16 +71,6 @@ class ServiceController extends Controller
         //
     }
 
-    /**
-     * Get salon for authenticated user
-     *
-     * @return string
-     */
-    private function getSalon() {
-        $user = Auth::user();
-        return $user->salon;
-    }
-
     private function getServiceList()
     {
         return ServiceResource::collection($this->getSalon()->services);

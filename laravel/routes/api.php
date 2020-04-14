@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 // Admin login routes - Unprotected from the 'auth:api' middleware to allow us to get a user token
 Route::post('login', 'Admin\Auth\AuthenticationController@getToken')->name('login');
-Route::post('register', 'Admin\Auth\RegisterController@create');
+Route::post('register', 'Admin\Auth\RegistrationController@store');
 
 // Prefix applied to all routes inside
 Route::group(['middleware' => 'auth:api'], function () {

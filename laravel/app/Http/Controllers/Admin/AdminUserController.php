@@ -14,16 +14,6 @@ use Illuminate\Support\Facades\Auth;
 class AdminUserController extends Controller
 {
     /**
-     * Return the list of users for the salon of the actual authenticated user
-     *
-     * @return AnonymousResourceCollection
-     */
-    private function getAdminUserList()
-    {
-        return AdminUserResource::collection($this->getSalon()->adminUsers);
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return AnonymousResourceCollection
@@ -82,13 +72,4 @@ class AdminUserController extends Controller
         //
     }
 
-    /**
-     * Get salon for authenticated user
-     *
-     * @return string
-     */
-    private function getSalon() {
-        $user = Auth::user();
-        return $user->salon;
-    }
 }
