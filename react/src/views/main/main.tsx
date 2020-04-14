@@ -14,9 +14,11 @@ const Main = () => {
   const isLogged = useSelector((state: ReduxState) => state.global.isLogged);
 
   useEffect(() => {
-    dispatch(initAdminUsers());
-    dispatch(initServiceList());
-  }, [dispatch]);
+    if (isLogged) {
+      dispatch(initAdminUsers());
+      dispatch(initServiceList());
+    }
+  }, [dispatch, isLogged]);
 
   if (!isLogged) return <Redirect push to={AdminROUTES.LOGIN.path} />;
 

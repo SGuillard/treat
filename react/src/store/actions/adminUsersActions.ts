@@ -18,5 +18,5 @@ export const setAdminUsersAction = (users: AdminUserInterface[]): AdminUserReduc
 export const initAdminUsers = (): ThunkAction<void, ReduxState, unknown, Action<string>> => (dispatch) => {
   makeApiRequest(RequestMethod.GET, `${API.ADMIN_USER}`).then((response: object[]) => dispatch(
     setAdminUsersAction(response as AdminUserInterface[]),
-  )).catch((e) => handleInitialisationRequestErrors(e, dispatch));
+  )).catch(() => handleInitialisationRequestErrors(dispatch));
 };

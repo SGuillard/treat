@@ -9,14 +9,14 @@ const initialState = {
   isLogged: !!getStorageToken,
 };
 
-const setLoggin = (state: GlobalStateInterface, action: GlobalReducerActionInterface) => updateObject(state, {
+const setLogin = (state: GlobalStateInterface, action: GlobalReducerActionInterface) => updateObject(state, {
   isLogged: action.payload,
 });
 
 export const globalReducer: any = (state: GlobalStateInterface = initialState, action: GlobalReducerActionInterface): any => {
   switch (action.type) {
     case REDIRECT_LOGIN:
-      return setLoggin(state, action);
+      return setLogin(state, action);
     default:
       return state;
   }

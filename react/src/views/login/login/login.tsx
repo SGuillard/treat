@@ -3,32 +3,28 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Link } from '@material-ui/core';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLoginAction } from '../../../store/actions/globalActions';
 import { loginApi } from '../login-helper';
 import { useStyles } from './style';
 import { ReduxState } from '../../../store/types';
 
-interface LoginProps {
-  setLogin: Function,
-  isLogged: boolean
-}
-
-const Login = ({ setLogin, isLogged }: LoginProps) => {
+const Login = () => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorCredentials, setErrorCredentials] = useState(false);
   const [errorValidation, setErrorValidation] = useState(false);
 
+
+  const isLogged = useSelector<ReduxState, boolean>((state) => state.global.isLogged);
+  const dispatch = useDispatch();
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
@@ -40,7 +36,7 @@ const Login = ({ setLogin, isLogged }: LoginProps) => {
           setErrorCredentials(true);
         } else {
           localStorage.setItem('token', response.data.accessToken);
-          setLogin(true);
+          dispatch(setLoginAction(true));
         }
       })
         .catch((e) => console.log(e));
@@ -104,10 +100,6 @@ const Login = ({ setLogin, isLogged }: LoginProps) => {
             onChange={(e) => setPassword(e.target.value)}
           />
           {errorValidation || errorCredentials ? displayErrorMessage() : ''}
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             fullWidth
             type="submit"
@@ -137,12 +129,4 @@ const Login = ({ setLogin, isLogged }: LoginProps) => {
   return isLogged ? <Redirect to="dashboard" /> : form();
 };
 
-const MapStateToProps = (state: ReduxState) => ({
-  isLogged: state.global.isLogged,
-});
-
-const MapDispatchToProps = (dispatch: any) => ({
-  setLogin: () => dispatch(setLoginAction(true)),
-});
-
-export default connect(MapStateToProps, MapDispatchToProps)(Login);
+export default Login;

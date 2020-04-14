@@ -1,9 +1,9 @@
 import axios from 'axios';
 import API from '../../API';
 
-export const getStorageToken = () => localStorage.getItem('token');
+export const getStorageToken = localStorage.getItem('token');
 
-export const loginApi = async (login: any, password: any) => {
+export const loginApi = async (login: string, password: string) => {
   const instance = axios.create({
     headers: { 'Content-Type': 'application/json' },
   });
