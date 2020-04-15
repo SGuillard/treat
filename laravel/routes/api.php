@@ -21,4 +21,5 @@ Route::post('register', 'Admin\Auth\RegistrationController@store');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('services', 'Admin\ServiceController');
     Route::apiResource('adminUser', 'Admin\AdminUserController');
+    Route::apiResource('appointments', 'AppointmentController');
 });

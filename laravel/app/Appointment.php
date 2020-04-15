@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Appointment extends Model
 {
     /**
-     * Get the comments for the blog post.
+     * Get the user related to this appointment
      */
     public function user()
     {

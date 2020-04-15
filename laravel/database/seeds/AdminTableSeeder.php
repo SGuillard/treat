@@ -58,12 +58,11 @@ class AdminTableSeeder extends Seeder
 
         for ($i = 0; $i < 4; $i++) {
             $appointment = new \App\Appointment();
-            $appointment->name = 'test Appointment ' . $i;
             $appointment->salon()->associate($salon);
             $adminPerson = $i % 2 == 0 ? $superAdmin : $admin;
             $appointment->adminUser()->associate($adminPerson);
             $appointment->start_date = $this->dateAddAnHour(now(), $i);
-            $appointment->end_date = $this->dateAddAnHour(now(), $i + 1);;
+            $appointment->duration = 15;
             $appointment->save();
         }
 
