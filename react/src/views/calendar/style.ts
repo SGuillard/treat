@@ -13,6 +13,10 @@ export const useStyleForm = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
   error: {
     backgroundColor: 'red',
     borderRadius: '10px',
