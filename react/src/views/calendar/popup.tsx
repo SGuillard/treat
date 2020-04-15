@@ -1,6 +1,5 @@
 import Popup from 'reactjs-popup';
-import React, { ReactNode, useEffect, useReducer, useState } from 'react';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import React, { useEffect, useReducer } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { DateRange } from '@material-ui/icons';
 import DateFnsUtils from '@date-io/date-fns';
@@ -9,22 +8,17 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { FormControl, InputLabel, Select } from '@material-ui/core';
 import { FormTitleImage } from '../../uiComponents/forms/FormTitleImage/FormTitleImage';
 import { FormTitle } from '../../uiComponents/forms/FormTitle/FormTitle';
 import { FormErrorMessage } from '../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
 import { FormTextField } from '../../uiComponents/forms/FormTextField/FormTextField';
-import { FormSwitchField } from '../../uiComponents/forms/FormSwitchField/FormSwitchField';
 import FormActionButtons from '../../uiComponents/forms/FormActionButtons/FormActionButtons';
 import { useStyleForm } from './style';
 import { formReducer } from '../../utils/forms/formReducer';
-import formLoader from '../../utils/forms/formLoader';
 import { useChangeHandler } from '../../utils/forms/hooks/useChangeHandler';
 import { useFormActionHandler } from '../../utils/forms/hooks/useFormActionHandler';
 import 'date-fns';
-import { ReduxState } from '../../store/types';
-import { AdminUserInterface, ServiceInterface } from '../types/types';
 import { useSelectInputActions } from '../../utils/forms/hooks/useSelectInputActions';
 import { useAppointmentSelectInputOptions } from './useAppointmentSelectInputOptions';
 

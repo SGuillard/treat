@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { MenuItem } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ReduxState } from '../../store/types';
 import { AdminUserInterface, ServiceInterface } from '../types/types';
 
