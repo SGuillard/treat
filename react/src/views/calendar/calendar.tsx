@@ -35,6 +35,22 @@ const Calendar = () => {
         &nbsp; (also, click a date/time to add an event)
       </div>
       <div className="demo-app-calendar">
+        <Popup
+          open={open}
+          closeOnDocumentClick
+          onClose={closeModal}
+        >
+          <div className="modal">
+            <div className="close" onClick={closeModal}>
+              &times;
+            </div>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni
+            omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate
+            ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam
+            doloribus. Odit, aut.
+          </div>
+        </Popup>
+
         <FullCalendar
           defaultView="timeGridDay"
           header={{
