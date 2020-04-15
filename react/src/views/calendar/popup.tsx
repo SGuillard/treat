@@ -26,6 +26,7 @@ import 'date-fns';
 import { ReduxState } from '../../store/types';
 import { AdminUserInterface, ServiceInterface } from '../types/types';
 import { useSelectInputActions } from '../../utils/forms/hooks/useSelectInputActions';
+import { useAppointmentSelectInputOptions } from './useAppointmentSelectInputOptions';
 
 interface CalendarPopupProps {
   open: boolean,
@@ -36,11 +37,8 @@ interface CalendarPopupProps {
 export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopupProps) => {
   const classes = useStyleForm();
 
-  const reduxServices = useSelector((state: ReduxState) => state.services.list);
-  const reduxAdminUsers = useSelector((state: ReduxState) => state.adminUsers.list);
-
-  const [componentState, dispatchComponentReducer] = useReducer(formReducer, { service: '', staff: '' });
-  const { date, service, staff } = componentState;
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, { service: '', adminUser: '', clientName: '' });
+  const { date, service, adminUser, clientName } = componentState;
 
   useEffect(() => {
     if (calendarEvent) {
@@ -51,28 +49,11 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
   const serviceSelectInputHandler = useSelectInputActions();
   const adminUserSelectInputHandler = useSelectInputActions();
 
-  const getServicesOptions = reduxServices.map((serviceOption: ServiceInterface) => (
-    <MenuItem
-      key={serviceOption.id}
-      value={serviceOption.id}
-    >
-      {serviceOption.name}
-    </MenuItem>
-  ));
+  const { getServicesOptions, getAdminUsersOptions } = useAppointmentSelectInputOptions();
 
-  const getAdminUsersOptions = reduxAdminUsers.map((adminUserOption: AdminUserInterface) => (
-    <MenuItem
-      key={adminUserOption.id}
-      value={adminUserOption.id}
-    >
-      {`${adminUserOption.firstName} ${adminUserOption.lastName}`}
-    </MenuItem>
-  ));
-
-  const { onChangeSelect, onChangeDate } = useChangeHandler(dispatchComponentReducer);
+  const { onChangeSelect, onChangeDate, onChangeString } = useChangeHandler(dispatchComponentReducer);
 
   const { errors, fieldErrors } = useFormActionHandler(componentState);
-
 
   const handleSubmitAdminUserForm = (e: any) => {
     e.preventDefault();
@@ -126,8 +107,8 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
                   open={adminUserSelectInputHandler.openSelectInput}
                   onClose={adminUserSelectInputHandler.handleCloseSelectInput}
                   onOpen={adminUserSelectInputHandler.handleOpenSelectInput}
-                  value={staff}
-                  name="staff"
+                  value={adminUser}
+                  name="adminUser"
                   onChange={onChangeSelect}
                 >
                   {getAdminUsersOptions}
@@ -156,6 +137,13 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
                   }}
                 />
               </MuiPickersUtilsProvider>
+              <FormTextField
+                onChange={onChangeString}
+                errorFields={fieldErrors}
+                value={clientName}
+                fieldName="clientName"
+                label="Client Name"
+              />
             </Grid>
             <FormActionButtons onCancel={closeModal} />
           </Grid>
