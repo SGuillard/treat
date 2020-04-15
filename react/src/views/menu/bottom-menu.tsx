@@ -5,8 +5,8 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { useHistory } from 'react-router-dom';
-import AdminROUTES from '../../route/admin/admin-routes';
-import RouterContext from '../../route/RouterContext';
+import AdminROUTES from '../../router/admin/admin-routes';
+import RouterContext from '../../router/RouterContext';
 import { useStyles } from './style';
 
 

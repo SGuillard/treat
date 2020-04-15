@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { AdminUserInterface } from '../../types/types';
-import AdminROUTES from '../../../route/admin/admin-routes';
+import AdminROUTES from '../../../router/admin/admin-routes';
 import { useStyleForm } from './style';
 import FormActionButtons from '../../../uiComponents/forms/FormActionButtons/FormActionButtons';
 import { SettingsAdminUserFormAddProps } from './types';

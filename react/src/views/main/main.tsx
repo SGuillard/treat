@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import BottomMenu from '../menu/bottom-menu';
-import ContentPageRouter from '../../route/admin/content-page-router';
+import ContentPageRouter from '../../router/admin/content-page-router';
 import { initAdminUsers } from '../../store/actions/adminUsersActions';
 import { initServiceList } from '../../store/actions/ServicesActions';
-import AdminROUTES from '../../route/admin/admin-routes';
+import AdminROUTES from '../../router/admin/admin-routes';
 import { ReduxState } from '../../store/types';
 
 const Main = () => {

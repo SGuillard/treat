@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 import { ServiceInterface } from '../../types/types';
 import { useStyles } from './style';
 import FormActionButtons from '../../../uiComponents/forms/FormActionButtons/FormActionButtons';
-import AdminROUTES from '../../../route/admin/admin-routes';
+import AdminROUTES from '../../../router/admin/admin-routes';
 import { ReduxState } from '../../../store/types';
 import { formReducer } from '../../../utils/forms/formReducer';
 import { FormTextField } from '../../../uiComponents/forms/FormTextField/FormTextField';

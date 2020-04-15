@@ -13,7 +13,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import EditIcon from '@material-ui/icons/Edit';
 import { Redirect } from 'react-router-dom';
 import { AdminUserInterface } from '../../types/types';
-import AdminROUTES from '../../../route/admin/admin-routes';
+import AdminROUTES from '../../../router/admin/admin-routes';
 import { ReduxState } from '../../../store/types';
 import { useStyleList } from './style';
 import { useListRedirection } from '../../../utils/common/hooks/useListRedirection';
