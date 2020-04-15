@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\AdminUser;
+use App\Appointment;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -24,13 +26,10 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        $appointment = new \App\Appointment();
-        $appointment->salon()->associate($salon);
-        $adminPerson = $i % 2 == 0 ? $superAdmin : $admin;
-        $appointment->adminUser()->associate($adminPerson);
-        $appointment->start_date = $this->dateAddAnHour(now(), $i);
-        $appointment->duration = 15;
-        $appointment->save();
+        $newUser = Appointment::create($request->input());
+        $salon = $this->getSalon();
+        $salon->adminUsers()->save($newUser);
+        return $this->getAdminUserList();
     }
 
     /**
