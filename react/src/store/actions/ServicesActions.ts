@@ -4,12 +4,11 @@ import {
 import makeApiRequest from '../../utils/api/apiRequest';
 import API from '../../API';
 import { RequestMethod } from '../../types';
-import { AdminUserInterface, ServiceInterface } from '../../views/types/types';
+import { ServiceInterface } from '../../views/types/types';
 import { handleInitialisationRequestErrors } from './globalActions';
 import { ThunkAction } from 'redux-thunk';
 import { ReduxState } from '../types';
 import { Action } from 'redux';
-import { setAdminUsersAction } from './adminUsersActions';
 
 export const setServiceAction = (service: ServiceInterface[]) => ({
   type: SET_SERVICE_ACTION,
