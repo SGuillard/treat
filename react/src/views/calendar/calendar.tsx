@@ -4,6 +4,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { CalendarPopup } from './calendar-popup';
+import { useSelector } from 'react-redux';
+import { ReduxState } from '../../store/types';
 
 const events = [
   {
@@ -16,6 +18,7 @@ const Calendar = () => {
   const [open, toggleModal] = useState(false);
   const calendarComponentRef: any = useRef();
   const [calendarEvent, setCalendarEvent] = useState({});
+  const appointments = useSelector((state: ReduxState) => state.appointments.list);
 
   useEffect(() => {
     console.log('init calendcar');

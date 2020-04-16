@@ -24,9 +24,6 @@ import { useSelectInputActions } from '../../utils/forms/hooks/useSelectInputAct
 import { useAppointmentSelectInputOptions } from './useAppointmentSelectInputOptions';
 import { submitRequest } from '../../utils/api/apiRequest';
 import API from '../../API';
-import { setAdminUsersAction } from '../../store/actions/adminUsersActions';
-import { AdminUserInterface } from '../types/types';
-import { ErrorHandlerResponseInterface } from '../../utils/api/type';
 
 interface CalendarPopupProps {
   open: boolean,
@@ -37,7 +34,7 @@ interface CalendarPopupProps {
 export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopupProps) => {
   const classes = useStyleForm();
 
-  const [componentState, dispatchComponentReducer] = useReducer(formReducer, { serviceId: '', adminUserId: '', clientNameId: '' });
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, { serviceId: '', adminUserId: '', clientName: '' });
   const { date, serviceId, adminUserId, clientName } = componentState;
 
   useEffect(() => {

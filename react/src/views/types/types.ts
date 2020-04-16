@@ -25,3 +25,17 @@ export interface ServiceInterface extends ServiceModel {
 export interface ServiceFormInterface extends ServiceModel {
   id?: number | null;
 }
+
+export interface AppointmentModel {
+  salonId: number,
+  duration: number,
+  adminUserId: number,
+  date: string,
+  serviceId: number,
+  userId: number | null,
+  clientName: string | null,
+}
+
+export interface AppointmentInterface extends AppointmentModel{
+  id?: number | null;
+}

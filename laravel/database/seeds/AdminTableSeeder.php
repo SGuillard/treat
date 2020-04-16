@@ -72,6 +72,8 @@ class AdminTableSeeder extends Seeder
             $appointment = new \App\Appointment();
             $appointment->salon()->associate($salon);
             $adminPerson = $i % 2 == 0 ? $superAdmin : $admin;
+            $appointment->client_name = $i % 2 == 0 ? 'Patrick' : null;
+            $appointment->user_id = $i % 2 == 0 ? null : 1;
             $appointment->adminUser()->associate($adminPerson);
             $appointment->date = $this->dateAddAnHour(now(), $i);
             $appointment->service()->associate($firstService);

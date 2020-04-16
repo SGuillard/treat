@@ -1,9 +1,14 @@
-import { AdminUserInterface, ServiceInterface } from '../../views/types/types';
+import {
+  AdminUserInterface,
+  AppointmentInterface,
+  ServiceInterface
+} from '../../views/types/types';
 
 export interface ReduxState {
   adminUsers: AdminUsersStateInterface,
   global: GlobalStateInterface,
-  services: ServiceStateInterface
+  services: ServiceStateInterface,
+  appointments: AppointmentStateInterface,
 }
 
 export interface AdminUsersStateInterface {
@@ -13,6 +18,11 @@ export interface AdminUsersStateInterface {
 export interface AdminUserReducerActionPayload {
   type: string,
   payload: AdminUserInterface[],
+}
+
+export interface AppointmentReducerActionPayload {
+  type: string,
+  payload: AppointmentInterface[],
 }
 
 export interface GlobalStateInterface {
@@ -26,6 +36,10 @@ export interface GlobalReducerActionInterface {
 
 export interface ServiceStateInterface {
   list: ServiceInterface[]
+}
+
+export interface AppointmentStateInterface {
+  list: AppointmentInterface[]
 }
 
 export interface ServiceReducerActionInterface {
