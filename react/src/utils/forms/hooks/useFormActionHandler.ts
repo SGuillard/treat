@@ -5,11 +5,16 @@ import {
 } from '../../api/apiRequest';
 import API from '../../../API';
 import { setServiceAction } from '../../../store/actions/ServicesActions';
-import { AdminUserInterface, ServiceInterface } from '../../../views/types/types';
+import {
+  AdminUserInterface,
+  AppointmentInterface,
+  ServiceInterface
+} from '../../../views/types/types';
 import { setAdminUsersAction } from '../../../store/actions/adminUsersActions';
 import { ErrorHandlerResponseInterface, ErrorObjectInterface } from '../../api/type';
 import { loginApi } from '../../../views/login/login-helper';
 import { setLoginAction } from '../../../store/actions/globalActions';
+import { setAppointmentAction } from '../../../store/actions/appointmentAction';
 
 export const useFormActionHandler = (componentState: any, entity?: any) => {
   const dispatchReduxReducer = useDispatch();
@@ -55,8 +60,18 @@ export const useFormActionHandler = (componentState: any, entity?: any) => {
     });
   };
 
+  const handleSubmitAddAppointmentForm = (e: any) => {
+    e.preventDefault();
+    submitRequest(API.APPOINTMENTS, componentState).then((response: any) => {
+      dispatchReduxReducer(setAppointmentAction(response as AppointmentInterface[]));
+      // setRedirect(true);
+    }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
+      setFieldErrors(errorFields);
+      setErrors(errorMessages);
+    });
+  };
 
   const onCancel = useCallback(() => setRedirect(true), []);
 
-  return { handleSubmitServiceForm, handleSubmitAdminUserForm, handleRegistration, onCancel, redirect, errors, fieldErrors };
+  return { onCancel, redirect, errors, fieldErrors, handleSubmitAddAppointmentForm, handleSubmitServiceForm, handleSubmitAdminUserForm, handleRegistration };
 };

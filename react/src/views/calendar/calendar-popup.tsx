@@ -24,6 +24,7 @@ import { useSelectInputActions } from '../../utils/forms/hooks/useSelectInputAct
 import { useAppointmentSelectInputOptions } from './useAppointmentSelectInputOptions';
 import { submitRequest } from '../../utils/api/apiRequest';
 import API from '../../API';
+import { FormSelect } from '../../uiComponents/forms/FormSelect/FormSelect';
 
 interface CalendarPopupProps {
   open: boolean,
@@ -43,33 +44,16 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
     }
   }, [calendarEvent]);
 
-  const serviceSelectInputHandler = useSelectInputActions();
-  const adminUserSelectInputHandler = useSelectInputActions();
-
   const { getServicesOptions, getAdminUsersOptions } = useAppointmentSelectInputOptions();
 
   const { onChangeSelect, onChangeDate, onChangeString } = useChangeHandler(dispatchComponentReducer);
-
-  const { errors, fieldErrors } = useFormActionHandler(componentState);
 
   const updatedComponentState = () => {
     const dateFormated = moment(componentState.date).format('YYYY-MM-DD HH:mm:ss');
     return { ...componentState, date: dateFormated, duration: 15 };
   };
 
-  const handleSubmitPopupForm = (e: any) => {
-    e.preventDefault();
-    submitRequest(API.APPOINTMENTS, updatedComponentState()).then((response: any) => {
-      console.log(response);
-      // dispatchReduxReducer(setAdminUsersAction(response as AdminUserInterface[]));
-      // setRedirect(true);
-    }).catch((err: any) => {
-      console.log(err);
-      // setFieldErrors(errorFields);
-      // setErrors(errorMessages);
-    });
-    // console.log(componentState);
-  };
+  const { onCancel, redirect, errors, fieldErrors, handleSubmitAddAppointmentForm } = useFormActionHandler(updatedComponentState());
 
   return (
     <Popup
@@ -81,7 +65,7 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
         <div className="close" onClick={closeModal}>
           &times;
         </div>
-        <form className={classes.paper} onSubmit={handleSubmitPopupForm}>
+        <form className={classes.paper} onSubmit={handleSubmitAddAppointmentForm}>
           <FormTitleImage><DateRange /></FormTitleImage>
           <FormTitle title="Add Appointment" />
           <FormErrorMessage show={errors.length > 0} errors={errors} />
@@ -97,33 +81,21 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
               {/* /> */}
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-controlled-open-select-label">Service</InputLabel>
-                <Select
-                  labelId="demo-controlled-open-select-label"
-                  id="demo-controlled-open-select"
-                  open={serviceSelectInputHandler.openSelectInput}
-                  onClose={serviceSelectInputHandler.handleCloseSelectInput}
-                  onOpen={serviceSelectInputHandler.handleOpenSelectInput}
+                <FormSelect
                   value={serviceId}
                   name="serviceId"
                   onChange={onChangeSelect}
-                >
-                  {getServicesOptions}
-                </Select>
+                  options={getServicesOptions}
+                />
               </FormControl>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-controlled-open-select-label">Staff Member</InputLabel>
-                <Select
-                  labelId="demo-controlled-open-select-label"
-                  id="demo-controlled-open-select"
-                  open={adminUserSelectInputHandler.openSelectInput}
-                  onClose={adminUserSelectInputHandler.handleCloseSelectInput}
-                  onOpen={adminUserSelectInputHandler.handleOpenSelectInput}
+                <FormSelect
                   value={adminUserId}
                   name="adminUserId"
                   onChange={onChangeSelect}
-                >
-                  {getAdminUsersOptions}
-                </Select>
+                  options={getAdminUsersOptions}
+                />
               </FormControl>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
