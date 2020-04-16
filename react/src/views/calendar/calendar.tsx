@@ -3,11 +3,12 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { CalendarPopup } from './calendar-popup';
 import { useSelector } from 'react-redux';
+import { CalendarPopup } from './calendar-popup';
 import { ReduxState } from '../../store/types';
 
-const events = [
+// TODO DElete
+const eventsDemo = [
   {
     title: 'test',
     date: '2020-04-15',
@@ -20,9 +21,11 @@ const Calendar = () => {
   const [calendarEvent, setCalendarEvent] = useState({});
   const appointments = useSelector((state: ReduxState) => state.appointments.list);
 
+  const events = () => appointments.map((appointment: any) => ({ title: 'test', date: appointment.date }));
+
   useEffect(() => {
-    console.log('init calendcar');
-  });
+    console.log(events());
+  }, [events]);
 
   const closeModal = () => {
     toggleModal(false);
@@ -53,7 +56,7 @@ const Calendar = () => {
           }}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           ref={calendarComponentRef}
-          events={events}
+          events={events()}
           dateClick={handleDateClick}
           eventClick={handleEventClick}
         />
