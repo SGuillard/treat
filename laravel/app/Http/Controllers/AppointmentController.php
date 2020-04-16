@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AdminUser;
 use App\Appointment;
+use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Resources\Admin\AdminUserResource;
 use App\Http\Resources\AppointmentResource;
 use App\Service;
@@ -27,7 +28,7 @@ class AppointmentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAppointmentRequest $request)
     {
         $appointment = Appointment::create($request->input());
         $salon = $this->getSalon();

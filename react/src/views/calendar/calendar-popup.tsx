@@ -71,20 +71,13 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
           <FormErrorMessage show={errors.length > 0} errors={errors} />
           <Grid container spacing={3} style={{ padding: '15px' }}>
             <Grid item xs={12} sm={6}>
-              {/* <FormTextField */}
-              {/*  onChange={onChangeNumber} */}
-              {/*  errorFields={fieldErrors} */}
-              {/*  value={duration} */}
-              {/*  fieldName="duration" */}
-              {/*  label="Duration (mn)" */}
-              {/*  type="number" */}
-              {/* /> */}
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-controlled-open-select-label">Service</InputLabel>
                 <FormSelect
                   value={serviceId}
-                  name="serviceId"
+                  fieldName="serviceId"
                   onChange={onChangeSelect}
+                  errorFields={fieldErrors}
                   options={getServicesOptions}
                 />
               </FormControl>
@@ -94,6 +87,7 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
                   value={adminUserId}
                   name="adminUserId"
                   onChange={onChangeSelect}
+                  errorFields={fieldErrors}
                   options={getAdminUsersOptions}
                 />
               </FormControl>
