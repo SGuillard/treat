@@ -38,6 +38,16 @@ class AdminUserController extends Controller
     }
 
     /**
+     * Return the list of users for the salon of the actual authenticated user
+     *
+     * @return AnonymousResourceCollection
+     */
+    protected function getAdminUserList()
+    {
+        return AdminUserResource::collection($this->getSalon()->adminUsers);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

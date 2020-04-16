@@ -3,6 +3,7 @@ import {
   FormOnChangeFunctionInterface,
   FormOnChangeSelectInterface,
 } from '../../../uiComponents/forms/FormTextField/type';
+import moment from 'moment';
 
 export const useChangeHandler = (dispatchComponentReducer: any) => {
   const onChangeString = useCallback<FormOnChangeFunctionInterface>((e) => {
@@ -31,7 +32,8 @@ export const useChangeHandler = (dispatchComponentReducer: any) => {
   }, [dispatchComponentReducer]);
 
   const onChangeDate = (date: any) => {
-    dispatchComponentReducer({ name: 'date', value: date });
+    const dateFormatted = moment(date).format('YYYY-MM-DD HH:mm:ss');
+    dispatchComponentReducer({ name: 'date', value: dateFormatted });
   };
 
   const onChangeSelect = useCallback<FormOnChangeSelectInterface>((e) => {

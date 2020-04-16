@@ -9,6 +9,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { FormControl, InputLabel, Select } from '@material-ui/core';
+import moment from 'moment';
 import { FormTitleImage } from '../../uiComponents/forms/FormTitleImage/FormTitleImage';
 import { FormTitle } from '../../uiComponents/forms/FormTitle/FormTitle';
 import { FormErrorMessage } from '../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
@@ -21,6 +22,11 @@ import { useFormActionHandler } from '../../utils/forms/hooks/useFormActionHandl
 import 'date-fns';
 import { useSelectInputActions } from '../../utils/forms/hooks/useSelectInputActions';
 import { useAppointmentSelectInputOptions } from './useAppointmentSelectInputOptions';
+import { submitRequest } from '../../utils/api/apiRequest';
+import API from '../../API';
+import { setAdminUsersAction } from '../../store/actions/adminUsersActions';
+import { AdminUserInterface } from '../types/types';
+import { ErrorHandlerResponseInterface } from '../../utils/api/type';
 
 interface CalendarPopupProps {
   open: boolean,
@@ -49,9 +55,23 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
 
   const { errors, fieldErrors } = useFormActionHandler(componentState);
 
-  const handleSubmitAdminUserForm = (e: any) => {
+  const updatedComponentState = () => {
+    const dateFormated = moment(componentState.date).format('YYYY-MM-DD HH:mm:ss');
+    return { ...componentState, date: dateFormated };
+  };
+
+  const handleSubmitPopupForm = (e: any) => {
     e.preventDefault();
-    console.log(componentState);
+    submitRequest(API.APPOINTMENTS, updatedComponentState()).then((response: any) => {
+      console.log(response);
+      // dispatchReduxReducer(setAdminUsersAction(response as AdminUserInterface[]));
+      // setRedirect(true);
+    }).catch((err: any) => {
+      console.log(err);
+      // setFieldErrors(errorFields);
+      // setErrors(errorMessages);
+    });
+    // console.log(componentState);
   };
 
   return (
@@ -64,7 +84,7 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
         <div className="close" onClick={closeModal}>
           &times;
         </div>
-        <form className={classes.paper} onSubmit={handleSubmitAdminUserForm}>
+        <form className={classes.paper} onSubmit={handleSubmitPopupForm}>
           <FormTitleImage><DateRange /></FormTitleImage>
           <FormTitle title="Add Appointment" />
           <FormErrorMessage show={errors.length > 0} errors={errors} />

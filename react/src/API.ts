@@ -4,6 +4,7 @@ const API = {
   REGISTRATION: '/register',
   ADMIN_USER: '/adminUser',
   SERVICES: '/services',
+  APPOINTMENTS: '/appointments',
 };
 
 export default API;

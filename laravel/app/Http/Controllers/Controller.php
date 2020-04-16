@@ -23,14 +23,4 @@ class Controller extends BaseController
         $user = Auth::user();
         return $user->salon;
     }
-
-    /**
-     * Return the list of users for the salon of the actual authenticated user
-     *
-     * @return AnonymousResourceCollection
-     */
-    protected function getAdminUserList()
-    {
-        return AdminUserResource::collection($this->getSalon()->adminUsers);
-    }
 }

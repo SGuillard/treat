@@ -23,7 +23,6 @@ export const makeApiRequest = (method: Method, slug: string, payload: {} = {}) =
     method,
     data,
   })
-    // .then((response: any) => resolve(response.data.data))
     .then((response: ServerResponseInterface) => resolve(castArrayList(response.data.data, castOptions.ToCamel)))
     .catch((errors: ServerErrorInterface) => {
       reject(errors);
@@ -66,7 +65,7 @@ const handleErrors = (serverError: ServerErrorInterface): ErrorHandlerResponseIn
   return { errorMessages, errorFields };
 };
 
-export const submitRequest = (e: React.FormEvent, url: string, store: any, editEntity?: formEntity) => new Promise<object[]>((resolve, reject) => {
+export const submitRequest = (url: string, store: any, editEntity?: formEntity) => new Promise<object[]>((resolve, reject) => {
   // If edit mode, add user id for Back end
   const requestData = editEntity ? formReducer(store, { name: 'id', value: editEntity.id }) : store;
   const httpMethod = editEntity ? RequestMethod.PUT : RequestMethod.POST;

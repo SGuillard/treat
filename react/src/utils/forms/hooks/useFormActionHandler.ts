@@ -19,7 +19,7 @@ export const useFormActionHandler = (componentState: any, entity?: any) => {
 
   const handleSubmitServiceForm = (event: FormEvent) => {
     event.preventDefault();
-    submitRequest(event, API.SERVICES, componentState, entity).then((response: object[]) => {
+    submitRequest(API.SERVICES, componentState, entity).then((response: object[]) => {
       dispatchReduxReducer(setServiceAction(response as ServiceInterface[]));
       setRedirect(true);
     }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
@@ -30,7 +30,7 @@ export const useFormActionHandler = (componentState: any, entity?: any) => {
 
   const handleSubmitAdminUserForm = (event: React.FormEvent) => {
     event.preventDefault();
-    submitRequest(event, API.ADMIN_USER, componentState, entity).then((response: object[]) => {
+    submitRequest(API.ADMIN_USER, componentState, entity).then((response: object[]) => {
       dispatchReduxReducer(setAdminUsersAction(response as AdminUserInterface[]));
       setRedirect(true);
     }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
@@ -41,7 +41,7 @@ export const useFormActionHandler = (componentState: any, entity?: any) => {
 
   const handleRegistration = (event: React.FormEvent) => {
     event.preventDefault();
-    submitRequest(event, API.REGISTRATION, componentState, entity).then((response: object[]) => {
+    submitRequest(API.REGISTRATION, componentState, entity).then((response: object[]) => {
       dispatchReduxReducer(setAdminUsersAction(response as AdminUserInterface[]));
       loginApi(componentState.email, componentState.password).then((responseToken: any) => {
         localStorage.setItem('token', responseToken.data.accessToken);

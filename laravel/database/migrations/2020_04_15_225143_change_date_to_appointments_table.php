@@ -15,7 +15,7 @@ class ChangeDateToAppointmentsTable extends Migration
     {
         Schema::table('appointments', function (Blueprint $table) {
             $table->dropColumn('start_date');
-            $table->date('date');
+            $table->dateTime('date');
         });
     }
 
