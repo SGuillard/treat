@@ -6,6 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { useSelector } from 'react-redux';
 import { CalendarPopup } from './calendar-popup';
 import { ReduxState } from '../../store/types';
+import { AppointmentInterface } from '../types/types';
 
 // TODO DElete
 const eventsDemo = [
@@ -21,11 +22,11 @@ const Calendar = () => {
   const [calendarEvent, setCalendarEvent] = useState({});
   const appointments = useSelector((state: ReduxState) => state.appointments.list);
 
-  const events = () => appointments.map((appointment: any) => ({ title: 'test', date: appointment.date }));
+  const getEvents = () => appointments.map((appointment: AppointmentInterface) => ({ title: appointment.clientName, date: appointment.date }));
 
   useEffect(() => {
-    console.log(events());
-  }, [events]);
+    console.log(getEvents());
+  }, [getEvents]);
 
   const closeModal = () => {
     toggleModal(false);
@@ -56,7 +57,7 @@ const Calendar = () => {
           }}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           ref={calendarComponentRef}
-          events={events()}
+          events={getEvents()}
           dateClick={handleDateClick}
           eventClick={handleEventClick}
         />

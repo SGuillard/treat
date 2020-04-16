@@ -29,23 +29,9 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        $newUser = Appointment::create($request->input());
-        return AppointmentResource::collection($this->getSalon()->appointments);
-
-        $appointment = new Appointment();
-        $appointment->salon()->associate($this->getSalon());
-        // Admin User
-        $adminPerson = AdminUser::findOrFail(1);
-//        $adminPerson = AdminUser::findOrFail($request->input('admin_user'));
-        $appointment->adminUser()->associate($adminPerson);
-        // Service
-//        $service = Service::findOrFail($request->input('service'));
-        $service = Service::findOrFail(1);
-        $appointment->service()->associate($service);
-
-        $appointment->date = $request->input('date');
-        $appointment->duration = 15;
-        $appointment->save();
+        $appointment = Appointment::create($request->input());
+        $salon = $this->getSalon();
+        $salon->appointments()->save($appointment);
         return AppointmentResource::collection($this->getSalon()->appointments);
     }
 

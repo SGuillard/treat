@@ -33,7 +33,7 @@ class AuthenticationController
         $user = AdminUser::where('email', $request->username)->first();
 
         if (!\is_null($user)) {
-            $passwordMatch = md5($request->password, $user->password);
+            $passwordMatch = md5($request->password) === $user->password;
             if ($passwordMatch) {
                 return $user->createToken('Admin');
             }
