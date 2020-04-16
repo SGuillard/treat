@@ -29,7 +29,8 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-//        $newUser = AdminUser::create($request->input());
+        $newUser = Appointment::create($request->input());
+        return AppointmentResource::collection($this->getSalon()->appointments);
 
         $appointment = new Appointment();
         $appointment->salon()->associate($this->getSalon());

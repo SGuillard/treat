@@ -37,8 +37,8 @@ interface CalendarPopupProps {
 export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopupProps) => {
   const classes = useStyleForm();
 
-  const [componentState, dispatchComponentReducer] = useReducer(formReducer, { service: '', adminUser: '', clientName: '' });
-  const { date, service, adminUser, clientName } = componentState;
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, { serviceId: '', adminUserId: '', clientNameId: '' });
+  const { date, serviceId, adminUserId, clientName } = componentState;
 
   useEffect(() => {
     if (calendarEvent) {
@@ -57,7 +57,7 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
 
   const updatedComponentState = () => {
     const dateFormated = moment(componentState.date).format('YYYY-MM-DD HH:mm:ss');
-    return { ...componentState, date: dateFormated };
+    return { ...componentState, date: dateFormated, duration: 15 };
   };
 
   const handleSubmitPopupForm = (e: any) => {
@@ -106,8 +106,8 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
                   open={serviceSelectInputHandler.openSelectInput}
                   onClose={serviceSelectInputHandler.handleCloseSelectInput}
                   onOpen={serviceSelectInputHandler.handleOpenSelectInput}
-                  value={service}
-                  name="service"
+                  value={serviceId}
+                  name="serviceId"
                   onChange={onChangeSelect}
                 >
                   {getServicesOptions}
@@ -121,8 +121,8 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
                   open={adminUserSelectInputHandler.openSelectInput}
                   onClose={adminUserSelectInputHandler.handleCloseSelectInput}
                   onOpen={adminUserSelectInputHandler.handleOpenSelectInput}
-                  value={adminUser}
-                  name="adminUser"
+                  value={adminUserId}
+                  name="adminUserId"
                   onChange={onChangeSelect}
                 >
                   {getAdminUsersOptions}
