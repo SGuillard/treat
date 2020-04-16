@@ -26,7 +26,7 @@ const Calendar = () => {
 
   useEffect(() => {
     console.log(getEvents());
-  }, [getEvents]);
+  });
 
   const closeModal = () => {
     toggleModal(false);

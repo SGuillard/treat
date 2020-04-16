@@ -24,7 +24,7 @@ class StoreAppointmentRequest extends FormRequest
     public function rules()
     {
         return [
-//            'client_name' => 'required'
+            'client_name' => 'required'
         ];
     }
 }

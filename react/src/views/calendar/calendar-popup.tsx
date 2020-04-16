@@ -1,5 +1,5 @@
 import Popup from 'reactjs-popup';
-import React, { useEffect, useReducer } from 'react';
+import React, { useCallback, useEffect, useReducer } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { DateRange } from '@material-ui/icons';
 import DateFnsUtils from '@date-io/date-fns';
@@ -38,22 +38,22 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
   const [componentState, dispatchComponentReducer] = useReducer(formReducer, { serviceId: '', adminUserId: '', clientName: '' });
   const { date, serviceId, adminUserId, clientName } = componentState;
 
+  const { redirect, errors, fieldErrors, handleSubmitAddAppointmentForm } = useFormActionHandler(componentState);
+
   useEffect(() => {
     if (calendarEvent) {
       dispatchComponentReducer({ name: 'date', value: calendarEvent.date });
     }
   }, [calendarEvent]);
 
+  useEffect(() => {
+    if (redirect) closeModal();
+  }, [closeModal, redirect]);
+
   const { getServicesOptions, getAdminUsersOptions } = useAppointmentSelectInputOptions();
 
   const { onChangeSelect, onChangeDate, onChangeString } = useChangeHandler(dispatchComponentReducer);
 
-  const updatedComponentState = () => {
-    const dateFormated = moment(componentState.date).format('YYYY-MM-DD HH:mm:ss');
-    return { ...componentState, date: dateFormated, duration: 15 };
-  };
-
-  const { onCancel, redirect, errors, fieldErrors, handleSubmitAddAppointmentForm } = useFormActionHandler(updatedComponentState());
 
   return (
     <Popup
@@ -85,7 +85,7 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
                 <InputLabel id="demo-controlled-open-select-label">Staff Member</InputLabel>
                 <FormSelect
                   value={adminUserId}
-                  name="adminUserId"
+                  fieldName="adminUserId"
                   onChange={onChangeSelect}
                   errorFields={fieldErrors}
                   options={getAdminUsersOptions}

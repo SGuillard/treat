@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import React, { FormEvent, useCallback, useState } from 'react';
+import moment from 'moment';
 import {
   submitRequest,
 } from '../../api/apiRequest';
@@ -8,7 +9,7 @@ import { setServiceAction } from '../../../store/actions/ServicesActions';
 import {
   AdminUserInterface,
   AppointmentInterface,
-  ServiceInterface
+  ServiceInterface,
 } from '../../../views/types/types';
 import { setAdminUsersAction } from '../../../store/actions/adminUsersActions';
 import { ErrorHandlerResponseInterface, ErrorObjectInterface } from '../../api/type';
@@ -62,9 +63,17 @@ export const useFormActionHandler = (componentState: any, entity?: any) => {
 
   const handleSubmitAddAppointmentForm = (e: any) => {
     e.preventDefault();
-    submitRequest(API.APPOINTMENTS, componentState).then((response: any) => {
+
+    // TODO - handle duration in the form
+    // TODO - Do a generic function for this format date helper
+    const updateComponentState = () => {
+      const dateFormated = moment(componentState.date).format('YYYY-MM-DD HH:mm:ss');
+      return { ...componentState, date: dateFormated, duration: 15 };
+    };
+
+    submitRequest(API.APPOINTMENTS, updateComponentState()).then((response: any) => {
       dispatchReduxReducer(setAppointmentAction(response as AppointmentInterface[]));
-      // setRedirect(true);
+      setRedirect(true);
     }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
       setFieldErrors(errorFields);
       setErrors(errorMessages);
