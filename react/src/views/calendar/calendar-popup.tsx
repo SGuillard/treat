@@ -1,15 +1,14 @@
 import Popup from 'reactjs-popup';
-import React, { useCallback, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { DateRange } from '@material-ui/icons';
 import DateFnsUtils from '@date-io/date-fns';
 import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
+  KeyboardTimePicker,
+  MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
-import { FormControl, InputLabel, Select } from '@material-ui/core';
-import moment from 'moment';
+import { FormControl, InputLabel } from '@material-ui/core';
 import { FormTitleImage } from '../../uiComponents/forms/FormTitleImage/FormTitleImage';
 import { FormTitle } from '../../uiComponents/forms/FormTitle/FormTitle';
 import { FormErrorMessage } from '../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
@@ -20,10 +19,7 @@ import { formReducer } from '../../utils/forms/formReducer';
 import { useChangeHandler } from '../../utils/forms/hooks/useChangeHandler';
 import { useFormActionHandler } from '../../utils/forms/hooks/useFormActionHandler';
 import 'date-fns';
-import { useSelectInputActions } from '../../utils/forms/hooks/useSelectInputActions';
 import { useAppointmentSelectInputOptions } from './useAppointmentSelectInputOptions';
-import { submitRequest } from '../../utils/api/apiRequest';
-import API from '../../API';
 import { FormSelect } from '../../uiComponents/forms/FormSelect/FormSelect';
 import { EditMode } from './calendar';
 
@@ -34,19 +30,30 @@ interface CalendarPopupProps {
   action: EditMode
 }
 
+const emptyEvent = { serviceId: '', adminUserId: '', clientName: '' };
+
 export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: CalendarPopupProps) => {
   const classes = useStyleForm();
 
-  const [componentState, dispatchComponentReducer] = useReducer(formReducer, { serviceId: '', adminUserId: '', clientName: '' });
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, emptyEvent);
   const { date, serviceId, adminUserId, clientName } = componentState;
 
   const { redirect, errors, fieldErrors, handleSubmitAddAppointmentForm } = useFormActionHandler(componentState);
 
   useEffect(() => {
+    // As the component is initiated before getting the calendar event,
+    // we need to set the reducer values directly when this component is re-rendered with the calendar event
     if (calendarEvent) {
+      // Initiate date
       dispatchComponentReducer({ name: 'date', value: action === EditMode.Add ? calendarEvent.date : calendarEvent.start });
+      // Initiate other inputs (if edit mode)
+      if(action === EditMode.Edit && calendarEvent.extendedProps) {
+        (Object.entries(calendarEvent.extendedProps) as any[]).forEach(([key, value]) => {
+          dispatchComponentReducer({ name: key, value });
+        });
+      }
     }
-  }, [calendarEvent]);
+  }, [action, calendarEvent]);
 
   useEffect(() => {
     if (redirect) closeModal();

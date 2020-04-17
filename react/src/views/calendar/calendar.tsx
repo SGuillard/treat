@@ -13,6 +13,7 @@ const eventsDemo = [
   {
     title: 'test',
     date: '2020-04-15',
+    test: 'ok',
   },
 ];
 
@@ -28,10 +29,10 @@ const Calendar = () => {
   const [editMode, setEditMode] = useState(EditMode.Add);
   const appointments = useSelector((state: ReduxState) => state.appointments.list);
 
-  const getEvents = () => appointments.map((appointment: AppointmentInterface) => ({ title: appointment.clientName, date: appointment.date }));
+  const getEvents = () => appointments.map((appointment: AppointmentInterface) => ({ title: appointment.clientName, ...appointment }));
 
   useEffect(() => {
-    console.log(getEvents());
+    console.log('calendar');
   });
 
   const closeModal = () => {

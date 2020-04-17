@@ -41,20 +41,17 @@ const handleErrors = (serverError: ServerErrorInterface): ErrorHandlerResponseIn
   } else if (serverError.status === 422) {
     const backendErrors = [serverError.data.errors];
     const castedErrorFields = castArrayList(backendErrors, castOptions.ToCamel) as FieldErrorsInterface[];
-    castedErrorFields.map((fields: FieldErrorsInterface, key: number) => {
+    castedErrorFields.forEach((fields: FieldErrorsInterface, key: number) => {
       const fieldNamesWithErrors = Object.keys(fields);
       errorFields = fieldNamesWithErrors;
-      Object.values(fields).map((fieldErrorMessages: FieldErrorMessageType, index: number) => {
-        fieldErrorMessages.map((message: string) => {
+      Object.values(fields).forEach((fieldErrorMessages: FieldErrorMessageType, index: number) => {
+        fieldErrorMessages.forEach((message: string) => {
           errorMessages.push({
             error: message,
             key: parseInt(`${key}${index}`, 10),
           });
-          return null;
         });
-        return null;
       });
-      return null;
     });
   } else {
     errorMessages = [{
