@@ -44,13 +44,18 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
     // As the component is initiated before getting the calendar event,
     // we need to set the reducer values directly when this component is re-rendered with the calendar event
     if (calendarEvent) {
-      // Initiate date
-      dispatchComponentReducer({ name: 'date', value: action === EditMode.Add ? calendarEvent.date : calendarEvent.start });
       // Initiate other inputs (if edit mode)
-      if(action === EditMode.Edit && calendarEvent.extendedProps) {
-        (Object.entries(calendarEvent.extendedProps) as any[]).forEach(([key, value]) => {
+      const initiateReducer = (values: any) => {
+        (Object.entries(values) as any[]).forEach(([key, value]) => {
           dispatchComponentReducer({ name: key, value });
         });
+      };
+      if (action === EditMode.Edit && calendarEvent.extendedProps) {
+        initiateReducer(calendarEvent.extendedProps);
+        dispatchComponentReducer({ name: 'date', value: calendarEvent.start });
+      } else {
+        initiateReducer(emptyEvent);
+        dispatchComponentReducer({ name: 'date', value: calendarEvent.date });
       }
     }
   }, [action, calendarEvent]);
@@ -62,7 +67,6 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
   const { getServicesOptions, getAdminUsersOptions } = useAppointmentSelectInputOptions();
 
   const { onChangeSelect, onChangeDate, onChangeString } = useChangeHandler(dispatchComponentReducer);
-
 
   return (
     <Popup
@@ -76,7 +80,7 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
         </div>
         <form className={classes.paper} onSubmit={handleSubmitAddAppointmentForm}>
           <FormTitleImage><DateRange /></FormTitleImage>
-          <FormTitle title="Add Appointment" />
+          <FormTitle title={`${EditMode.Add ? 'Add' : 'Edit'} Appointment`} />
           <FormErrorMessage show={errors.length > 0} errors={errors} />
           <Grid container spacing={3} style={{ padding: '15px' }}>
             <Grid item xs={12} sm={6}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -7,15 +7,6 @@ import { useSelector } from 'react-redux';
 import { CalendarPopup } from './calendar-popup';
 import { ReduxState } from '../../store/types';
 import { AppointmentInterface } from '../types/types';
-
-// TODO DElete
-const eventsDemo = [
-  {
-    title: 'test',
-    date: '2020-04-15',
-    test: 'ok',
-  },
-];
 
 export enum EditMode {
   Add,
@@ -30,10 +21,6 @@ const Calendar = () => {
   const appointments = useSelector((state: ReduxState) => state.appointments.list);
 
   const getEvents = () => appointments.map((appointment: AppointmentInterface) => ({ title: appointment.clientName, ...appointment }));
-
-  useEffect(() => {
-    console.log('calendar');
-  });
 
   const closeModal = () => {
     toggleModal(false);

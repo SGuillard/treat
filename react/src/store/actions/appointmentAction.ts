@@ -6,7 +6,6 @@ import { RequestMethod } from '../../types';
 import API from '../../API';
 import { AppointmentInterface } from '../../views/types/types';
 import { handleInitialisationRequestErrors } from './globalActions';
-import { setServiceAction } from './ServicesActions';
 import { SET_APPOINTMENT_ACTION } from './constants';
 
 export const setAppointmentAction = (service: AppointmentInterface[]) => ({
