@@ -16,10 +16,16 @@ const eventsDemo = [
   },
 ];
 
+export enum EditMode {
+  Add,
+  Edit,
+}
+
 const Calendar = () => {
   const [open, toggleModal] = useState(false);
   const calendarComponentRef: any = useRef();
   const [calendarEvent, setCalendarEvent] = useState({});
+  const [editMode, setEditMode] = useState(EditMode.Add);
   const appointments = useSelector((state: ReduxState) => state.appointments.list);
 
   const getEvents = () => appointments.map((appointment: AppointmentInterface) => ({ title: appointment.clientName, date: appointment.date }));
@@ -38,6 +44,8 @@ const Calendar = () => {
   };
 
   const handleEventClick = ({ event }: {event: any}) => {
+    toggleModal(true);
+    setEditMode(EditMode.Edit);
     setCalendarEvent(event);
   };
 
@@ -47,7 +55,7 @@ const Calendar = () => {
         &nbsp; (also, click a date/time to add an event)
       </div>
       <div className="demo-app-calendar">
-        <CalendarPopup open={open} closeModal={closeModal} calendarEvent={calendarEvent} />
+        <CalendarPopup open={open} action={editMode} closeModal={closeModal} calendarEvent={calendarEvent} />
         <FullCalendar
           defaultView="timeGridDay"
           header={{

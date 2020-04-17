@@ -25,14 +25,16 @@ import { useAppointmentSelectInputOptions } from './useAppointmentSelectInputOpt
 import { submitRequest } from '../../utils/api/apiRequest';
 import API from '../../API';
 import { FormSelect } from '../../uiComponents/forms/FormSelect/FormSelect';
+import { EditMode } from './calendar';
 
 interface CalendarPopupProps {
   open: boolean,
   closeModal: any,
   calendarEvent: any
+  action: EditMode
 }
 
-export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopupProps) => {
+export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: CalendarPopupProps) => {
   const classes = useStyleForm();
 
   const [componentState, dispatchComponentReducer] = useReducer(formReducer, { serviceId: '', adminUserId: '', clientName: '' });
@@ -42,7 +44,7 @@ export const CalendarPopup = ({ open, closeModal, calendarEvent }: CalendarPopup
 
   useEffect(() => {
     if (calendarEvent) {
-      dispatchComponentReducer({ name: 'date', value: calendarEvent.date });
+      dispatchComponentReducer({ name: 'date', value: action === EditMode.Add ? calendarEvent.date : calendarEvent.start });
     }
   }, [calendarEvent]);
 
