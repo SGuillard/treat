@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
+use Faker\Factory as Faker;
 
 class AdminTableSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class AdminTableSeeder extends Seeder
      */
     public function run()
     {
+
+        $faker = Faker::create();
 
         // Create a personal
         Artisan::call(
@@ -72,7 +75,7 @@ class AdminTableSeeder extends Seeder
             $appointment = new \App\Appointment();
             $appointment->salon()->associate($salon);
             $adminPerson = $i % 2 == 0 ? $superAdmin : $admin;
-            $appointment->client_name = $i % 2 == 0 ? 'Patrick' : null;
+            $appointment->client_name = $faker->name;
             $appointment->user_id = $i % 2 == 0 ? null : 1;
             $appointment->adminUser()->associate($adminPerson);
             $appointment->date = $this->dateAddAnHour(now(), $i);
@@ -82,10 +85,11 @@ class AdminTableSeeder extends Seeder
         }
     }
 
-    private function dateAddAnHour($date = null, $howManyHours = '+1', $format = 'Y-m-d H:i:s')
+    private function dateAddAnHour($date = null, $howManyHours, $format = 'Y-m-d H:i:s')
     {
+        $hoursToAdd = 11 + $howManyHours;
         $new_date = new \DateTime($date);
-        $new_date->modify($howManyHours . ' hour');
+        $new_date->modify($hoursToAdd . ' hour');
 
         return $new_date->format($format);
     }

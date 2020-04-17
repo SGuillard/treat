@@ -14,6 +14,7 @@ import { setLoginAction } from '../../../store/actions/globalActions';
 import { loginApi } from '../login-helper';
 import { useStyles } from './style';
 import { ReduxState } from '../../../store/types';
+import AdminROUTES from '../../../router/admin/admin-routes';
 
 const Login = () => {
   const classes = useStyles();
@@ -126,7 +127,7 @@ const Login = () => {
     </Container>
   );
 
-  return isLogged ? <Redirect to="dashboard" /> : form();
+  return isLogged ? <Redirect to={AdminROUTES.CALENDAR.path} /> : form();
 };
 
 export default Login;
