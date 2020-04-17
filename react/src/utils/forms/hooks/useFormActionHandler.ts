@@ -63,7 +63,6 @@ export const useFormActionHandler = (componentState: any, entity?: any) => {
 
   const handleSubmitAddAppointmentForm = (e: any) => {
     e.preventDefault();
-
     // TODO - handle duration in the form
     // TODO - Do a generic function for this format date helper
     const updateComponentState = () => {
@@ -71,7 +70,7 @@ export const useFormActionHandler = (componentState: any, entity?: any) => {
       return { ...componentState, date: dateFormated, duration: 15 };
     };
 
-    submitRequest(API.APPOINTMENTS, updateComponentState()).then((response: any) => {
+    submitRequest(API.APPOINTMENTS, updateComponentState(), entity).then((response: any) => {
       dispatchReduxReducer(setAppointmentAction(response as AppointmentInterface[]));
       setRedirect(true);
     }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {

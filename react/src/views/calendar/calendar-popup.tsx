@@ -38,7 +38,7 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
   const [componentState, dispatchComponentReducer] = useReducer(formReducer, emptyEvent);
   const { date, serviceId, adminUserId, clientName } = componentState;
 
-  const { redirect, errors, fieldErrors, handleSubmitAddAppointmentForm } = useFormActionHandler(componentState);
+  const { redirect, errors, fieldErrors, handleSubmitAddAppointmentForm } = useFormActionHandler(componentState, EditMode.Edit === action ? calendarEvent : undefined);
 
   useEffect(() => {
     // As the component is initiated before getting the calendar event,

@@ -33,7 +33,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::create($request->input());
         $salon = $this->getSalon();
         $salon->appointments()->save($appointment);
-        return AppointmentResource::collection($this->getSalon()->appointments);
+        return $this->getAppointmentList();
     }
 
     /**
@@ -51,12 +51,13 @@ class AppointmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Appointment $appointment
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Appointment $appointment)
     {
-        //
+        $appointment->update($request->input());
+        return $this->getAppointmentList();
     }
 
     /**
@@ -68,5 +69,10 @@ class AppointmentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getAppointmentList()
+    {
+        return AppointmentResource::collection($this->getSalon()->appointments);
     }
 }
