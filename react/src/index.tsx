@@ -9,12 +9,14 @@ import { adminUsersReducer } from './store/reducers/adminUsersReducer';
 import { servicesReducer } from './store/reducers/ServicesReducer';
 import { globalReducer } from './store/reducers/globalReducer';
 import { appointmentReducer } from './store/reducers/appointmentReducer';
+import { openingHoursReducer } from './store/reducers/openingHoursReducer';
 
 const rootReducer = combineReducers({
   adminUsers: adminUsersReducer,
   services: servicesReducer,
   global: globalReducer,
   appointments: appointmentReducer,
+  openingHours: openingHoursReducer,
 });
 
 const composeEnhancers = (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;

@@ -39,3 +39,14 @@ export interface AppointmentModel {
 export interface AppointmentInterface extends AppointmentModel{
   id?: number | null;
 }
+
+export interface OpeningHoursModel {
+  salonId: number,
+  open: string,
+  close: string,
+  isClose: boolean
+}
+
+export interface OpeningHoursInterface extends OpeningHoursModel{
+  id?: number | null;
+}

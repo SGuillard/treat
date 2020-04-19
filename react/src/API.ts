@@ -5,6 +5,7 @@ const API = {
   ADMIN_USER: '/adminUser',
   SERVICES: '/services',
   APPOINTMENTS: '/appointments',
+  OPENINGS_HOURS: '/openingHours',
 };
 
 export default API;

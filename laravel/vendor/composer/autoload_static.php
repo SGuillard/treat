@@ -551,6 +551,7 @@ class ComposerStaticInit7dd0fcd891fde1a1402fe287923b9c3e
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\RegistrationRequest' => __DIR__ . '/../..' . '/app/Http/Requests/RegistrationRequest.php',
+        'App\\Http\\Requests\\StoreAppointmentRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreAppointmentRequest.php',
         'App\\Http\\Requests\\UpdateAdminUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateAdminUserRequest.php',
         'App\\Http\\Requests\\UpdateServiceRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateServiceRequest.php',
         'App\\Http\\Resources\\Admin\\AdminUserResource' => __DIR__ . '/../..' . '/app/Http/Resources/Admin/AdminUserResource.php',

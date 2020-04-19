@@ -26,6 +26,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Requests\\RegistrationRequest' => $baseDir . '/app/Http/Requests/RegistrationRequest.php',
+    'App\\Http\\Requests\\StoreAppointmentRequest' => $baseDir . '/app/Http/Requests/StoreAppointmentRequest.php',
     'App\\Http\\Requests\\UpdateAdminUserRequest' => $baseDir . '/app/Http/Requests/UpdateAdminUserRequest.php',
     'App\\Http\\Requests\\UpdateServiceRequest' => $baseDir . '/app/Http/Requests/UpdateServiceRequest.php',
     'App\\Http\\Resources\\Admin\\AdminUserResource' => $baseDir . '/app/Http/Resources/Admin/AdminUserResource.php',
