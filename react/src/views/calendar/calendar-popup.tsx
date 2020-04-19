@@ -17,11 +17,11 @@ import FormActionButtons from '../../uiComponents/forms/FormActionButtons/FormAc
 import { useStyleForm } from './style';
 import { formReducer } from '../../utils/forms/formReducer';
 import { useChangeHandler } from '../../utils/forms/hooks/useChangeHandler';
-import { useFormActionHandler } from '../../utils/forms/hooks/useFormActionHandler';
 import 'date-fns';
 import { useAppointmentSelectInputOptions } from './useAppointmentSelectInputOptions';
 import { FormSelect } from '../../uiComponents/forms/FormSelect/FormSelect';
 import { EditMode } from './calendar';
+import { usePopupFormActionHandler } from '../../utils/forms/hooks/usePopupFormActionHandler';
 
 interface CalendarPopupProps {
   open: boolean,
@@ -38,7 +38,7 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
   const [componentState, dispatchComponentReducer] = useReducer(formReducer, emptyEvent);
   const { date, serviceId, adminUserId, clientName } = componentState;
 
-  const { redirect, errors, fieldErrors, handleSubmitAddAppointmentForm } = useFormActionHandler(componentState, EditMode.Edit === action ? calendarEvent : undefined);
+  const { errors, fieldErrors, handleSubmitAddAppointmentForm } = usePopupFormActionHandler(componentState, closeModal, EditMode.Edit === action ? calendarEvent : undefined);
 
   useEffect(() => {
     // As the component is initiated before getting the calendar event,
@@ -59,10 +59,6 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
       }
     }
   }, [action, calendarEvent]);
-
-  useEffect(() => {
-    if (redirect) closeModal();
-  }, [closeModal, redirect]);
 
   const { getServicesOptions, getAdminUsersOptions } = useAppointmentSelectInputOptions();
 
