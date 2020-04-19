@@ -33,6 +33,10 @@ const AdminROUTES = {
       pathWithId: '/admin/services/edit/:id?',
       name: 'settings/services/edit',
     },
+    OPENINGS: {
+      path: '/admin/openings',
+      name: 'settings/openings',
+    },
   },
   REGISTER: {
     path: '/admin/register',

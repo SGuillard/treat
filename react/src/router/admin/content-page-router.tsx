@@ -9,6 +9,7 @@ import SettingsServiceForm from '../../views/settings/services/settings-service-
 import SettingsAdminUserForm
   from '../../views/settings/adminUsers/settings-admin-user-form';
 import RouterContext from '../RouterContext';
+import Openings from '../../views/settings/openings/openings';
 
 const ContentPageRouter = () => {
   const { page, params } = useContext(RouterContext);
@@ -21,6 +22,8 @@ const ContentPageRouter = () => {
       return <Settings />;
     case AdminROUTES.SETTINGS.ADMIN_USER_LIST.name:
       return <SettingsAdminUserList />;
+    case AdminROUTES.SETTINGS.OPENINGS.name:
+      return <Openings />;
     case AdminROUTES.SETTINGS.ADMIN_USER_EDIT.name:
       return <SettingsAdminUserForm params={params} />;
     case AdminROUTES.SETTINGS.SERVICE_LIST.name:

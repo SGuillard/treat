@@ -10,7 +10,7 @@ import Business from '@material-ui/icons/Business';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { EventSeat, HomeWork, People } from '@material-ui/icons';
+import { AvTimer, EventSeat, HomeWork, People } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../router/admin/admin-routes';
 
@@ -46,7 +46,7 @@ const Settings = () => {
       aria-labelledby="nested-list-subheader"
       subheader={(
         <ListSubheader component="div" id="nested-list-subheader">
-                    Manage my Business
+          Manage my Business
         </ListSubheader>
               )}
       className={classes.root}
@@ -86,6 +86,14 @@ const Settings = () => {
                 <HomeWork />
               </ListItemIcon>
               <ListItemText primary="My business profile" />
+            </ListItem>
+          </List>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <AvTimer />
+              </ListItemIcon>
+              <ListItemText primary="My business hours" onClick={() => redirection(AdminROUTES.SETTINGS.OPENINGS.path)} />
             </ListItem>
           </List>
         </List>
