@@ -5,9 +5,11 @@ export const formReducer = (state: object, { name, value }: reducerPayloadType) 
   [name]: value,
 });
 
-export const formTimerReducer = (state: object, { day, name, value }: any) => ({
+export const formTimerReducer = (state: any, { day, name, value, id }: any) => ({
   ...state,
   [day]: {
+    ...state[day],
+    id,
     [name]: value,
   },
 });

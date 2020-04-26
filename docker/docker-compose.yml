@@ -46,7 +46,7 @@ services:
   php:
     container_name: ${CONTAINER_NAME}_php
     restart: always
-    image: ${CONTAINER_NAME}_php:${PHP_VERSION}-${DEBIAN_VERSION}
+    image: ${CONTAINER_NAME}_php:${PHP_VERSION}
     build:
       context: ${PATH_HOST}/php
       args:

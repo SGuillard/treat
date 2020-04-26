@@ -1,4 +1,8 @@
-import { AdminUserFormInterface, ServiceFormInterface } from '../../views/types/types';
+import {
+  AdminUserFormInterface,
+  OpeningHoursInterface,
+  ServiceFormInterface
+} from '../../views/types/types';
 
 export interface ErrorObjectInterface {
   // Key is only used as an index for loop through component
@@ -28,7 +32,7 @@ export interface ServerErrorInterface {
   }
 }
 
-export type formEntity = AdminUserFormInterface | ServiceFormInterface;
+export type formEntity = AdminUserFormInterface | ServiceFormInterface | OpeningHoursInterface;
 
 export interface ErrorHandlerResponseInterface {
   errorFields: string[],

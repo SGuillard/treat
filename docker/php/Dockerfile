@@ -1,6 +1,6 @@
 ARG PHP_VERSION=${PHP_VERSION}
 ARG DEBIAN_VERSION=${DEBIAN_VERSION}
-FROM php:${PHP_VERSION}-${DEBIAN_VERSION}
+FROM php:${PHP_VERSION}
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install PHP extensions
@@ -41,7 +41,7 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; then \
   ;fi
 
 # Copy xdebug configuration for remote debugging
-# COPY ./ini/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+ COPY ./ini/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 ###########################################################################
 # Opcache:
@@ -57,18 +57,18 @@ RUN if [ ${INSTALL_OPCACHE} = true ]; then \
 COPY ./ini/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 ###########################################################################
-# Composer:                                                           
+# Composer:
 ###########################################################################
 
 ARG INSTALL_COMPOSER=false
 
 ###########################################################################
-# FIXER:                                                           
+# FIXER:
 ###########################################################################
 
 RUN wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer && \
   chmod a+x php-cs-fixer && \
-  mv php-cs-fixer /usr/local/bin/php-cs-fixer	
+  mv php-cs-fixer /usr/local/bin/php-cs-fixer
 
 RUN if [ ${INSTALL_COMPOSER} = true ]; then \
   curl -sS https://getcomposer.org/installer | php \

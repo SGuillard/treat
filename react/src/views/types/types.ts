@@ -41,10 +41,10 @@ export interface AppointmentInterface extends AppointmentModel{
 }
 
 export interface OpeningHoursModel {
-  salonId: number,
-  open: string,
-  close: string,
-  isClose: boolean
+  open?: string,
+  close?: string,
+  isClose: boolean,
+  day: number
 }
 
 export interface OpeningHoursInterface extends OpeningHoursModel{
