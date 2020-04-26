@@ -9,6 +9,7 @@ export interface ReduxState {
   global: GlobalStateInterface,
   services: ServiceStateInterface,
   appointments: AppointmentStateInterface,
+  openingHours: OpeningHoursStateInterface,
 }
 
 export interface AdminUsersStateInterface {

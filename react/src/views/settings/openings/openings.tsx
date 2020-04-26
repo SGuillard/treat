@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import {
+  Button,
   Paper,
   Table,
   TableBody,
@@ -11,6 +12,10 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
+import { useSelector } from 'react-redux';
+import { ReduxState } from '../../../store/types';
+import { FormTimer } from '../../../uiComponents/forms/FormTimer/FormTimer';
+import { formTimerReducer } from '../../../utils/forms/formReducer';
 
 const useStyles = makeStyles({
   table: {
@@ -18,37 +23,31 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name: any, calories: any, fat: any) {
-  return { name, calories, fat };
-}
-
-const Timer = ({openHour, closeHour, isClose}: any) => (
-  <TextField
-    id="time"
-    type="time"
-    defaultValue="07:30"
-    // className={classes.textField}
-    InputLabelProps={{
-      shrink: true,
-    }}
-    inputProps={{
-      step: 300, // 5 min
-    }}
-  />
-);
-
-const rows = [
-  createData('Monday', <Timer />, 250),
-  createData('Tuesday', 237, 300),
-  createData('Wednesday', 262, 16.0),
-  createData('Thursday', 305, 3.7),
-  createData('Friday', 356, 16.0),
-  createData('Saturday', 356, 16.0),
-  createData('Sunday', 356, 16.0),
-];
-
 const Openings = () => {
   const classes = useStyles();
+
+  const [reducer, dispatchReducer] = useReducer(formTimerReducer, {});
+
+  const reduxHours = useSelector((state: ReduxState) => state.openingHours.list);
+
+  // useEffect(() => {
+  //   const openings = reduxHours.map((hours: any) => ({
+  //     day: hours.day,
+  //     open: <Timer openHour={hours.open} />,
+  //     close: <Timer openHour={hours.close} />,
+  //   }));
+  //   setOpeningHours(openings);
+  // }, [reduxHours]);
+
+  const weekDaysString = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+  const handleChange = (e: any) => {
+    dispatchReducer({day: e.target.getAttribute('day'), name: e.target.name, value: e.target.value});
+  };
+
+  const handleSubmit = () => {
+    console.log(reducer);
+  };
 
   return (
     <Container component="main">
@@ -63,15 +62,38 @@ const Openings = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
+            {reduxHours.map((row: any) => (
+              <TableRow key={weekDaysString[row.day - 1]}>
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {weekDaysString[row.day - 1]}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
+                <TableCell align="right">
+                  <FormTimer
+                    day={row.day}
+                    openHour={row.open}
+                    fieldName="open"
+                    onChange={handleChange}
+                  />
+                </TableCell>
+                <TableCell align="right">
+                  <FormTimer
+                    day={row.day}
+                    openHour={row.close}
+                    fieldName="close"
+                    onChange={handleChange}
+                  />
+                </TableCell>
               </TableRow>
             ))}
+            <TableRow>
+              <TableCell component="th" scope="row" />
+              <TableCell align="right" />
+              <TableCell align="right">
+                <Button onClick={handleSubmit} variant="contained" color="primary">
+                  Save
+                </Button>
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
