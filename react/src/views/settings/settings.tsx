@@ -89,11 +89,11 @@ const Settings = () => {
             </ListItem>
           </List>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
+            <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.OPENINGS.path)}>
               <ListItemIcon>
                 <AvTimer />
               </ListItemIcon>
-              <ListItemText primary="My business hours" onClick={() => redirection(AdminROUTES.SETTINGS.OPENINGS.path)} />
+              <ListItemText primary="My business hours" />
             </ListItem>
           </List>
         </List>

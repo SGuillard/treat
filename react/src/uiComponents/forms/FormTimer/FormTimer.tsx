@@ -1,7 +1,7 @@
 import { TextField } from '@material-ui/core';
 import React from 'react';
 
-export const FormTimer = React.memo(({ openHour, onChange, fieldName, day, id, isClosed }: any) => (
+export const FormTimer = React.memo(({ openHour, onChange, fieldName, day, rowId, isClosed }: any) => (
   <TextField
     id="time"
     type="time"
@@ -14,7 +14,7 @@ export const FormTimer = React.memo(({ openHour, onChange, fieldName, day, id, i
     }}
     inputProps={{
       day: day,
-      id: id,
+      rowid: rowId,
       step: 300, // 5 min
     }}
   />

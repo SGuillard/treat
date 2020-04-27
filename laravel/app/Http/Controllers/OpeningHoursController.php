@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateOpeningHoursRequest;
 use App\Http\Resources\OpeningHoursResource;
 use App\OpeningsHours;
 use Illuminate\Http\Request;
@@ -76,7 +77,7 @@ class OpeningHoursController extends Controller
      * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateOpeningHoursRequest $request, $id)
     {
         $openingsHours = OpeningsHours::findOrFail($id);
         $openingsHours->update($request->input());

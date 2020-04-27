@@ -37,7 +37,7 @@ export const usePopupFormActionHandler = (componentState: any, closeModal: Funct
     });
   };
 
-  const onCancel = useCallback(() => closeModal(), []);
+  const onCancel = useCallback(() => closeModal(), [closeModal]);
 
   return { onCancel, errors, fieldErrors, handleSubmitAddAppointmentForm };
 };

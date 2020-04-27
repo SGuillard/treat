@@ -24,7 +24,7 @@ import { OpeningHoursInterface } from '../../types/types';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 300,
+    minWidth: 200,
   },
 });
 
@@ -45,7 +45,11 @@ const Openings = () => {
   const weekDaysString = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   const handleChangeTime = (e: any) => {
-    dispatchReducer({ day: e.target.getAttribute('day'), id: e.target.getAttribute('id'), name: e.target.name, value: e.target.value });
+    const type = e.target.name;
+    const day = e.target.getAttribute('day');
+    const id = e.target.getAttribute('rowid');
+    const { value } = e.target;
+    dispatchReducer({ day, id, name: type, value });
   };
 
   const [errors, setErrors] = useState<ErrorObjectInterface[]>([]);
@@ -58,8 +62,6 @@ const Openings = () => {
       submitRequest(API.OPENINGS_HOURS, editDay, editDay).then((response: object[]) => {
         dispatchReduxReducer(setOpeningHoursAction(response as OpeningHoursInterface[]));
         // setRedirect(true);
-
-
       }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
         setFieldErrors(errorFields);
         setErrors(errorMessages);
@@ -75,7 +77,7 @@ const Openings = () => {
   const handleChangeOpen = (e: any) => {
     const isClose = e.target.getAttribute('is_close') === '0' ? 1 : 0;
     const day = e.target.getAttribute('day');
-    const id = e.target.getAttribute('id');
+    const id = e.target.getAttribute('rowid');
     const dayToUpdate = { [day]: { day, id, isClose } };
     submitForm(dayToUpdate);
   };
@@ -104,10 +106,10 @@ const Openings = () => {
                     inputProps={{
                       is_close: row.isClose ? 1 : 0,
                       day: row.day,
+                      rowid: row.id,
                     }}
                     name="is_close"
                     type="button"
-                    id={row.id}
                     onClick={handleChangeOpen}
                     value={row.isClose ? 'Close' : 'Open'}
                     style={{ color: row.isClose ? 'red' : 'green' }}
@@ -120,7 +122,7 @@ const Openings = () => {
                     day={row.day}
                     openHour={row.open}
                     fieldName="open"
-                    id={row.id}
+                    rowId={String(row.id)}
                     isClosed={row.isClose}
                     onChange={handleChangeTime}
                   />
@@ -129,7 +131,7 @@ const Openings = () => {
                   <FormTimer
                     day={row.day}
                     isClosed={row.isClose}
-                    id={row.id}
+                    rowId={String(row.id)}
                     openHour={row.close}
                     fieldName="close"
                     onChange={handleChangeTime}
