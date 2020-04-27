@@ -1,6 +1,6 @@
 import React, { useReducer, useState } from 'react';
 import {
-  Button,
+  Button, Input,
   Paper,
   Table,
   TableBody,
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 interface hoursObjectInterface {
   open: string,
   close: string,
-};
+}
 
 const Openings = () => {
   const classes = useStyles();
@@ -44,26 +44,40 @@ const Openings = () => {
 
   const weekDaysString = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-  const handleChange = (e: any) => {
+  const handleChangeTime = (e: any) => {
     dispatchReducer({ day: e.target.getAttribute('day'), id: e.target.getAttribute('id'), name: e.target.name, value: e.target.value });
   };
 
   const [errors, setErrors] = useState<ErrorObjectInterface[]>([]);
   const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    Object.entries(reducer as [string, OpeningHoursInterface][]).forEach(([day, hours]) => {
+  const submitForm = (dayToUpdate: any) => {
+    Object.entries(dayToUpdate as [string, OpeningHoursInterface][]).forEach(([day, hours]) => {
       const dayCasted = parseInt(day, 10);
-      const editDay = { day: dayCasted, ...hours, isClose: false };
-      submitRequest(API.OPENINGS_HOURS, editDay, editDay as OpeningHoursInterface).then((response: object[]) => {
+      const editDay: OpeningHoursInterface = { day: dayCasted, ...hours };
+      submitRequest(API.OPENINGS_HOURS, editDay, editDay).then((response: object[]) => {
         dispatchReduxReducer(setOpeningHoursAction(response as OpeningHoursInterface[]));
         // setRedirect(true);
+
+
       }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
         setFieldErrors(errorFields);
         setErrors(errorMessages);
       });
     });
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    submitForm(reducer);
+  };
+
+  const handleChangeOpen = (e: any) => {
+    const isClose = e.target.getAttribute('is_close') === '0' ? 1 : 0;
+    const day = e.target.getAttribute('day');
+    const id = e.target.getAttribute('id');
+    const dayToUpdate = { [day]: { day, id, isClose } };
+    submitForm(dayToUpdate);
   };
 
   return (
@@ -74,6 +88,7 @@ const Openings = () => {
           <TableHead>
             <TableRow>
               <TableCell>Week day</TableCell>
+              <TableCell />
               <TableCell align="right">Opening hour</TableCell>
               <TableCell align="right">Closing hour</TableCell>
             </TableRow>
@@ -85,21 +100,39 @@ const Openings = () => {
                   {weekDaysString[row.day - 1]}
                 </TableCell>
                 <TableCell align="right">
+                  <Input
+                    inputProps={{
+                      is_close: row.isClose ? 1 : 0,
+                      day: row.day,
+                    }}
+                    name="is_close"
+                    type="button"
+                    id={row.id}
+                    onClick={handleChangeOpen}
+                    value={row.isClose ? 'Close' : 'Open'}
+                    style={{ color: row.isClose ? 'red' : 'green' }}
+                  >
+                    {row.isClose ? 'Close' : 'Open'}
+                  </Input>
+                </TableCell>
+                <TableCell align="right">
                   <FormTimer
                     day={row.day}
                     openHour={row.open}
                     fieldName="open"
                     id={row.id}
-                    onChange={handleChange}
+                    isClosed={row.isClose}
+                    onChange={handleChangeTime}
                   />
                 </TableCell>
                 <TableCell align="right">
                   <FormTimer
                     day={row.day}
+                    isClosed={row.isClose}
                     id={row.id}
                     openHour={row.close}
                     fieldName="close"
-                    onChange={handleChange}
+                    onChange={handleChangeTime}
                   />
                 </TableCell>
               </TableRow>

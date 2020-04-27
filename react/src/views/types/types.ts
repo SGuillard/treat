@@ -43,7 +43,7 @@ export interface AppointmentInterface extends AppointmentModel{
 export interface OpeningHoursModel {
   open?: string,
   close?: string,
-  isClose: boolean,
+  isClose?: number | boolean,
   day: number
 }
 

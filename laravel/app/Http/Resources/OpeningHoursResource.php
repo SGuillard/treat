@@ -14,6 +14,12 @@ class OpeningHoursResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'day' => $this->day,
+            'close' => $this->close,
+            'open' => $this->open,
+            'is_close' => (boolean) $this->is_close,
+        ];
     }
 }

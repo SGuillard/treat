@@ -73,11 +73,12 @@ class OpeningHoursController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param OpeningsHours $openingsHours
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OpeningsHours $openingsHours)
+    public function update(Request $request, $id)
     {
+        $openingsHours = OpeningsHours::findOrFail($id);
         $openingsHours->update($request->input());
         return $this->getList();
     }
