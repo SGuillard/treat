@@ -21,6 +21,7 @@ import API from '../../../API';
 import { submitRequest } from '../../../utils/api/apiRequest';
 import { setOpeningHoursAction } from '../../../store/actions/openinHoursAction';
 import { OpeningHoursInterface } from '../../types/types';
+import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
 
 const useStyles = makeStyles({
   table: {
@@ -95,11 +96,12 @@ const Openings = () => {
               <TableCell align="right">Closing hour</TableCell>
             </TableRow>
           </TableHead>
+          <FormErrorMessage show={errors.length > 0} errors={errors} />
           <TableBody>
             {reduxHours.map((row: any) => (
-              <TableRow key={weekDaysString[row.day - 1]}>
+              <TableRow key={weekDaysString[row.day]}>
                 <TableCell component="th" scope="row">
-                  {weekDaysString[row.day - 1]}
+                  {weekDaysString[row.day]}
                 </TableCell>
                 <TableCell align="right">
                   <Input

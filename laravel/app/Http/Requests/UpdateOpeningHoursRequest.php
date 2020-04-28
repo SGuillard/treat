@@ -23,13 +23,25 @@ class UpdateOpeningHoursRequest extends FormRequest
      */
     public function rules()
     {
+        $weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
         return [
             'open' => [
-                function ($key, $value, $callback) {
-                    // Get the current id if there is one
+                function ($key, $value, $callback) use ($weekDays) {
                     $closeTime = $this->close ?? $this->route('openingHour')->close;
-                    if(strtotime($value) < strtotime($closeTime)) return;
-                    $callback('The opening time must be before closing time');
+                    if (strtotime($value) < strtotime($closeTime)) return;
+                    $callback('The opening time must be before closing time on ' . $weekDays[$this->route('openingHour')->day]);
+                },
+            ],
+            'close' => [
+                function ($key, $value, $callback) use ($weekDays) {
+                    // If validation already appening on open, we don't need to check close
+                    if ($this->open) {
+                        return;
+                    }
+                    $openTime = $this->route('openingHour')->open;
+                    if (strtotime($value) > strtotime($openTime)) return;
+                    $callback('The closing time must be after opening time on ' . $weekDays[$this->route('openingHour')->day]);
                 },
             ],
         ];
@@ -42,9 +54,6 @@ class UpdateOpeningHoursRequest extends FormRequest
      */
     public function messages()
     {
-        return [
-            'open.before' => 'OK TOP',
-            'body.required' => 'A message is required',
-        ];
+        return [];
     }
 }

@@ -86,7 +86,7 @@ class AdminTableSeeder extends Seeder
 
         // Create business hours
         $openingHourPerDay = [];
-        for($i = 1; $i <= 7; $i++) {
+        for($i = 0; $i <= 6; $i++) {
             $openingHour = new \App\OpeningHour();
             $openingHour->day = $i;
             $openingHour->open = '08:30:00';
