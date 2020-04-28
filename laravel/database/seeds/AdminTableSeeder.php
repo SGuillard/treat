@@ -85,17 +85,17 @@ class AdminTableSeeder extends Seeder
         }
 
         // Create business hours
-        $openingsHoursPerDay = [];
+        $openingHourPerDay = [];
         for($i = 1; $i <= 7; $i++) {
-            $openingsHours = new \App\OpeningsHours();
-            $openingsHours->day = $i;
-            $openingsHours->open = '08:30:00';
-            $openingsHours->close = '18:30:00';
-            $openingsHours->is_close = in_array($i, [6,7]);
-            $openingsHours->save();
-            $openingsHoursPerDay[] = $openingsHours;
+            $openingHour = new \App\OpeningHour();
+            $openingHour->day = $i;
+            $openingHour->open = '08:30:00';
+            $openingHour->close = '18:30:00';
+            $openingHour->is_close = in_array($i, [6,7]);
+            $openingHour->save();
+            $openingHourPerDay[] = $openingHour;
         }
-        $salon->services()->saveMany($openingsHoursPerDay);
+        $salon->services()->saveMany($openingHourPerDay);
     }
 
     private function dateAddAnHour($date = null, $howManyHours, $format = 'Y-m-d H:i:s')

@@ -24,7 +24,27 @@ class UpdateOpeningHoursRequest extends FormRequest
     public function rules()
     {
         return [
-            'open' => 'date_format:"H:i"|before:close'
+            'open' => [
+                function ($key, $value, $callback) {
+                    // Get the current id if there is one
+                    $closeTime = $this->close ?? $this->route('openingHour')->close;
+                    if(strtotime($value) < strtotime($closeTime)) return;
+                    $callback('The opening time must be before closing time');
+                },
+            ],
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'open.before' => 'OK TOP',
+            'body.required' => 'A message is required',
         ];
     }
 }

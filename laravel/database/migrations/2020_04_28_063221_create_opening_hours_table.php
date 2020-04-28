@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOpeningsHoursTable extends Migration
+class CreateOpeningHoursTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOpeningsHoursTable extends Migration
      */
     public function up()
     {
-        Schema::create('openings_hours', function (Blueprint $table) {
+        Schema::create('opening_hours', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('salon_id')->nullable();
             $table->foreign('salon_id')->references('id')->on('salons')->onDelete('set null');
@@ -32,6 +32,6 @@ class CreateOpeningsHoursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('openings_hours');
+        Schema::dropIfExists('opening_hours');
     }
 }

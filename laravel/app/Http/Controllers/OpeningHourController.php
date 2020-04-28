@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateOpeningHoursRequest;
-use App\Http\Resources\OpeningHoursResource;
-use App\OpeningsHours;
+use App\Http\Resources\OpeningHourResource;
+use App\OpeningHour;
 use Illuminate\Http\Request;
 
-class OpeningHoursController extends Controller
+class OpeningHourController extends Controller
 {
     public function getList()
     {
-        $salonHours = OpeningsHours::where('salon_id', $this->getSalon()->id)
+        $salonHours = OpeningHour::where('salon_id', $this->getSalon()->id)
             ->orderBy('day', 'ASC')
             ->get();
-        return OpeningHoursResource::collection($salonHours);
+        return OpeningHourResource::collection($salonHours);
     }
 
     /**
@@ -73,14 +73,14 @@ class OpeningHoursController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $id
+     * @param UpdateOpeningHoursRequest $request
+     * @param OpeningHour $openingHour
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateOpeningHoursRequest $request, $id)
+    public function update(UpdateOpeningHoursRequest $request, OpeningHour $openingHour)
     {
-        $openingsHours = OpeningsHours::findOrFail($id);
-        $openingsHours->update($request->input());
+//        dd($request->input('close'));
+        $openingHour->update($request->input());
         return $this->getList();
     }
 
