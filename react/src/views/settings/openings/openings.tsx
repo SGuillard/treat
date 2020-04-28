@@ -9,7 +9,6 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,17 +21,7 @@ import { submitRequest } from '../../../utils/api/apiRequest';
 import { setOpeningHoursAction } from '../../../store/actions/openinHoursAction';
 import { OpeningHoursInterface } from '../../types/types';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 200,
-  },
-});
-
-interface hoursObjectInterface {
-  open: string,
-  close: string,
-}
+import { useStyles } from './style';
 
 const Openings = () => {
   const classes = useStyles();
@@ -46,15 +35,14 @@ const Openings = () => {
   const weekDaysString = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   const handleChangeTime = (e: any) => {
+    const { value } = e.target;
     const type = e.target.name;
     const day = e.target.getAttribute('day');
     const id = e.target.getAttribute('rowid');
-    const { value } = e.target;
     dispatchReducer({ day, id, name: type, value });
   };
 
   const [errors, setErrors] = useState<ErrorObjectInterface[]>([]);
-  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   const submitForm = (dayToUpdate: any) => {
     Object.entries(dayToUpdate as [string, OpeningHoursInterface][]).forEach(([day, hours]) => {
@@ -63,8 +51,7 @@ const Openings = () => {
       submitRequest(API.OPENINGS_HOURS, editDay, editDay).then((response: object[]) => {
         dispatchReduxReducer(setOpeningHoursAction(response as OpeningHoursInterface[]));
         // setRedirect(true);
-      }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
-        setFieldErrors(errorFields);
+      }).catch(({ errorMessages }: ErrorHandlerResponseInterface) => {
         setErrors(errorMessages);
       });
     });
