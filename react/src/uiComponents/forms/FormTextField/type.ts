@@ -2,6 +2,10 @@ export interface FormOnChangeFunctionInterface {
   (e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
+export interface FormMouseEventInterface {
+  (event: React.MouseEvent<HTMLInputElement>): void;
+}
+
 
 export interface FormOnChangeSelectInterface {
   (e: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>): void;
