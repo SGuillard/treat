@@ -76,7 +76,7 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
         </div>
         <form className={classes.paper} onSubmit={handleSubmitAddAppointmentForm}>
           <FormTitleImage><DateRange /></FormTitleImage>
-          <FormTitle title={`${EditMode.Add ? 'Add' : 'Edit'} Appointment`} />
+          <FormTitle title={`${EditMode.Add === action ? 'Add' : 'Edit'} Appointment`} />
           <FormErrorMessage show={errors.length > 0} errors={errors} />
           <Grid container spacing={3} style={{ padding: '15px' }}>
             <Grid item xs={12} sm={6}>
