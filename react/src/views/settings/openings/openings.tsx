@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Input,
+  Button,
   Paper,
   Table,
   TableBody,
@@ -19,6 +19,7 @@ import { useStyles } from './style';
 import { useOpeningFormHook } from './useOpeningFormHook';
 import { weekDaysString } from '../../../utils/common/weekDaysString';
 import { OpeningHoursInterface } from '../../types/types';
+import { FormOpenCloseButton } from '../../../uiComponents/forms/FormOpenCloseButton/FormOpenCloseButton';
 
 const Openings = () => {
   const classes = useStyles();
@@ -48,20 +49,7 @@ const Openings = () => {
                   {weekDaysString[row.day]}
                 </TableCell>
                 <TableCell align="right">
-                  <Input
-                    inputProps={{
-                      is_close: row.isClose ? 1 : 0,
-                      day: row.day,
-                      rowid: row.id,
-                    }}
-                    name="is_close"
-                    type="button"
-                    onClick={handleChangeOpen}
-                    value={row.isClose ? 'Close' : 'Open'}
-                    style={{ color: row.isClose ? 'red' : 'green' }}
-                  >
-                    {row.isClose ? 'Close' : 'Open'}
-                  </Input>
+                  <FormOpenCloseButton onClick={handleChangeOpen} row={row} />
                 </TableCell>
                 <TableCell align="right">
                   <FormTimer
