@@ -24,4 +24,7 @@ export const useStyleForm = makeStyles((theme) => ({
     color: 'white',
     textAlign: 'center',
   },
+  button: {
+    marginTop: '15px',
+  },
 }));

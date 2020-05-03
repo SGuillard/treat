@@ -10,7 +10,7 @@ import {
   FieldErrorsInterface,
   formEntity,
   ServerErrorInterface,
-  ServerResponseInterface
+  ServerResponseInterface,
 } from './type';
 
 export const makeApiRequest = (method: Method, slug: string, payload: {} = {}) => new Promise<object[]>((resolve, reject) => {
@@ -69,6 +69,18 @@ export const submitRequest = (url: string, store: any, editEntity?: formEntity) 
   const params = editEntity ? `/${editEntity.id}` : '';
   makeApiRequest(httpMethod,
     `${url}${params}`, requestData).then((response: object[]) => {
+    resolve(response);
+  })
+    .catch((serverErrors: {response: ServerErrorInterface}) => {
+      const requestErrors = handleErrors(serverErrors.response);
+      reject(requestErrors);
+    });
+});
+
+export const deleteRequest = (url: string, id: number) => new Promise<object[]>((resolve, reject) => {
+  console.log(id);
+  makeApiRequest('DELETE',
+    `${url}/${id}`).then((response: object[]) => {
     resolve(response);
   })
     .catch((serverErrors: {response: ServerErrorInterface}) => {

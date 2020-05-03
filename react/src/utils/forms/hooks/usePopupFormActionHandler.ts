@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { FormEvent, useCallback, useState } from 'react';
 import moment from 'moment';
 import {
+  deleteRequest,
   submitRequest,
 } from '../../api/apiRequest';
 import API from '../../../API';
@@ -19,6 +20,17 @@ export const usePopupFormActionHandler = (componentState: any, closeModal: Funct
   const [errors, setErrors] = useState<ErrorObjectInterface[]>([]);
   const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
+  const handleSuccessRequest = (response: AppointmentInterface[]) => {
+    dispatchReduxReducer(setAppointmentAction(response));
+    closeModal();
+  };
+
+  const handleErrorRequest = (errorObject: ErrorHandlerResponseInterface) => {
+    const { errorMessages, errorFields } = errorObject;
+    setFieldErrors(errorFields);
+    setErrors(errorMessages);
+  }
+
   const handleSubmitAddAppointmentForm = (event: FormEvent) => {
     event.preventDefault();
     // TODO - handle duration in the form
@@ -29,15 +41,22 @@ export const usePopupFormActionHandler = (componentState: any, closeModal: Funct
     };
 
     submitRequest(API.APPOINTMENTS, updateComponentState(), entity).then((response: any) => {
-      dispatchReduxReducer(setAppointmentAction(response as AppointmentInterface[]));
-      closeModal();
-    }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
-      setFieldErrors(errorFields);
-      setErrors(errorMessages);
+      handleSuccessRequest(response as AppointmentInterface[]);
+    }).catch((errorObject: ErrorHandlerResponseInterface) => {
+      handleErrorRequest(errorObject);
+    });
+  };
+
+  const deleteAppointment = () => {
+    console.log(componentState);
+    deleteRequest(API.APPOINTMENTS, componentState.id).then((response) => {
+      handleSuccessRequest(response as AppointmentInterface[]);
+    }).catch((errorObject: ErrorHandlerResponseInterface) => {
+      handleErrorRequest(errorObject);
     });
   };
 
   const onCancel = useCallback(() => closeModal(), [closeModal]);
 
-  return { onCancel, errors, fieldErrors, handleSubmitAddAppointmentForm };
+  return { onCancel, errors, fieldErrors, deleteAppointment, handleSubmitAddAppointmentForm };
 };

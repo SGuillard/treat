@@ -61,14 +61,13 @@ class AppointmentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Appointment $appointment
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Appointment $appointment)
     {
-        //
+        $appointment->delete();
+        return $this->getAppointmentList();
     }
 
     private function getAppointmentList()
