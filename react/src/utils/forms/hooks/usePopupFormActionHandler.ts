@@ -31,13 +31,13 @@ export const usePopupFormActionHandler = (componentState: any, closeModal: Funct
     setErrors(errorMessages);
   };
 
-  const handleSubmitAddAppointmentForm = (event: FormEvent) => {
+  const handleSubmitAppointmentForm = (event: FormEvent) => {
     event.preventDefault();
     // TODO - handle duration in the form
-    // TODO - Do a generic function for this format date helper
     const updateComponentState = () => {
       const dateFormated = moment(componentState.date).format('YYYY-MM-DD HH:mm:ss');
-      return { ...componentState, date: dateFormated, duration: 15 };
+      const { adminUserId, serviceId, clientName } = componentState;
+      return { adminUserId, serviceId, clientName, date: dateFormated, duration: 15 };
     };
 
     submitRequest(API.APPOINTMENTS, updateComponentState(), entity).then((response: any) => {
@@ -48,7 +48,6 @@ export const usePopupFormActionHandler = (componentState: any, closeModal: Funct
   };
 
   const deleteAppointment = () => {
-    console.log(componentState);
     deleteRequest(API.APPOINTMENTS, componentState.idAppointment).then((response) => {
       handleSuccessRequest(response as AppointmentInterface[]);
     }).catch((errorObject: ErrorHandlerResponseInterface) => {
@@ -58,5 +57,5 @@ export const usePopupFormActionHandler = (componentState: any, closeModal: Funct
 
   const onCancel = useCallback(() => closeModal(), [closeModal]);
 
-  return { onCancel, errors, fieldErrors, deleteAppointment, handleSubmitAddAppointmentForm };
+  return { onCancel, errors, fieldErrors, deleteAppointment, handleSubmitAppointmentForm };
 };

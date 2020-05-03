@@ -23,20 +23,15 @@ import { FormSelect } from '../../uiComponents/forms/FormSelect/FormSelect';
 import { usePopupFormActionHandler } from '../../utils/forms/hooks/usePopupFormActionHandler';
 import { FormDeleteButton } from '../../uiComponents/forms/FormDeleteButton/FormDeleteButton';
 import { CalendarPopupProps, EditMode } from './type';
-
-const init = (calendarEvent: any) => {
-  const dateValue: string = calendarEvent.date ?? calendarEvent.start;
-  const extendedProps = calendarEvent.extendedProps ?? {};
-  return { ...calendarEvent, date: dateValue, ...extendedProps };
-};
+import { emptyEvent, initReducer } from './constant';
 
 export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: CalendarPopupProps) => {
   const classes = useStyleForm();
 
-  const [componentState, dispatchComponentReducer] = useReducer(formReducer, calendarEvent, init);
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, calendarEvent, initReducer);
   const { date, serviceId, adminUserId, clientName } = componentState;
 
-  const { errors, fieldErrors, deleteAppointment, handleSubmitAddAppointmentForm } = usePopupFormActionHandler(componentState, closeModal, EditMode.Edit === action ? calendarEvent : undefined);
+  const { errors, fieldErrors, deleteAppointment, handleSubmitAppointmentForm } = usePopupFormActionHandler(componentState, closeModal, EditMode.Edit === action ? calendarEvent : undefined);
 
   const { getServicesOptions, getAdminUsersOptions } = useAppointmentSelectInputOptions();
 
@@ -52,7 +47,7 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
         <div className="close" onClick={closeModal}>
           &times;
         </div>
-        <form className={classes.paper} onSubmit={handleSubmitAddAppointmentForm}>
+        <form className={classes.paper} onSubmit={handleSubmitAppointmentForm}>
           <FormTitleImage><DateRange /></FormTitleImage>
           <FormTitle title={`${EditMode.Add === action ? 'Add' : 'Edit'} Appointment`} />
           <FormErrorMessage show={errors.length > 0} errors={errors} />

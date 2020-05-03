@@ -72,6 +72,7 @@ export const submitRequest = (url: string, store: any, editEntity?: formEntity) 
     resolve(response);
   })
     .catch((serverErrors: {response: ServerErrorInterface}) => {
+      console.log(serverErrors);
       const requestErrors = handleErrors(serverErrors.response);
       reject(requestErrors);
     });
