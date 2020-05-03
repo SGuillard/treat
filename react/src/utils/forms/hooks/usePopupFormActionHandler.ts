@@ -12,9 +12,6 @@ import {
 import { ErrorHandlerResponseInterface, ErrorObjectInterface } from '../../api/type';
 import { setAppointmentAction } from '../../../store/actions/appointmentAction';
 
-
-// The difference between this hook and the others is the presence of the closeModal function instead
-// of redirect
 export const usePopupFormActionHandler = (componentState: any, closeModal: Function, entity?: any) => {
   const dispatchReduxReducer = useDispatch();
   const [errors, setErrors] = useState<ErrorObjectInterface[]>([]);
