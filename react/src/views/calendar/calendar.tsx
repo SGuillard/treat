@@ -4,14 +4,10 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { useSelector } from 'react-redux';
-import { CalendarPopup } from './calendar-popup';
 import { ReduxState } from '../../store/types';
 import { AppointmentInterface } from '../types/types';
-
-export enum EditMode {
-  Add,
-  Edit,
-}
+import { EditMode } from './type';
+import { DisplayPopup } from './display-popup';
 
 const Calendar = () => {
   const [open, toggleModal] = useState(false);
@@ -20,21 +16,22 @@ const Calendar = () => {
   const [editMode, setEditMode] = useState(EditMode.Add);
   const appointments = useSelector((state: ReduxState) => state.appointments.list);
 
-  const getEvents = () => appointments.map((appointment: AppointmentInterface) => ({ title: appointment.clientName, ...appointment }));
+  const getEvents = () => appointments.map((appointment: AppointmentInterface) => ({ title: appointment.clientName, ...appointment, idAppointment: appointment.id }));
 
   const closeModal = () => {
     toggleModal(false);
   };
 
   const handleDateClick = (event: any) => {
-    toggleModal(true);
+    setEditMode(EditMode.Add);
     setCalendarEvent(event);
+    toggleModal(true);
   };
 
   const handleEventClick = ({ event }: {event: any}) => {
-    toggleModal(true);
     setEditMode(EditMode.Edit);
     setCalendarEvent(event);
+    toggleModal(true);
   };
 
   return (
@@ -43,7 +40,7 @@ const Calendar = () => {
         &nbsp; (also, click a date/time to add an event)
       </div>
       <div className="demo-app-calendar">
-        <CalendarPopup open={open} action={editMode} closeModal={closeModal} calendarEvent={calendarEvent} />
+        <DisplayPopup open={open} action={editMode} closeModal={closeModal} calendarEvent={calendarEvent} />
         <FullCalendar
           defaultView="timeGridDay"
           header={{

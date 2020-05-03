@@ -29,7 +29,7 @@ export const usePopupFormActionHandler = (componentState: any, closeModal: Funct
     const { errorMessages, errorFields } = errorObject;
     setFieldErrors(errorFields);
     setErrors(errorMessages);
-  }
+  };
 
   const handleSubmitAddAppointmentForm = (event: FormEvent) => {
     event.preventDefault();
@@ -49,7 +49,7 @@ export const usePopupFormActionHandler = (componentState: any, closeModal: Funct
 
   const deleteAppointment = () => {
     console.log(componentState);
-    deleteRequest(API.APPOINTMENTS, componentState.id).then((response) => {
+    deleteRequest(API.APPOINTMENTS, componentState.idAppointment).then((response) => {
       handleSuccessRequest(response as AppointmentInterface[]);
     }).catch((errorObject: ErrorHandlerResponseInterface) => {
       handleErrorRequest(errorObject);

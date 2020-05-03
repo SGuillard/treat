@@ -9,8 +9,6 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import { FormControl, InputLabel } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { FormTitleImage } from '../../uiComponents/forms/FormTitleImage/FormTitleImage';
 import { FormTitle } from '../../uiComponents/forms/FormTitle/FormTitle';
 import { FormErrorMessage } from '../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
@@ -22,47 +20,23 @@ import { useChangeHandler } from '../../utils/forms/hooks/useChangeHandler';
 import 'date-fns';
 import { useAppointmentSelectInputOptions } from './useAppointmentSelectInputOptions';
 import { FormSelect } from '../../uiComponents/forms/FormSelect/FormSelect';
-import { EditMode } from './calendar';
 import { usePopupFormActionHandler } from '../../utils/forms/hooks/usePopupFormActionHandler';
-import { deleteRequest } from '../../utils/api/apiRequest';
-import API from '../../API';
+import { FormDeleteButton } from '../../uiComponents/forms/FormDeleteButton/FormDeleteButton';
+import { CalendarPopupProps, EditMode } from './type';
 
-interface CalendarPopupProps {
-  open: boolean,
-  closeModal: any,
-  calendarEvent: any
-  action: EditMode
-}
-
-const emptyEvent = { serviceId: '', adminUserId: '', clientName: '' };
+const init = (calendarEvent: any) => {
+  const dateValue: string = calendarEvent.date ?? calendarEvent.start;
+  const extendedProps = calendarEvent.extendedProps ?? {};
+  return { ...calendarEvent, date: dateValue, ...extendedProps };
+};
 
 export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: CalendarPopupProps) => {
   const classes = useStyleForm();
 
-  const [componentState, dispatchComponentReducer] = useReducer(formReducer, emptyEvent);
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, calendarEvent, init);
   const { date, serviceId, adminUserId, clientName } = componentState;
 
   const { errors, fieldErrors, deleteAppointment, handleSubmitAddAppointmentForm } = usePopupFormActionHandler(componentState, closeModal, EditMode.Edit === action ? calendarEvent : undefined);
-
-  useEffect(() => {
-    // As the component is initiated before getting the calendar event,
-    // we need to set the reducer values directly when this component is re-rendered with the calendar event
-    if (calendarEvent) {
-      // Initiate other inputs (if edit mode)
-      const initiateReducer = (values: any) => {
-        (Object.entries(values) as any[]).forEach(([key, value]) => {
-          dispatchComponentReducer({ name: key, value });
-        });
-      };
-      if (action === EditMode.Edit && calendarEvent.extendedProps) {
-        initiateReducer({ id: calendarEvent.id, ...calendarEvent.extendedProps });
-        dispatchComponentReducer({ name: 'date', value: calendarEvent.start });
-      } else {
-        initiateReducer(emptyEvent);
-        dispatchComponentReducer({ name: 'date', value: calendarEvent.date });
-      }
-    }
-  }, [action, calendarEvent]);
 
   const { getServicesOptions, getAdminUsersOptions } = useAppointmentSelectInputOptions();
 
@@ -134,15 +108,7 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
                 fieldName="clientName"
                 label="Client Name"
               />
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                startIcon={<DeleteIcon />}
-                onClick={deleteAppointment}
-              >
-                Delete Appointment
-              </Button>
+              <FormDeleteButton onClick={deleteAppointment} show={action === EditMode.Edit} />
             </Grid>
             <FormActionButtons onCancel={closeModal} />
           </Grid>
