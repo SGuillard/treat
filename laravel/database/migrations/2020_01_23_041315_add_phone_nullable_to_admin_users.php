@@ -14,7 +14,7 @@ class AddPhoneNullableToAdminUsers extends Migration
     public function up()
     {
         Schema::table('admin_users', function (Blueprint $table) {
-            $table->integer('phone')->nullable()->change();
+            $table->string('phone')->nullable()->change();
         });
     }
 
