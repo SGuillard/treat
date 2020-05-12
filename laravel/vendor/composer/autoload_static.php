@@ -531,7 +531,6 @@ class ComposerStaticInit7dd0fcd891fde1a1402fe287923b9c3e
     );
 
     public static $classMap = array (
-        'AdminTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AdminTableSeeder.php',
         'AdminUserTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AdminUserTableSeeder.php',
         'App\\AdminUser' => __DIR__ . '/../..' . '/app/AdminUser.php',
         'App\\Appointment' => __DIR__ . '/../..' . '/app/Appointment.php',
@@ -4324,6 +4323,7 @@ class ComposerStaticInit7dd0fcd891fde1a1402fe287923b9c3e
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'ServiceTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ServiceTableSeeder.php',
         'Symfony\\Bridge\\PsrHttpMessage\\Factory\\DiactorosFactory' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/Factory/DiactorosFactory.php',
         'Symfony\\Bridge\\PsrHttpMessage\\Factory\\HttpFoundationFactory' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/Factory/HttpFoundationFactory.php',
         'Symfony\\Bridge\\PsrHttpMessage\\Factory\\PsrHttpFactory' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/Factory/PsrHttpFactory.php',

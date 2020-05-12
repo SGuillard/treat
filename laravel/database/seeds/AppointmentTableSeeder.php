@@ -9,6 +9,12 @@ class AppointmentTableSeeder extends Seeder
 {
     private $count = 0;
 
+    public function getOrCreateRandomAdminUser()
+    {
+        $adminUser = AdminUser::all();
+        return $adminUser->isNotEmpty() ? $adminUser->random(1)->first() : factory('App\AdminUser')->create();
+    }
+
     /**
      * Run the database seeds.
      *
@@ -18,8 +24,7 @@ class AppointmentTableSeeder extends Seeder
     {
         $this->count = -240;
         factory('App\Appointment', 8)->create([
-            'salon_id' => Salon::first(),
-            'admin_user_id' => fn() => AdminUser::all()->random(1)->first(),
+            'admin_user_id' => fn() => $this->getOrCreateRandomAdminUser(),
             'date' => function () {
                 $this->count += 60;
                 return Carbon::now()->addMinutes($this->count);

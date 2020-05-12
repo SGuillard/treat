@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'AdminTableSeeder' => $baseDir . '/database/seeds/AdminTableSeeder.php',
     'AdminUserTableSeeder' => $baseDir . '/database/seeds/AdminUserTableSeeder.php',
     'App\\AdminUser' => $baseDir . '/app/AdminUser.php',
     'App\\Appointment' => $baseDir . '/app/Appointment.php',
@@ -3799,6 +3798,7 @@ return array(
     'SebastianBergmann\\Type\\UnknownType' => $vendorDir . '/sebastian/type/src/UnknownType.php',
     'SebastianBergmann\\Type\\VoidType' => $vendorDir . '/sebastian/type/src/VoidType.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
+    'ServiceTableSeeder' => $baseDir . '/database/seeds/ServiceTableSeeder.php',
     'Symfony\\Bridge\\PsrHttpMessage\\Factory\\DiactorosFactory' => $vendorDir . '/symfony/psr-http-message-bridge/Factory/DiactorosFactory.php',
     'Symfony\\Bridge\\PsrHttpMessage\\Factory\\HttpFoundationFactory' => $vendorDir . '/symfony/psr-http-message-bridge/Factory/HttpFoundationFactory.php',
     'Symfony\\Bridge\\PsrHttpMessage\\Factory\\PsrHttpFactory' => $vendorDir . '/symfony/psr-http-message-bridge/Factory/PsrHttpFactory.php',

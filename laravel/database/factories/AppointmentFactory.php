@@ -14,7 +14,7 @@ $factory->define(Appointment::class, function (Faker $faker) {
         'salon_id' => Salon::first(),
         'admin_user_id' => AdminUser::first(),
         'duration' => 15,
-        'date' => Carbon::now()->addHour(),
+        'date' => Carbon::now(),
         'service_id' => Service::first(),
 //        'first_name' => $faker->firstName,
 //        'last_name' => $faker->lastName,
