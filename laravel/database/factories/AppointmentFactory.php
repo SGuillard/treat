@@ -16,6 +16,7 @@ $factory->define(Appointment::class, function (Faker $faker) {
         'duration' => 15,
         'date' => Carbon::now(),
         'service_id' => Service::first(),
+        'client_name' => $faker->name,
 //        'first_name' => $faker->firstName,
 //        'last_name' => $faker->lastName,
 //        'phone' => $faker->phoneNumber,

@@ -1,13 +1,12 @@
 <?php
 
 use App\AdminUser;
-use App\Salon;
 use Carbon\Carbon;
-use Illuminate\Database\Seeder;
 
-class AppointmentTableSeeder extends Seeder
+class AppointmentTableSeeder extends MainSeeder
 {
-    private $count = 0;
+    private int $countMinute = -240;
+    private int $count = 0;
 
     public function getOrCreateRandomAdminUser()
     {
@@ -22,13 +21,16 @@ class AppointmentTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->count = -240;
         factory('App\Appointment', 8)->create([
             'admin_user_id' => fn() => $this->getOrCreateRandomAdminUser(),
             'date' => function () {
-                $this->count += 60;
-                return Carbon::now()->addMinutes($this->count);
+                $this->countMinute += 60;
+                return Carbon::now()->addMinutes($this->countMinute);
             },
+            'client_name' => function () {
+                $this->count++;
+                return $this->count % 2 === 0 ? '' : $this->getFaker()->name;
+            }
         ]);
     }
 }

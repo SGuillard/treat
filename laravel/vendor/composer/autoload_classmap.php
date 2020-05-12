@@ -2474,6 +2474,7 @@ return array(
     'League\\OAuth2\\Server\\ResponseTypes\\BearerTokenResponse' => $vendorDir . '/league/oauth2-server/src/ResponseTypes/BearerTokenResponse.php',
     'League\\OAuth2\\Server\\ResponseTypes\\RedirectResponse' => $vendorDir . '/league/oauth2-server/src/ResponseTypes/RedirectResponse.php',
     'League\\OAuth2\\Server\\ResponseTypes\\ResponseTypeInterface' => $vendorDir . '/league/oauth2-server/src/ResponseTypes/ResponseTypeInterface.php',
+    'MainSeeder' => $baseDir . '/database/seeds/MainSeeder.php',
     'Mockery' => $vendorDir . '/mockery/mockery/library/Mockery.php',
     'Mockery\\Adapter\\Phpunit\\Legacy\\TestListenerForV5' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/Legacy/TestListenerForV5.php',
     'Mockery\\Adapter\\Phpunit\\Legacy\\TestListenerForV6' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/Legacy/TestListenerForV6.php',
