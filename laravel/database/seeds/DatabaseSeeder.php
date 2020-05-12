@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ServiceTableSeeder::class);
         $this->call(AdminUserTableSeeder::class);
         $this->call(AppointmentTableSeeder::class);
+        $this->call(OpeningHourSeeder::class);
         factory('App\User', 5)->create();
 
 
