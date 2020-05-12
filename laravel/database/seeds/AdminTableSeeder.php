@@ -1,11 +1,14 @@
 <?php
 
+use App\AdminUser;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 use Faker\Factory as Faker;
 
 class AdminTableSeeder extends Seeder
 {
+    private $count = 0;
+
     /**
      * Run the database seeds.
      *
@@ -16,7 +19,7 @@ class AdminTableSeeder extends Seeder
 
         $faker = Faker::create();
 
-        // Create a personal
+        // Create a passport client to retrieve token
         Artisan::call(
             'passport:client',
             [
@@ -27,13 +30,30 @@ class AdminTableSeeder extends Seeder
             ]
         );
 
-        factory('App\Salon');
+        $salon = factory('App\Salon')->create();
+
         factory('App\User', 5)->create();
-        factory('App\AdminUser', 4)->create();
-        // Our user
-        factory('App\AdminUser', 1)->create([
+
+        factory('App\AdminUser', 4)->create([
+            'salon_id' => $salon,
+            'active' => function () {
+                $this->count++;
+                return $this->count % 2 === 0;
+            }
+        ]);
+        // Our User test
+        factory('App\AdminUser')->create([
             'email' => 'test',
             'password' => md5('test'),
+            'salon_id' => $salon,
+            'active' => 1,
+        ]);
+
+        factory('App\Appointment', 8)->create([
+            'salon_id' => $salon,
+            'admin_user_id' => function () {
+                return AdminUser::all()->random(1)->first();
+            },
         ]);
 
 //        $firstService = new \App\Service();
