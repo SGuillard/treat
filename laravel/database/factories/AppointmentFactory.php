@@ -4,6 +4,7 @@
 
 use App\AdminUser;
 use App\Appointment;
+use App\Helpers\FactoryHelper;
 use App\Salon;
 use App\Service;
 use Carbon\Carbon;
@@ -11,15 +12,11 @@ use Faker\Generator as Faker;
 
 $factory->define(Appointment::class, function (Faker $faker) {
     return [
-        'salon_id' => Salon::first(),
-        'admin_user_id' => AdminUser::first(),
+        'salon_id' => FactoryHelper::getSalon(),
+        'admin_user_id' => FactoryHelper::getAdminUser(),
         'duration' => 15,
         'date' => Carbon::now(),
-        'service_id' => Service::first(),
+        'service_id' => FactoryHelper::getService(),
         'client_name' => $faker->name,
-//        'first_name' => $faker->firstName,
-//        'last_name' => $faker->lastName,
-//        'phone' => $faker->phoneNumber,
-//        'active' => $faker->boolean,
     ];
 });

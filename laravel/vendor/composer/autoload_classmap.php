@@ -11,6 +11,7 @@ return array(
     'App\\Appointment' => $baseDir . '/app/Appointment.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\FactoryHelper' => $baseDir . '/app/FactoryHelper.php',
     'App\\Http\\Controllers\\Admin\\AdminUserController' => $baseDir . '/app/Http/Controllers/Admin/AdminUserController.php',
     'App\\Http\\Controllers\\Admin\\Auth\\AuthenticationController' => $baseDir . '/app/Http/Controllers/Admin/Auth/AuthenticationController.php',
     'App\\Http\\Controllers\\Admin\\Auth\\RegistrationController' => $baseDir . '/app/Http/Controllers/Admin/Auth/RegistrationController.php',

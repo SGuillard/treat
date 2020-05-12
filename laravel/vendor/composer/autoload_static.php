@@ -536,6 +536,7 @@ class ComposerStaticInit7dd0fcd891fde1a1402fe287923b9c3e
         'App\\Appointment' => __DIR__ . '/../..' . '/app/Appointment.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\FactoryHelper' => __DIR__ . '/../..' . '/app/FactoryHelper.php',
         'App\\Http\\Controllers\\Admin\\AdminUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AdminUserController.php',
         'App\\Http\\Controllers\\Admin\\Auth\\AuthenticationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Auth/AuthenticationController.php',
         'App\\Http\\Controllers\\Admin\\Auth\\RegistrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Auth/RegistrationController.php',

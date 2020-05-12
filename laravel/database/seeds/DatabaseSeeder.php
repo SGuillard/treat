@@ -23,24 +23,16 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        factory('App\Salon')->create();
+        factory('App\Salon')->create([
+            'name' => 'My Salon'
+        ]);
+        $this->call(AdminUserTableSeeder::class);
         $this->call(ServiceTableSeeder::class);
-        factory('App\User', 5)->create();
         $this->call(AdminUserTableSeeder::class);
         $this->call(AppointmentTableSeeder::class);
+        factory('App\User', 5)->create();
 
-//        $firstService = new \App\Service();
-//        $firstService->name = 'Hair Massage';
-//        $firstService->duration = 45;
-//        $firstService->price = 25.50;
-//
-//        $secondService = new \App\Service();
-//        $secondService->name = 'Foot service';
-//        $secondService->duration = 15;
-//        $secondService->price = 15.25;
-//
-//        $salon->services()->saveMany([$firstService,$secondService]);
-//
+
 //        // Create business hours
 //        $openingHourPerDay = [];
 //        for($i = 0; $i <= 6; $i++) {
