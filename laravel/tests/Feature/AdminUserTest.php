@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AdminUserTest extends TestCase
@@ -23,20 +22,22 @@ class AdminUserTest extends TestCase
      */
     public function testGetEndpoint()
     {
-//        $this->withoutExceptionHandling();
-//        $user = factory('App\AdminUser', 1)->make();
-//        $this->actingAs($user->first(), 'api');
-//        $response = $this->get($this->apiUrl);
-//        $response->assertStatus(200);
+        $this->withoutExceptionHandling();
+        $user = factory('App\AdminUser', 1)->make();
+        $this->actingAs($user->first(), 'api');
+        $response = $this->get($this->apiUrl);
+        $response->assertStatus(200);
     }
 
     public function testPostEndpoint()
     {
-//        $this->withoutExceptionHandling();
-//        $user = factory('App\AdminUser', 1);
-//        $this->actingAs($user->make()->first(), 'api');
-//        $response = $this->post($this->apiUrl, $user->raw()[0]);
-//        $response->assertStatus(200);
+        $this->withoutExceptionHandling();
+        $userFactory = factory('App\AdminUser', 1);
+        $adminUser = $userFactory->raw()[0];
+        $this->actingAs($userFactory->make()->first(), 'api');
+        $response = $this->post($this->apiUrl, $adminUser);
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('admin_users', $adminUser);
     }
 
 }
