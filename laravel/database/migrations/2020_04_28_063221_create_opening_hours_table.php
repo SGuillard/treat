@@ -17,10 +17,10 @@ class CreateOpeningHoursTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('salon_id')->nullable();
             $table->foreign('salon_id')->references('id')->on('salons')->onDelete('set null');
-            $table->integer('day');
-            $table->time('open', 0);
-            $table->time('close', 0);
-            $table->boolean('is_close', 0);
+            $table->integer('day')->default(0);
+            $table->time('open', 0)->default('00:00:00');
+            $table->time('close', 0)->default('00:00:00');;
+            $table->boolean('is_close', 0)->default(false);
             $table->timestamps();
         });
     }

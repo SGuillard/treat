@@ -15,8 +15,9 @@ class CreateAdminUsersTable extends Migration
     {
         Schema::create('admin_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-//            $table->integer('phone')->default('')/;
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('phone')->default('');
             $table->unsignedBigInteger('salon_id')->nullable();
             $table->foreign('salon_id')->references('id')->on('salons')->onDelete('set null');
             $table->string('email')->default('none');

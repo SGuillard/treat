@@ -15,7 +15,17 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->unsignedBigInteger('salon_id')->nullable();
+            $table->unsignedBigInteger('admin_user_id')->nullable();
+            $table->foreign('admin_user_id')->references('id')->on('admin_users')->onDelete('set null');
+            $table->foreign('salon_id')->references('id')->on('salons')->onDelete('set null');
+            $table->unsignedBigInteger('service_id')->nullable();
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('set null');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->string('client_name')->nullable();
+            $table->timestamp('start_date')->nullable();
+            $table->integer('duration')->nullable();
             $table->timestamps();
         });
     }
