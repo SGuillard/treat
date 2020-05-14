@@ -16,6 +16,12 @@ class CreateAdminUsersTable extends Migration
         Schema::create('admin_users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+//            $table->integer('phone')->default('')/;
+            $table->unsignedBigInteger('salon_id')->nullable();
+            $table->foreign('salon_id')->references('id')->on('salons')->onDelete('set null');
+            $table->string('email')->default('none');
+            $table->string('password')->default('none');
+            $table->boolean('active')->default(true);;
             $table->timestamps();
         });
     }

@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
         // Create a passport client to retrieve token
         Artisan::call(
             'passport:client',
@@ -32,19 +31,5 @@ class DatabaseSeeder extends Seeder
         $this->call(AppointmentTableSeeder::class);
         $this->call(OpeningHourSeeder::class);
         factory('App\User', 5)->create();
-
-
-//        // Create business hours
-//        $openingHourPerDay = [];
-//        for($i = 0; $i <= 6; $i++) {
-//            $openingHour = new \App\OpeningHour();
-//            $openingHour->day = $i;
-//            $openingHour->open = '08:30:00';
-//            $openingHour->close = '18:30:00';
-//            $openingHour->is_close = in_array($i, [6,7]);
-//            $openingHour->save();
-//            $openingHourPerDay[] = $openingHour;
-//        }
-//        $salon->services()->saveMany($openingHourPerDay);
     }
 }

@@ -3,4 +3,7 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="JSX" />
   </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/laravel/database/migrations/2020_01_23_041315_add_phone_nullable_to_admin_users.php" />
+  </component>
 </project>
