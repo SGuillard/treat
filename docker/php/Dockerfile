@@ -30,18 +30,18 @@ RUN docker-php-ext-install pdo_mysql mysqli
 
 ARG INSTALL_XDEBUG=false
 
-RUN if [ ${INSTALL_XDEBUG} = true ]; then \
-  # Install the xdebug extension
-  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
-  pecl install xdebug-2.5.5; \
-  else \
-  pecl install xdebug; \
-  fi && \
-  docker-php-ext-enable xdebug \
-  ;fi
-
-# Copy xdebug configuration for remote debugging
- COPY ./ini/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+#RUN if [ ${INSTALL_XDEBUG} = true ]; then \
+#  # Install the xdebug extension
+#  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+#  pecl install xdebug-2.5.5; \
+#  else \
+#  pecl install xdebug; \
+#  fi && \
+#  docker-php-ext-enable xdebug \
+#  ;fi
+#
+## Copy xdebug configuration for remote debugging
+# COPY ./ini/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 ###########################################################################
 # Opcache:

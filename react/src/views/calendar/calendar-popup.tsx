@@ -1,5 +1,5 @@
 import Popup from 'reactjs-popup';
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { DateRange } from '@material-ui/icons';
 import DateFnsUtils from '@date-io/date-fns';
@@ -23,7 +23,7 @@ import { FormSelect } from '../../uiComponents/forms/FormSelect/FormSelect';
 import { usePopupFormActionHandler } from '../../utils/forms/hooks/usePopupFormActionHandler';
 import { FormDeleteButton } from '../../uiComponents/forms/FormDeleteButton/FormDeleteButton';
 import { CalendarPopupProps, EditMode } from './type';
-import { emptyEvent, initReducer } from './constant';
+import { initReducer } from './constant';
 
 export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: CalendarPopupProps) => {
   const classes = useStyleForm();
