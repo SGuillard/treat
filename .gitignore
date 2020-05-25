@@ -5,3 +5,4 @@ symfony/var/*
 symfony/vendor/*
 node_modules
 ###< symfony/framework-bundle ###
+./.idea

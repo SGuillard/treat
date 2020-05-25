@@ -7,6 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/asm89/stack-cors" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/barryvdh/laravel-ide-helper" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/barryvdh/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/defuse/php-encryption" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/dnoegel/php-xdg-base-dir" />
@@ -32,6 +34,7 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/hamcrest/hamcrest-php" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/jakub-onderka/php-console-color" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/jakub-onderka/php-console-highlighter" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/justinrainbow/json-schema" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/laminas/laminas-diactoros" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/laminas/laminas-zendframework-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/laravel/framework" />
@@ -86,6 +89,8 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sebastian/resource-operations" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sebastian/type" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/sebastian/version" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/seld/jsonlint" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/seld/phar-utils" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/swiftmailer/swiftmailer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/console" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/css-selector" />
@@ -93,6 +98,7 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/error-handler" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/event-dispatcher-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/filesystem" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/finder" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/http-foundation" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/http-kernel" />

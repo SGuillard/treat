@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\AdminUser;
+use App\Http\Resources\Admin\AdminUserResource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,9 +18,7 @@ class AdminUserTest extends TestCase
     }
 
     /**
-     * A basic feature test example.
-     *
-     * @return void
+     * GET
      */
     public function testGetEndpoint()
     {
@@ -29,6 +29,9 @@ class AdminUserTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * POST
+     */
     public function testPostEndpoint()
     {
         $this->withoutExceptionHandling();
@@ -37,6 +40,8 @@ class AdminUserTest extends TestCase
         $this->actingAs($userFactory->make()->first(), 'api');
         $response = $this->post($this->apiUrl, $adminUser);
         $response->assertStatus(200);
+        $dbUser = AdminUser::where('first_name', 'like', '%'.$adminUser['first_name'].'%')->first();
+        $response->assertJsonPath('data.0', (new AdminUserResource($dbUser))->toArray($dbUser));
         $this->assertDatabaseHas('admin_users', $adminUser);
     }
 
