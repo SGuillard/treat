@@ -1,8 +1,10 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+
 
 class CreatePromotionsTable extends Migration
 {
@@ -17,8 +19,8 @@ class CreatePromotionsTable extends Migration
             $table->bigIncrements('id');
             $table->boolean('active')->default(true);
             $table->string('name')->default('');
-            $table->dateTime('start_date')->default(date_format(new DateTime(), 'Y-m-d H:i:s'));
-            $table->dateTime('end_date')->default(date_format(new DateTime(), 'Y-m-d H:i:s'));
+            $table->dateTime('start_date')->default(Carbon::now());
+            $table->dateTime('end_date')->default(Carbon::now());
             $table->integer('day')->nullable();
             $table->time('start_hour')->nullable();
             $table->time('end_hour')->nullable();

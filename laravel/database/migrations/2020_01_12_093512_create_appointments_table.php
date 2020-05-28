@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,7 +25,7 @@ class CreateAppointmentsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->string('client_name')->nullable();
-            $table->dateTime('start')->default(date_format(new DateTime(), 'Y-m-d H:i:s'));
+            $table->dateTime('start')->default(Carbon::now());
             $table->integer('duration')->nullable();
             $table->timestamps();
         });
