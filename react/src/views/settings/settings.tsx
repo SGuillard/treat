@@ -10,7 +10,7 @@ import Business from '@material-ui/icons/Business';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { AvTimer, EventSeat, HomeWork, People } from '@material-ui/icons';
+import { AvTimer, CardGiftcard, EventSeat, HomeWork, People } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../router/admin/admin-routes';
 
@@ -55,13 +55,13 @@ const Settings = () => {
         <ListItemIcon>
           <AccountCircle />
         </ListItemIcon>
-        <ListItemText primary="My Account" />
+        <ListItemText primary="Account" />
       </ListItem>
       <ListItem button onClick={handleClickBusiness}>
         <ListItemIcon>
           <Business />
         </ListItemIcon>
-        <ListItemText primary="My Business" />
+        <ListItemText primary="Business" />
         {openBusiness ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={openBusiness} timeout="auto" unmountOnExit>
@@ -70,14 +70,14 @@ const Settings = () => {
             <ListItemIcon>
               <People />
             </ListItemIcon>
-            <ListItemText primary="My Team" />
+            <ListItemText primary="Team" />
           </ListItem>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.SERVICE_LIST.path)}>
               <ListItemIcon>
                 <EventSeat />
               </ListItemIcon>
-              <ListItemText primary="My services" />
+              <ListItemText primary="Services" />
             </ListItem>
           </List>
           <List component="div" disablePadding>
@@ -85,7 +85,7 @@ const Settings = () => {
               <ListItemIcon>
                 <HomeWork />
               </ListItemIcon>
-              <ListItemText primary="My business profile" />
+              <ListItemText primary="Business profile" />
             </ListItem>
           </List>
           <List component="div" disablePadding>
@@ -93,7 +93,15 @@ const Settings = () => {
               <ListItemIcon>
                 <AvTimer />
               </ListItemIcon>
-              <ListItemText primary="My business hours" />
+              <ListItemText primary="Business hours" />
+            </ListItem>
+          </List>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.PROMOTIONS.path)}>
+              <ListItemIcon>
+                <CardGiftcard />
+              </ListItemIcon>
+              <ListItemText primary="Promotions" />
             </ListItem>
           </List>
         </List>

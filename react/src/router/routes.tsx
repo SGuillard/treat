@@ -12,11 +12,14 @@ const Root = () => (
       <Route path={AdminROUTES.CALENDAR.path} render={() => <AdminRouter page={AdminROUTES.CALENDAR.name} />} />
       <Route path={AdminROUTES.DASHBOARD.path} render={() => <AdminRouter page={AdminROUTES.DASHBOARD.name} />} />
       <Route exact path={AdminROUTES.SETTINGS.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.name} />} />
+      {/* Admin User */}
       <Route exact path={AdminROUTES.SETTINGS.ADMIN_USER_LIST.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.ADMIN_USER_LIST.name} />} />
       <Route path={AdminROUTES.SETTINGS.ADMIN_USER_EDIT.pathWithId} render={(props: RouteComponentProps) => <AdminRouter params={props.match.params} page={AdminROUTES.SETTINGS.ADMIN_USER_EDIT.name} />} />
+      {/* Service */}
       <Route exact path={AdminROUTES.SETTINGS.SERVICE_LIST.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.SERVICE_LIST.name} />} />
       <Route path={AdminROUTES.SETTINGS.SERVICE_EDIT.pathWithId} render={(props: RouteComponentProps) => <AdminRouter params={props.match.params} page={AdminROUTES.SETTINGS.SERVICE_EDIT.name} />} />
       <Route exact path={AdminROUTES.SETTINGS.OPENINGS.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.OPENINGS.name} />} />
+      <Route exact path={AdminROUTES.SETTINGS.PROMOTIONS.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.PROMOTIONS.name} />} />
       <Route path={AdminROUTES.LOGIN.path} component={Login} />
       <Route path={AdminROUTES.REGISTER.path} component={Register} />
       {/* Others */}

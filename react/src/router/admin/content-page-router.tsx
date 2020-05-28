@@ -10,6 +10,7 @@ import SettingsAdminUserForm
   from '../../views/settings/adminUsers/settings-admin-user-form';
 import RouterContext from '../RouterContext';
 import Openings from '../../views/settings/openings/openings';
+import Promotions from '../../views/settings/promotions/promotions';
 
 const ContentPageRouter = () => {
   const { page, params } = useContext(RouterContext);
@@ -30,6 +31,8 @@ const ContentPageRouter = () => {
       return <SettingsServiceList />;
     case AdminROUTES.SETTINGS.SERVICE_EDIT.name:
       return <SettingsServiceForm params={params} />;
+    case AdminROUTES.SETTINGS.PROMOTIONS.name:
+      return <Promotions />;
     default:
       return <Calendar />;
   }

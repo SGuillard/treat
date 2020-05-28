@@ -37,6 +37,11 @@ const AdminROUTES = {
       path: '/admin/openings',
       name: 'settings/openings',
     },
+    PROMOTIONS: {
+      path: '/admin/promotions',
+      pathWithId: '/admin/promotions/edit/:id?',
+      name: 'settings/promotions',
+    },
   },
   REGISTER: {
     path: '/admin/register',
