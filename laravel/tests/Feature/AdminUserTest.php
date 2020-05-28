@@ -62,4 +62,6 @@ class AdminUserTest extends TestCase
         $response->assertJsonPath('data.0', (new AdminUserResource($dbUser))->toArray($dbUser));
         $this->assertDatabaseHas('admin_users', $adminUserDataTest->toArray());
     }
+
+
 }

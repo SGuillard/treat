@@ -15,7 +15,7 @@ $factory->define(Appointment::class, function (Faker $faker) {
         'salon_id' => FactoryHelper::getSalon(),
         'admin_user_id' => FactoryHelper::getAdminUser(),
         'duration' => 15,
-        'date' => Carbon::now(),
+        'start' => Carbon::now(),
         'service_id' => FactoryHelper::getService(),
         'client_name' => $faker->name,
     ];

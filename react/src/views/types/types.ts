@@ -30,7 +30,7 @@ export interface AppointmentModel {
   salonId: number,
   duration: number,
   adminUserId: number,
-  date: string,
+  start: string,
   serviceId: number,
   userId: number | null,
   clientName: string | null,

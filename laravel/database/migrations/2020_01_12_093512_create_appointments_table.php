@@ -24,7 +24,7 @@ class CreateAppointmentsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->string('client_name')->nullable();
-            $table->timestamp('start_date')->nullable();
+            $table->timestamp('start')->nullable();
             $table->integer('duration')->nullable();
             $table->timestamps();
         });

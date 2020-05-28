@@ -23,7 +23,7 @@ class AppointmentTableSeeder extends MainSeeder
     {
         factory('App\Appointment', 8)->create([
             'admin_user_id' => fn() => $this->getOrCreateRandomAdminUser(),
-            'date' => function () {
+            'start' => function () {
                 $this->countMinute += 60;
                 return Carbon::now()->addMinutes($this->countMinute);
             },
