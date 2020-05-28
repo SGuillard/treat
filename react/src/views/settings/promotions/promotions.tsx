@@ -167,7 +167,7 @@ const Promotions = () => {
     </>
   );
 
-  return redirect ? <Redirect to={AdminROUTES.SETTINGS.PROMOTIONS_ADD.path} /> : getTable();
+  return redirect ? <Redirect push to={AdminROUTES.SETTINGS.PROMOTIONS_ADD.path} /> : getTable();
 };
 
 export default Promotions;
