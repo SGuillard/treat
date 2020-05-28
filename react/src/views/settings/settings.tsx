@@ -97,7 +97,7 @@ const Settings = () => {
             </ListItem>
           </List>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.PROMOTIONS.path)}>
+            <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.PROMOTIONS_LIST.path)}>
               <ListItemIcon>
                 <CardGiftcard />
               </ListItemIcon>

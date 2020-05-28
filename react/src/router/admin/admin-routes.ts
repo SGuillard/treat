@@ -37,10 +37,13 @@ const AdminROUTES = {
       path: '/admin/openings',
       name: 'settings/openings',
     },
-    PROMOTIONS: {
+    PROMOTIONS_LIST: {
       path: '/admin/promotions',
-      pathWithId: '/admin/promotions/edit/:id?',
       name: 'settings/promotions',
+    },
+    PROMOTIONS_ADD: {
+      path: '/admin/promotions/add',
+      name: 'settings/promotions/add',
     },
   },
   REGISTER: {

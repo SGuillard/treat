@@ -19,7 +19,8 @@ const Root = () => (
       <Route exact path={AdminROUTES.SETTINGS.SERVICE_LIST.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.SERVICE_LIST.name} />} />
       <Route path={AdminROUTES.SETTINGS.SERVICE_EDIT.pathWithId} render={(props: RouteComponentProps) => <AdminRouter params={props.match.params} page={AdminROUTES.SETTINGS.SERVICE_EDIT.name} />} />
       <Route exact path={AdminROUTES.SETTINGS.OPENINGS.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.OPENINGS.name} />} />
-      <Route exact path={AdminROUTES.SETTINGS.PROMOTIONS.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.PROMOTIONS.name} />} />
+      <Route exact path={AdminROUTES.SETTINGS.PROMOTIONS_LIST.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.PROMOTIONS_LIST.name} />} />
+      <Route exact path={AdminROUTES.SETTINGS.PROMOTIONS_ADD.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.PROMOTIONS_ADD.name} />} />
       <Route path={AdminROUTES.LOGIN.path} component={Login} />
       <Route path={AdminROUTES.REGISTER.path} component={Register} />
       {/* Others */}

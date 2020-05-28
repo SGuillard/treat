@@ -1,30 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTable } from 'react-table';
-import { Container, Grid } from '@material-ui/core';
+import { Button, Container, Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { Redirect } from 'react-router-dom';
 import DisableButton from './disable-button';
+import AdminROUTES from '../../../router/admin/admin-routes';
 
 const dummyData = [
   {
     disable: <DisableButton />,
     name: 'First one',
-    start: '2020-05-05 15:00:00',
-    end: '2020-05-05 16:00:00',
+    start_date: '2020-05-05 15:00:00',
+    end_date: '2020-05-05 16:00:00',
     service: 'all',
+    start_hour: '00:00:00',
+    end_hour: '00:00:00',
+    day: 'monday',
     discount: '15%',
   },
   {
+    disable: <DisableButton />,
     name: 'Second one',
-    start: '2020-05-08 15:00:00',
-    end: '2020-05-09 15:00:00',
+    start_date: '2020-05-08 15:00:00',
+    end_date: '2020-05-09 15:00:00',
     service: 'Service Name',
+    start_hour: '00:00:00',
+    end_hour: '00:00:00',
+    day: 'tuesday',
     discount: '20%',
   },
   {
+    disable: <DisableButton />,
     name: 'Third one',
-    start: '2020-10-22 17:00:00',
-    end: '2020-10-23 15:00:00',
+    start_date: '2020-10-22 17:00:00',
+    end_date: '2020-10-23 15:00:00',
     service: 'all',
+    start_hour: '00:00:00',
+    end_hour: '00:00:00',
+    day: 'all',
     discount: '25%',
   },
 ];
@@ -35,23 +48,35 @@ const tableConfig = [
     accessor: 'disable',
   },
   {
-    Header: 'Discount',
-    accessor: 'discount',
-  },
-  {
     Header: 'Name',
     accessor: 'name',
   },
   {
-    Header: 'Start',
-    accessor: 'start', // accessor is the "key" in the data
+    Header: 'From (date)',
+    accessor: 'start_date', // accessor is the "key" in the data
   },
   {
-    Header: 'End',
-    accessor: 'end',
+    Header: 'To (date)',
+    accessor: 'end_date',
   },
   {
-    Header: 'Service',
+    Header: 'On every',
+    accessor: 'day',
+  },
+  {
+    Header: 'From (hour)',
+    accessor: 'start_hour',
+  },
+  {
+    Header: 'To (hour)',
+    accessor: 'end_hour',
+  },
+  {
+    Header: 'Apply a discount of',
+    accessor: 'discount',
+  },
+  {
+    Header: 'On (service)',
     accessor: 'service',
   },
 ];
@@ -75,8 +100,9 @@ const Promotions = () => {
     prepareRow,
   } = useTable({ columns, data } as any);
 
+  const [redirect, setRedirect] = useState<boolean>(false);
 
-  return (
+  const getTable = () => (
     <>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -86,9 +112,9 @@ const Promotions = () => {
           justify="space-between"
           alignItems="flex-start"
         >
-          <Grid item></Grid>
+          <Grid item />
           <Grid item>Active promotions</Grid>
-          <Grid item>Add a promotion</Grid>
+          <Grid item><Button onClick={() => setRedirect(true)}>Add a promotion</Button></Grid>
         </Grid>
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
@@ -140,6 +166,8 @@ const Promotions = () => {
       </Container>
     </>
   );
+
+  return redirect ? <Redirect to={AdminROUTES.SETTINGS.PROMOTIONS_ADD.path} /> : getTable();
 };
 
 export default Promotions;
