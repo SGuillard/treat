@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PromotionResource;
+use App\Promotion;
 use Illuminate\Http\Request;
 
 class PromotionController extends Controller
@@ -13,7 +15,7 @@ class PromotionController extends Controller
      */
     public function index()
     {
-        return [];
+        return PromotionResource::collection(Promotion::all());
     }
 
     /**

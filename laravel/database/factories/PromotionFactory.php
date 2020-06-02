@@ -3,11 +3,11 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Helpers\FactoryHelper;
-use App\Model;
+use App\Promotion;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Promotion::class, function (Faker $faker) {
     $now = Carbon::now();
     $dayOptions = [null, 1, 2];
 
@@ -20,6 +20,6 @@ $factory->define(Model::class, function (Faker $faker) {
         'start_hour' => $now->format('h:i:s'),
         'end_hour' => $now->addHour()->format('h:i:s'),
         'discount' => rand(10, 30),
-        'service' => FactoryHelper::getService(),
+        'service_id' => FactoryHelper::getService(),
     );
 });
