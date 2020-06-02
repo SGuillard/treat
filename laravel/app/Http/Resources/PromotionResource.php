@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Admin\ServiceResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PromotionResource extends JsonResource
@@ -24,6 +25,7 @@ class PromotionResource extends JsonResource
             'start_hour' => $this->start_hour,
             'end_hour' => $this->end_hour,
             'discount' => $this->discount,
+            'service' => new ServiceResource($this->service),
         ];
     }
 }

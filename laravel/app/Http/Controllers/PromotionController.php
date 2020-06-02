@@ -25,7 +25,7 @@ class PromotionController extends Controller
      */
     private function getAllPromotions()
     {
-        return PromotionResource::collection(Promotion::all());
+        return PromotionResource::collection(Promotion::with('service')->get());
     }
 
     /**

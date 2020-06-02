@@ -51,7 +51,7 @@ class PromotionTest extends TestCase
         $response = $this->post($this->apiUrl, $promotion);
         $this->assertDatabaseHas('promotions', $promotion);
         $response->assertStatus(200);
-        $promotionDb = Promotion::first();
-        $response->assertJsonPath('data.0', (new PromotionResource($promotionDb))->toArray($promotionDb));
+        $promotions = Promotion::with('service')->get();
+        $response->assertSee(json_encode(PromotionResource::collection($promotions)));
     }
 }

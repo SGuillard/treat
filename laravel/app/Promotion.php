@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Promotion extends Model
 {
@@ -12,5 +13,10 @@ class Promotion extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function service(): BelongsTo
+    {
+        return $this->belongsTo('App\Service');
+    }
 
 }

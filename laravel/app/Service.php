@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
@@ -16,5 +17,10 @@ class Service extends Model
     public function salon()
     {
         return $this->belongsTo('App\Salon');
+    }
+
+    public function promotions(): HasMany
+    {
+        return $this->hasMany('App\Promotion');
     }
 }
