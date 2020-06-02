@@ -17,7 +17,7 @@ class CreatePromotionsTable extends Migration
     {
         Schema::create('promotions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->boolean('active')->default(true);
+            $table->boolean('is_active')->default(true);
             $table->string('name')->default('');
             $table->dateTime('start_date')->default(Carbon::now());
             $table->dateTime('end_date')->default(Carbon::now());

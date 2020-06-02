@@ -16,7 +16,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        return AppointmentResource::collection($this->getSalon()->appointments);
+        return $this->getAppointmentList();
     }
 
     /**

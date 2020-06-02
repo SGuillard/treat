@@ -12,6 +12,8 @@ class PromotionTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected string $apiUrl;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -23,7 +25,7 @@ class PromotionTest extends TestCase
      *
      * @return void
      */
-    public function testGetPromotionList()
+    public function testGetEndpoint()
     {
         $this->withoutExceptionHandling();
         $user = factory('App\AdminUser', 1)->make();
@@ -33,5 +35,23 @@ class PromotionTest extends TestCase
         $response = $this->get($this->apiUrl);
         $response->assertStatus(200);
         $response->assertJsonPath('data.0', (new PromotionResource($dbPromotion))->toArray($dbPromotion));
+    }
+
+    /**
+     * postPromotionsListTest
+     *
+     * @return void
+     */
+    public function testPostEndpoint()
+    {
+        $this->withoutExceptionHandling();
+        $user = factory('App\AdminUser', 1)->make();
+        $promotion = factory('App\Promotion', 1)->make()->first()->toArray();
+        $this->actingAs($user->first(), 'api');
+        $response = $this->post($this->apiUrl, $promotion);
+        $this->assertDatabaseHas('promotions', $promotion);
+        $response->assertStatus(200);
+        $promotionDb = Promotion::first();
+        $response->assertJsonPath('data.0', (new PromotionResource($promotionDb))->toArray($promotionDb));
     }
 }

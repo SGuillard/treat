@@ -15,17 +15,17 @@ class PromotionController extends Controller
      */
     public function index()
     {
-        return PromotionResource::collection(Promotion::all());
+        return $this->getAllPromotions();
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Get the the Colletion of all the promotions
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function create()
+    private function getAllPromotions()
     {
-        //
+        return PromotionResource::collection(Promotion::all());
     }
 
     /**
@@ -36,29 +36,8 @@ class PromotionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        Promotion::create($request->input());
+        return $this->getAllPromotions();
     }
 
     /**

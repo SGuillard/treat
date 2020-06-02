@@ -12,7 +12,7 @@ $factory->define(Promotion::class, function (Faker $faker) {
     $dayOptions = [null, 1, 2];
 
     return array(
-        'active' => $faker->boolean,
+        'is_active' => $faker->boolean,
         'name' => $faker->name,
         'start_date' => $now,
         'end_date' => $now->add(3, 'day'),

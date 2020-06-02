@@ -36,7 +36,7 @@ class AdminUserTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $userFactory = factory('App\AdminUser', 1);
-        $adminUser = $userFactory->raw()[0];
+        $adminUser = $userFactory->make()->first()->toArray();
         $this->actingAs($userFactory->make()->first(), 'api');
         $response = $this->post($this->apiUrl, $adminUser);
         $response->assertStatus(200);

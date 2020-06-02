@@ -79,7 +79,6 @@ class OpeningHourController extends Controller
      */
     public function update(UpdateOpeningHoursRequest $request, OpeningHour $openingHour)
     {
-//        dd($request->input('close'));
         $openingHour->update($request->input());
         return $this->getList();
     }
