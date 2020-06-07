@@ -9,6 +9,7 @@ import AdminROUTES from '../../router/admin/admin-routes';
 import { ReduxState } from '../../store/types';
 import { initAppointmentList } from '../../store/actions/appointmentAction';
 import { initOpeningHoursList } from '../../store/actions/openinHoursAction';
+import { initPromotionList } from '../../store/actions/promotionAction';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Main = () => {
       dispatch(initServiceList());
       dispatch(initAppointmentList());
       dispatch(initOpeningHoursList());
+      dispatch(initPromotionList());
     }
   }, [dispatch, isLogged]);
 

@@ -50,3 +50,19 @@ export interface OpeningHoursModel {
 export interface OpeningHoursInterface extends OpeningHoursModel{
   id?: number | null;
 }
+
+export interface PromotionModel {
+  isActive: boolean | number,
+  name: string,
+  startDate: string,
+  endDate: string,
+  day: number,
+  startHour: string,
+  endHour: string,
+  discount: number,
+  serviceId: number,
+}
+
+export interface PromotionInterface extends PromotionModel {
+  id?: number | null;
+}

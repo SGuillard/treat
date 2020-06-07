@@ -1,6 +1,6 @@
 import {
   AdminUserInterface,
-  AppointmentInterface, OpeningHoursInterface,
+  AppointmentInterface, OpeningHoursInterface, PromotionInterface,
   ServiceInterface
 } from '../../views/types/types';
 
@@ -31,6 +31,11 @@ export interface OpeningHoursReducerActionPayload {
   payload: AppointmentInterface[],
 }
 
+export interface PromotionReducerActionPayload {
+  type: string,
+  payload: PromotionInterface[],
+}
+
 export interface GlobalStateInterface {
   isLogged: boolean,
 }
@@ -50,6 +55,10 @@ export interface AppointmentStateInterface {
 
 export interface OpeningHoursStateInterface {
   list: OpeningHoursInterface[]
+}
+
+export interface PromotionStateInterface {
+  list: PromotionInterface[]
 }
 
 export interface ServiceReducerActionInterface {

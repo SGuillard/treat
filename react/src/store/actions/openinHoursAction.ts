@@ -19,5 +19,5 @@ export const initOpeningHoursList = (): ThunkAction<void, ReduxState, unknown, A
   )).catch(() => {
     console.log('okk');
     handleInitialisationRequestErrors(dispatch);
-  })
+  });
 };
