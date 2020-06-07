@@ -25,11 +25,14 @@ class DatabaseSeeder extends Seeder
         factory('App\Salon')->create([
             'name' => 'My Salon'
         ]);
-        $this->call(AdminUserTableSeeder::class);
-        $this->call(ServiceTableSeeder::class);
-        $this->call(AdminUserTableSeeder::class);
-        $this->call(AppointmentTableSeeder::class);
-        $this->call(OpeningHourSeeder::class);
+        $this->call([
+            AdminUserTableSeeder::class,
+            ServiceTableSeeder::class,
+            AdminUserTableSeeder::class,
+            AppointmentTableSeeder::class,
+            OpeningHourSeeder::class,
+            PromotionSeeder::class,
+        ]);
         factory('App\User', 5)->create();
     }
 }

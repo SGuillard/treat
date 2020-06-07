@@ -6,12 +6,16 @@ class ServiceTableSeeder extends Seeder
 {
     private $serviceNames = ['massage', 'hairCut', 'spa'];
 
-    private function getServiceName()
+    /**
+     * Function to return a random service name in the list provided
+     * @return string
+     */
+    private function getServiceName(): string
     {
         $reverseNames = array_reverse($this->serviceNames);
         $name = array_pop($reverseNames);
         unset($this->serviceNames[array_key_first($this->serviceNames)]);
-        return  $name;
+        return $name;
     }
 
     /**
