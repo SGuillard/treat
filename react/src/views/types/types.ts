@@ -60,9 +60,13 @@ export interface PromotionModel {
   startHour: string,
   endHour: string,
   discount: number,
-  serviceId: number,
+  service: ServiceInterface,
 }
 
 export interface PromotionInterface extends PromotionModel {
   id?: number | null;
+}
+
+export interface TablePromotionInterface extends PromotionInterface {
+  serviceName?: string,
 }

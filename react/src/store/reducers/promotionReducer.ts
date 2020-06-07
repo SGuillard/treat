@@ -1,10 +1,8 @@
 import {
-  OpeningHoursReducerActionPayload,
-  OpeningHoursStateInterface, PromotionReducerActionPayload, PromotionStateInterface,
+  PromotionReducerActionPayload, PromotionStateInterface,
 } from '../types';
-import { SET_OPENING_HOURS_ACTION, SET_PROMOTION_ACTION } from '../actions/constants';
+import { SET_PROMOTION_ACTION } from '../actions/constants';
 import updateObject from '../../utils/common/updateObject';
-import { PromotionInterface } from '../../views/types/types';
 
 const initialState = {
   list: [],

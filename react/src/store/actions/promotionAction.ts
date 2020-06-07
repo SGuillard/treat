@@ -4,9 +4,9 @@ import { Action } from 'redux';
 import makeApiRequest from '../../utils/api/apiRequest';
 import { RequestMethod } from '../../types';
 import API from '../../API';
-import { OpeningHoursInterface, PromotionInterface } from '../../views/types/types';
+import { PromotionInterface } from '../../views/types/types';
 import { handleInitialisationRequestErrors } from './globalActions';
-import { SET_OPENING_HOURS_ACTION, SET_PROMOTION_ACTION } from './constants';
+import { SET_PROMOTION_ACTION } from './constants';
 
 export const setPromotionAction = (promotion: PromotionInterface[]) => ({
   type: SET_PROMOTION_ACTION,

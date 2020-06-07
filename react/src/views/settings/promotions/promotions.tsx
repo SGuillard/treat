@@ -3,88 +3,24 @@ import { useTable } from 'react-table';
 import { Button, Container, Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Redirect } from 'react-router-dom';
-import DisableButton from './disable-button';
+import { useSelector } from 'react-redux';
 import AdminROUTES from '../../../router/admin/admin-routes';
+import { tableConfig } from './config/tableConfig';
+import { ReduxState } from '../../../store/types';
+import { TablePromotionInterface } from '../../types/types';
 
-const dummyData = [
-  {
-    disable: <DisableButton />,
-    name: 'First one',
-    start_date: '2020-05-05 15:00:00',
-    end_date: '2020-05-05 16:00:00',
-    service: 'all',
-    start_hour: '00:00:00',
-    end_hour: '00:00:00',
-    day: 'monday',
-    discount: '15%',
-  },
-  {
-    disable: <DisableButton />,
-    name: 'Second one',
-    start_date: '2020-05-08 15:00:00',
-    end_date: '2020-05-09 15:00:00',
-    service: 'Service Name',
-    start_hour: '00:00:00',
-    end_hour: '00:00:00',
-    day: 'tuesday',
-    discount: '20%',
-  },
-  {
-    disable: <DisableButton />,
-    name: 'Third one',
-    start_date: '2020-10-22 17:00:00',
-    end_date: '2020-10-23 15:00:00',
-    service: 'all',
-    start_hour: '00:00:00',
-    end_hour: '00:00:00',
-    day: 'all',
-    discount: '25%',
-  },
-];
-
-const tableConfig = [
-  {
-    Header: 'Disable',
-    accessor: 'disable',
-  },
-  {
-    Header: 'Name',
-    accessor: 'name',
-  },
-  {
-    Header: 'From (date)',
-    accessor: 'start_date', // accessor is the "key" in the data
-  },
-  {
-    Header: 'To (date)',
-    accessor: 'end_date',
-  },
-  {
-    Header: 'On every',
-    accessor: 'day',
-  },
-  {
-    Header: 'From (hour)',
-    accessor: 'start_hour',
-  },
-  {
-    Header: 'To (hour)',
-    accessor: 'end_hour',
-  },
-  {
-    Header: 'Apply a discount of',
-    accessor: 'discount',
-  },
-  {
-    Header: 'On (service)',
-    accessor: 'service',
-  },
-];
 
 const Promotions = () => {
+  const promotionList = useSelector((state: ReduxState) => state.promotions.list);
+  const mappedPromotions = promotionList.map((promotion: TablePromotionInterface) => {
+    const promotionTable = promotion;
+    promotionTable.serviceName = promotion.service.name;
+    return promotionTable;
+  });
+
   const data = React.useMemo(
-    () => dummyData,
-    [],
+    () => mappedPromotions,
+    [mappedPromotions],
   );
 
   const columns = React.useMemo(
