@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Resources\PromotionCollection;
 use App\Http\Resources\PromotionResource;
 use App\Promotion;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,12 +30,13 @@ class PromotionTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $user = factory('App\AdminUser', 1)->make();
-        $promotion = factory('App\Promotion', 1)->create();
+        factory('App\Promotion', 2)->create();
         $this->actingAs($user->first(), 'api');
-        $dbPromotion = Promotion::first();
+        $dbPromotion = Promotion::all();
         $response = $this->get($this->apiUrl);
         $response->assertStatus(200);
-        $response->assertJsonPath('data.0', (new PromotionResource($dbPromotion))->toArray($dbPromotion));
+        $resourceResponse = PromotionResource::collection($dbPromotion)->response()->getData(true);
+        $response->assertJson($resourceResponse);
     }
 
     /**
@@ -46,12 +48,14 @@ class PromotionTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $user = factory('App\AdminUser', 1)->make();
-        $promotion = factory('App\Promotion', 1)->make()->first()->toArray();
+        $promotion = factory('App\Promotion')->make();
         $this->actingAs($user->first(), 'api');
-        $response = $this->post($this->apiUrl, $promotion);
-        $this->assertDatabaseHas('promotions', $promotion);
+        $response = $this->post($this->apiUrl, $promotion->toArray());
+        $this->assertDatabaseHas('promotions', $promotion->toArray());
         $response->assertStatus(200);
-        $promotions = Promotion::with('service')->get();
-        $response->assertSee(json_encode(PromotionResource::collection($promotions)));
+        $dbPromotion = Promotion::first();
+        $this->assertEquals($dbPromotion->name, $promotion->name);
+        $resourceResponse = (new PromotionCollection(Promotion::all()))->response()->getData(true);
+        $response->assertJson($resourceResponse);
     }
 }

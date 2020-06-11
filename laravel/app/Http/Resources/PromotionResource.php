@@ -13,7 +13,7 @@ class PromotionResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request, $recursively = false)
     {
         return [
             'id' => $this->id,
