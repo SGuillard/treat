@@ -25,7 +25,7 @@ class PromotionTest extends TestCase
      *
      * @return void
      */
-    public function testGetEndpoint()
+    public function testPromotionGetEndpoint()
     {
         $this->withoutExceptionHandling();
         $user = factory('App\AdminUser', 1)->make();
@@ -42,7 +42,7 @@ class PromotionTest extends TestCase
      *
      * @return void
      */
-    public function testPostEndpoint()
+    public function testPromotionPostEndpoint()
     {
         $this->withoutExceptionHandling();
         $user = factory('App\AdminUser', 1)->make();

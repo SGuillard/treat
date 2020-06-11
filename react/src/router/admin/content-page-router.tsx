@@ -11,7 +11,7 @@ import SettingsAdminUserForm
 import RouterContext from '../RouterContext';
 import Openings from '../../views/settings/openings/openings';
 import Promotions from '../../views/settings/promotions/promotions';
-import AddPromotionForm from '../../views/settings/promotions/add-promotion-form';
+import AddPromotionForm from '../../views/settings/promotions/form/add-promotion-form';
 
 const ContentPageRouter = () => {
   const { page, params } = useContext(RouterContext);
