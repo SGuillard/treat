@@ -25,6 +25,7 @@ module.exports =  {
         "tsx": "never"
       }
     ],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx"]}],
     "react/jsx-filename-extension": [2, { "extensions": [".jsx" , ".tsx", ".js"]}],
     "import/prefer-default-export": "off",
     "object-shorthand": "off",
