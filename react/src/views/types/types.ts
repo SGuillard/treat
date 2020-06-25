@@ -70,3 +70,9 @@ export interface PromotionInterface extends PromotionModel {
 export interface TablePromotionInterface extends PromotionInterface {
   serviceName?: string,
 }
+
+export interface FormLoaderProps {
+  params?: {
+    id?: number,
+  };
+}

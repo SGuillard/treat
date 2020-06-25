@@ -7,7 +7,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AdminROUTES from '../../../../router/admin/admin-routes';
 import { useStyleForm } from '../style';
 import FormActionButtons from '../../../../uiComponents/forms/FormActionButtons/FormActionButtons';
-import { SettingsAdminUserFormAddProps } from '../types';
+import { SettingsAdminUserFormProps } from '../types';
 import {
   FormTextField,
 } from '../../../../uiComponents/forms/FormTextField/FormTextField';
@@ -19,7 +19,7 @@ import { FormErrorMessage } from '../../../../uiComponents/forms/FormErrorMessag
 import { useChangeHandler } from '../../../../utils/forms/hooks/useChangeHandler';
 import { useFormActionHandler } from '../../../../utils/forms/hooks/useFormActionHandler';
 
-const SettingsAdminUserForm = ({ adminUser }: SettingsAdminUserFormAddProps) => {
+const SettingsAdminUserForm = ({ adminUser }: SettingsAdminUserFormProps) => {
   const classes = useStyleForm();
 
   const [componentState, dispatchComponentReducer] = useReducer(formReducer, adminUser);

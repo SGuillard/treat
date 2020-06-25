@@ -5,22 +5,20 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import { EventSeat } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
-import { ServiceInterface } from '../../types/types';
-import { useStyles } from './style';
-import FormActionButtons from '../../../uiComponents/forms/FormActionButtons/FormActionButtons';
-import AdminROUTES from '../../../router/admin/admin-routes';
-import { ReduxState } from '../../../store/types';
-import { formReducer } from '../../../utils/forms/formReducer';
-import { FormTextField } from '../../../uiComponents/forms/FormTextField/FormTextField';
-import { FormTitle } from '../../../uiComponents/forms/FormTitle/FormTitle';
-import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
-import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
-import { SettingsServiceEditProps } from './type';
-import { initialArgs } from './constants';
-import { useChangeHandler } from '../../../utils/forms/hooks/useChangeHandler';
-import { useFormActionHandler } from '../../../utils/forms/hooks/useFormActionHandler';
+import { ServiceInterface } from '../../../types/types';
+import { useStyles } from '../style';
+import FormActionButtons from '../../../../uiComponents/forms/FormActionButtons/FormActionButtons';
+import AdminROUTES from '../../../../router/admin/admin-routes';
+import { formReducer } from '../../../../utils/forms/formReducer';
+import { FormTextField } from '../../../../uiComponents/forms/FormTextField/FormTextField';
+import { FormTitle } from '../../../../uiComponents/forms/FormTitle/FormTitle';
+import { FormTitleImage } from '../../../../uiComponents/forms/FormTitleImage/FormTitleImage';
+import { FormErrorMessage } from '../../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
+import { SettingsServiceFormProps } from '../type';
+import { useChangeHandler } from '../../../../utils/forms/hooks/useChangeHandler';
+import { useFormActionHandler } from '../../../../utils/forms/hooks/useFormActionHandler';
 
-const SettingsServiceForm = ({ element: service }: SettingsServiceEditProps) => {
+const SettingsServiceForm = ({ service }: SettingsServiceFormProps) => {
   const classes = useStyles();
 
   const [componentState, dispatchComponentReducer] = useReducer(formReducer, service);

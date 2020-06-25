@@ -1,7 +1,7 @@
 import { ServiceInterface } from '../../types/types';
 
-export interface SettingsServiceEditProps {
-  element: ServiceInterface
+export interface SettingsServiceFormProps {
+  service: ServiceInterface
 }
 
 export interface SettingsServiceListProps {

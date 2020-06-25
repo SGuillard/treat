@@ -1,15 +1,8 @@
 import { AdminUserInterface } from '../../types/types';
 
-export interface SettingsAdminUserFormAddProps {
+export interface SettingsAdminUserFormProps {
   adminUser: AdminUserInterface
 }
-
-export interface SettingsFormLoaderProps {
-  params?: {
-    id?: number,
-  };
-}
-
 
 export interface reducerPayloadType {
   name: string,
