@@ -12,6 +12,7 @@ import RouterContext from '../RouterContext';
 import Openings from '../../views/settings/openings/openings';
 import Promotions from '../../views/settings/promotions/promotions';
 import AddPromotionForm from '../../views/settings/promotions/form/add-promotion-form';
+import RouterFormLoader from '../../views/settings/adminUsers/RouterFormLoader';
 
 const ContentPageRouter = () => {
   const { page, params } = useContext(RouterContext);
@@ -27,7 +28,7 @@ const ContentPageRouter = () => {
     case AdminROUTES.SETTINGS.OPENINGS.name:
       return <Openings />;
     case AdminROUTES.SETTINGS.ADMIN_USER_EDIT.name:
-      return <SettingsAdminUserForm params={params} />;
+      return <RouterFormLoader params={params} />;
     case AdminROUTES.SETTINGS.SERVICE_LIST.name:
       return <SettingsServiceList />;
     case AdminROUTES.SETTINGS.SERVICE_EDIT.name:

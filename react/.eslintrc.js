@@ -25,7 +25,11 @@ module.exports =  {
         "tsx": "never"
       }
     ],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx"]}],
+    'import/no-extraneous-dependencies': ['error',
+      {
+        'devDependencies': ['**/*.test.ts', '**/*.test.tsx', '.storybook/**',
+          'stories/**']
+      }],
     "react/jsx-filename-extension": [2, { "extensions": [".jsx" , ".tsx", ".js"]}],
     "import/prefer-default-export": "off",
     "object-shorthand": "off",
@@ -39,12 +43,6 @@ module.exports =  {
     "max-params": ["warn", 2],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": [
-        ".storybook/**",
-        "stories/**"
-      ]
-    }]
   },
   "plugins": [
     "react-hooks",

@@ -20,24 +20,13 @@ import { formReducer } from '../../../utils/forms/formReducer';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
 import { ReduxState } from '../../../store/types';
 import formLoader from '../../../utils/forms/formLoader';
-import { initialArg } from './constants';
 import { useChangeHandler } from '../../../utils/forms/hooks/useChangeHandler';
 import { useFormActionHandler } from '../../../utils/forms/hooks/useFormActionHandler';
 
-const SettingsAdminUserForm = (props: SettingsAdminUserFormAddProps) => {
+const SettingsAdminUserForm = ({ adminUser }: SettingsAdminUserFormAddProps) => {
   const classes = useStyleForm();
-  const { params } = props;
 
-  const adminUser = useSelector((state: ReduxState) => state.adminUsers.list.find((adminUserState: AdminUserInterface) => adminUserState.id === Number(
-    params && params.id,
-  )));
-
-  const [componentState, dispatchComponentReducer] = useReducer(formReducer,
-    adminUser ?? initialArg);
-
-  useEffect(() => {
-    formLoader(adminUser, dispatchComponentReducer);
-  }, [adminUser]);
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, adminUser);
 
   const { firstName, lastName, active } = componentState;
 

@@ -1,7 +1,7 @@
+import { AdminUserInterface } from '../../types/types';
+
 export interface SettingsAdminUserFormAddProps {
-  params?: {
-    id?: number,
-  };
+  adminUser: AdminUserInterface
 }
 
 export interface reducerPayloadType {
