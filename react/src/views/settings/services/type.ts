@@ -1,7 +1,7 @@
+import { ServiceInterface } from '../../types/types';
+
 export interface SettingsServiceEditProps {
-  params?: {
-    id?: number
-  }
+  element: ServiceInterface
 }
 
 export interface SettingsServiceListProps {

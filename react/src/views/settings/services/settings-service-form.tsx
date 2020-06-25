@@ -14,25 +14,16 @@ import { formReducer } from '../../../utils/forms/formReducer';
 import { FormTextField } from '../../../uiComponents/forms/FormTextField/FormTextField';
 import { FormTitle } from '../../../uiComponents/forms/FormTitle/FormTitle';
 import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
-import formLoader from '../../../utils/forms/formLoader';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
 import { SettingsServiceEditProps } from './type';
 import { initialArgs } from './constants';
 import { useChangeHandler } from '../../../utils/forms/hooks/useChangeHandler';
 import { useFormActionHandler } from '../../../utils/forms/hooks/useFormActionHandler';
 
-const SettingsServiceForm = (props: SettingsServiceEditProps) => {
+const SettingsServiceForm = ({ element: service }: SettingsServiceEditProps) => {
   const classes = useStyles();
-  const service = useSelector((state: ReduxState) => state.services.list.find((serviceRedux: ServiceInterface) => serviceRedux.id === Number(
-    props.params && props.params.id,
-  )));
 
-  const [componentState, dispatchComponentReducer] = useReducer(formReducer,
-    service ?? initialArgs);
-
-  useEffect(() => {
-    formLoader(service, dispatchComponentReducer);
-  }, [service]);
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, service);
 
   const { onChangeString, onChangeNumber, onChangeDecimal } = useChangeHandler(dispatchComponentReducer);
 

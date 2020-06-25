@@ -1,27 +1,23 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { useSelector } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { AdminUserInterface } from '../../types/types';
-import AdminROUTES from '../../../router/admin/admin-routes';
-import { useStyleForm } from './style';
-import FormActionButtons from '../../../uiComponents/forms/FormActionButtons/FormActionButtons';
-import { SettingsAdminUserFormAddProps } from './types';
+import AdminROUTES from '../../../../router/admin/admin-routes';
+import { useStyleForm } from '../style';
+import FormActionButtons from '../../../../uiComponents/forms/FormActionButtons/FormActionButtons';
+import { SettingsAdminUserFormAddProps } from '../types';
 import {
   FormTextField,
-} from '../../../uiComponents/forms/FormTextField/FormTextField';
-import { FormTitle } from '../../../uiComponents/forms/FormTitle/FormTitle';
-import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField/FormSwitchField';
-import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
-import { formReducer } from '../../../utils/forms/formReducer';
-import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
-import { ReduxState } from '../../../store/types';
-import formLoader from '../../../utils/forms/formLoader';
-import { useChangeHandler } from '../../../utils/forms/hooks/useChangeHandler';
-import { useFormActionHandler } from '../../../utils/forms/hooks/useFormActionHandler';
+} from '../../../../uiComponents/forms/FormTextField/FormTextField';
+import { FormTitle } from '../../../../uiComponents/forms/FormTitle/FormTitle';
+import { FormSwitchField } from '../../../../uiComponents/forms/FormSwitchField/FormSwitchField';
+import { FormTitleImage } from '../../../../uiComponents/forms/FormTitleImage/FormTitleImage';
+import { formReducer } from '../../../../utils/forms/formReducer';
+import { FormErrorMessage } from '../../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
+import { useChangeHandler } from '../../../../utils/forms/hooks/useChangeHandler';
+import { useFormActionHandler } from '../../../../utils/forms/hooks/useFormActionHandler';
 
 const SettingsAdminUserForm = ({ adminUser }: SettingsAdminUserFormAddProps) => {
   const classes = useStyleForm();
