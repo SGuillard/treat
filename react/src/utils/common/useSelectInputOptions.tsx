@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux';
 import { MenuItem } from '@material-ui/core';
 import React from 'react';
 import { ReduxState } from '../../store/types';
-import { AdminUserInterface, ServiceInterface } from '../types/types';
+import { AdminUserInterface, ServiceInterface } from '../../views/types/types';
 
-export const useAppointmentSelectInputOptions = () => {
+export const useSelectInputOptions = () => {
   const reduxServices = useSelector((state: ReduxState) => state.services.list);
   const reduxAdminUsers = useSelector((state: ReduxState) => state.adminUsers.list);
 

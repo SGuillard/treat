@@ -23,13 +23,16 @@ import AdminROUTES from '../../../../router/admin/admin-routes';
 import { FormSelect } from '../../../../uiComponents/forms/FormSelect/FormSelect';
 import { useStyleForm } from './style';
 import { getDayOptions } from './helper';
+import { useSelectInputOptions } from '../../../../utils/common/useSelectInputOptions';
 
 const AddPromotionForm = () => {
   const classes = useStyleForm();
 
   const [componentState, dispatchComponentReducer] = useReducer(formReducer, {});
 
-  const { name, dateFrom, dateTo, day } = componentState;
+  const { name, dateFrom, dateTo, day, startTime, endTime, discount, serviceId } = componentState;
+
+  const { getServicesOptions } = useSelectInputOptions();
 
   const { onChangeString, onChangeDate, onChangeSelect } = useChangeHandler(dispatchComponentReducer);
 
@@ -51,7 +54,7 @@ const AddPromotionForm = () => {
             label="Promotion name"
           />
           <div>
-            <h5>From</h5>
+            <h5>From Date</h5>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 margin="normal"
@@ -77,7 +80,7 @@ const AddPromotionForm = () => {
             </MuiPickersUtilsProvider>
           </div>
           <div>
-            <h5>To</h5>
+            <h5>To Date</h5>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 margin="normal"
@@ -102,14 +105,49 @@ const AddPromotionForm = () => {
               />
             </MuiPickersUtilsProvider>
           </div>
+          <div>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-controlled-open-select-label">Every</InputLabel>
+              <FormSelect
+                value={day}
+                fieldName="day"
+                onChange={onChangeSelect}
+                errorFields={fieldErrors}
+                options={getDayOptions}
+              />
+            </FormControl>
+          </div>
+          <FormTextField
+            type="time"
+            fieldName="startTime"
+            onChange={onChangeString}
+            errorFields={fieldErrors}
+            value={startTime}
+            label="Start Time"
+          />
+          <FormTextField
+            type="time"
+            fieldName="endTime"
+            onChange={onChangeString}
+            errorFields={fieldErrors}
+            value={endTime}
+            label="End Time"
+          />
+          <FormTextField
+            fieldName="Discount"
+            onChange={onChangeString}
+            errorFields={fieldErrors}
+            value={discount}
+            label="Discount %"
+          />
           <FormControl className={classes.formControl}>
-            <InputLabel id="demo-controlled-open-select-label">Every</InputLabel>
+            <InputLabel id="demo-controlled-open-select-label">Service</InputLabel>
             <FormSelect
-              value={day}
-              fieldName="day"
+              value={serviceId}
+              fieldName="serviceId"
               onChange={onChangeSelect}
               errorFields={fieldErrors}
-              options={getDayOptions}
+              options={getServicesOptions}
             />
           </FormControl>
           <FormActionButtons onCancel={onCancel} />

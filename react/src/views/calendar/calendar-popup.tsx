@@ -18,12 +18,12 @@ import { useStyleForm } from './style';
 import { formReducer } from '../../utils/forms/formReducer';
 import { useChangeHandler } from '../../utils/forms/hooks/useChangeHandler';
 import 'date-fns';
-import { useAppointmentSelectInputOptions } from './useAppointmentSelectInputOptions';
 import { FormSelect } from '../../uiComponents/forms/FormSelect/FormSelect';
 import { usePopupFormActionHandler } from '../../utils/forms/hooks/usePopupFormActionHandler';
 import { FormDeleteButton } from '../../uiComponents/forms/FormDeleteButton/FormDeleteButton';
 import { CalendarPopupProps, EditMode } from './type';
 import { initReducer } from './constant';
+import { useSelectInputOptions } from '../../utils/common/useSelectInputOptions';
 
 export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: CalendarPopupProps) => {
   const classes = useStyleForm();
@@ -33,7 +33,7 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
 
   const { errors, fieldErrors, deleteAppointment, handleSubmitAppointmentForm } = usePopupFormActionHandler(componentState, closeModal, EditMode.Edit === action ? calendarEvent : undefined);
 
-  const { getServicesOptions, getAdminUsersOptions } = useAppointmentSelectInputOptions();
+  const { getServicesOptions, getAdminUsersOptions } = useSelectInputOptions();
 
   const { onChangeSelect, onChangeDate, onChangeString } = useChangeHandler(dispatchComponentReducer);
 
