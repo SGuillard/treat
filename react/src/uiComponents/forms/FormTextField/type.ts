@@ -18,4 +18,5 @@ export interface FormTextFieldProps {
   label: string,
   errorFields: string[],
   type?: string,
+  shrink?: boolean,
 }

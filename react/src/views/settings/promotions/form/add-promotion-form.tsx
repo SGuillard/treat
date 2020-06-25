@@ -124,6 +124,7 @@ const AddPromotionForm = () => {
             errorFields={fieldErrors}
             value={startTime}
             label="Start Time"
+            shrink
           />
           <FormTextField
             type="time"
@@ -132,9 +133,11 @@ const AddPromotionForm = () => {
             errorFields={fieldErrors}
             value={endTime}
             label="End Time"
+            shrink
           />
           <FormTextField
             fieldName="Discount"
+            type="number"
             onChange={onChangeString}
             errorFields={fieldErrors}
             value={discount}

@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { FormTextFieldProps } from './type';
 
-export const FormTextField = React.memo(({ onChange, value, fieldName, label, errorFields, type = 'text' }: FormTextFieldProps) => (
+export const FormTextField = React.memo(({ onChange, value, fieldName, label, errorFields, shrink = false, type = 'text' }: FormTextFieldProps) => (
   <Grid item xs={12} sm={6}>
     <TextField
       id={fieldName}
@@ -14,8 +14,8 @@ export const FormTextField = React.memo(({ onChange, value, fieldName, label, er
       onChange={onChange}
       error={errorFields.includes(fieldName)}
       type={type}
-      // variant="outlined"
       autoFocus
+      InputLabelProps={shrink ? { shrink: shrink } : {}}
     />
   </Grid>
 ));
