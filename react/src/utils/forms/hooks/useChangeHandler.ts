@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
+import moment from 'moment';
 import {
   FormOnChangeFunctionInterface,
   FormOnChangeSelectInterface,
 } from '../../../uiComponents/forms/FormTextField/type';
-import moment from 'moment';
+import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 export const useChangeHandler = (dispatchComponentReducer: any) => {
   const onChangeString = useCallback<FormOnChangeFunctionInterface>((e) => {
@@ -31,9 +32,9 @@ export const useChangeHandler = (dispatchComponentReducer: any) => {
     dispatchComponentReducer({ name: e.target.name, value: newVal });
   }, [dispatchComponentReducer]);
 
-  const onChangeDate = (date: any) => {
+  const onChangeDate = (fieldName: string) => (date: any) => {
     const dateFormatted = moment(date).format('YYYY-MM-DD HH:mm:ss');
-    dispatchComponentReducer({ name: 'date', value: dateFormatted });
+    dispatchComponentReducer({ name: fieldName, value: dateFormatted });
   };
 
   const onChangeSelect = useCallback<FormOnChangeSelectInterface>((e) => {

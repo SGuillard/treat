@@ -29,7 +29,7 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
   const classes = useStyleForm();
 
   const [componentState, dispatchComponentReducer] = useReducer(formReducer, calendarEvent, initReducer);
-  const { date, serviceId, adminUserId, clientName } = componentState;
+  const { start, serviceId, adminUserId, clientName } = componentState;
 
   const { errors, fieldErrors, deleteAppointment, handleSubmitAppointmentForm } = usePopupFormActionHandler(componentState, closeModal, EditMode.Edit === action ? calendarEvent : undefined);
 
@@ -79,8 +79,8 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
                   id="date-picker-dialog"
                   label="Date"
                   format="MMM dd, yyyy"
-                  value={date}
-                  onChange={onChangeDate}
+                  value={start}
+                  onChange={onChangeDate('start')}
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
                   }}
@@ -89,8 +89,8 @@ export const CalendarPopup = ({ action, open, closeModal, calendarEvent }: Calen
                   margin="normal"
                   id="time-picker"
                   label="Time"
-                  value={date}
-                  onChange={onChangeDate}
+                  value={start}
+                  onChange={onChangeDate('start')}
                   KeyboardButtonProps={{
                     'aria-label': 'change time',
                   }}

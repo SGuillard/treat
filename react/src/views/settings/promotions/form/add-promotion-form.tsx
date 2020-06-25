@@ -56,10 +56,10 @@ const AddPromotionForm = () => {
               <KeyboardDatePicker
                 margin="normal"
                 id="date-picker-dialog"
-                label="Date"
+                label="From Date"
                 format="MMM dd, yyyy"
                 value={dateFrom}
-                onChange={onChangeDate}
+                onChange={onChangeDate('dateFrom')}
                 KeyboardButtonProps={{
                   'aria-label': 'change date',
                 }}
@@ -67,9 +67,9 @@ const AddPromotionForm = () => {
               <KeyboardTimePicker
                 margin="normal"
                 id="time-picker"
-                label="Time"
+                label="From Time"
                 value={dateFrom}
-                onChange={onChangeDate}
+                onChange={onChangeDate('dateFrom')}
                 KeyboardButtonProps={{
                   'aria-label': 'change time',
                 }}
@@ -82,10 +82,10 @@ const AddPromotionForm = () => {
               <KeyboardDatePicker
                 margin="normal"
                 id="date-picker-dialog"
-                label="Date"
+                label="To Date"
                 format="MMM dd, yyyy"
                 value={dateTo}
-                onChange={onChangeDate}
+                onChange={onChangeDate('dateTo')}
                 KeyboardButtonProps={{
                   'aria-label': 'change date',
                 }}
@@ -93,9 +93,9 @@ const AddPromotionForm = () => {
               <KeyboardTimePicker
                 margin="normal"
                 id="time-picker"
-                label="Time"
+                label="To Time"
                 value={dateTo}
-                onChange={onChangeDate}
+                onChange={onChangeDate('TimeTo')}
                 KeyboardButtonProps={{
                   'aria-label': 'change time',
                 }}

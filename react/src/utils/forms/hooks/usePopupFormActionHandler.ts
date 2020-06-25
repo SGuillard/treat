@@ -32,9 +32,9 @@ export const usePopupFormActionHandler = (componentState: any, closeModal: Funct
     event.preventDefault();
     // TODO - handle duration in the form
     const updateComponentState = () => {
-      const dateFormated = moment(componentState.date).format('YYYY-MM-DD HH:mm:ss');
+      const dateFormated = moment(componentState.start).format('YYYY-MM-DD HH:mm:ss');
       const { adminUserId, serviceId, clientName } = componentState;
-      return { adminUserId, serviceId, clientName, date: dateFormated, duration: 15 };
+      return { adminUserId, serviceId, clientName, start: dateFormated, duration: 15 };
     };
 
     submitRequest(API.APPOINTMENTS, updateComponentState(), entity).then((response: any) => {
