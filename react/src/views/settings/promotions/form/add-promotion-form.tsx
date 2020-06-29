@@ -24,25 +24,26 @@ import { FormSelect } from '../../../../uiComponents/forms/FormSelect/FormSelect
 import { useStyleForm } from './style';
 import { getDayOptions } from './helper';
 import { useSelectInputOptions } from '../../../../utils/common/useSelectInputOptions';
-import { weekDaysString } from '../../../../utils/common/weekDaysString';
+
+const initialValues = { name: '', day: 0, serviceId: '', startHour: '10:00', endHour: '11:00', discount: 15 };
 
 const AddPromotionForm = () => {
   const classes = useStyleForm();
 
-  const [componentState, dispatchComponentReducer] = useReducer(formReducer, { day: weekDaysString[0], serviceId: '' });
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, initialValues);
 
-  const { name, dateFrom, dateTo, day, startTime, endTime, discount, serviceId } = componentState;
+  const { name, startDate, endDate, day, startHour, endHour, discount, serviceId } = componentState;
 
   const { getServicesOptions } = useSelectInputOptions();
 
   const { onChangeString, onChangeDate, onChangeSelect } = useChangeHandler(dispatchComponentReducer);
 
-  const { handleSubmitAdminUserForm, errors, fieldErrors, redirect, onCancel } = useFormActionHandler(componentState, {});
+  const { handleSubmitPromotionForm, errors, fieldErrors, redirect, onCancel } = useFormActionHandler(componentState, {});
 
   const getForm = () => (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <form className={classes.paper} onSubmit={handleSubmitAdminUserForm}>
+      <form className={classes.paper} onSubmit={handleSubmitPromotionForm}>
         <FormTitleImage><AccountCircleIcon /></FormTitleImage>
         <FormTitle title="Add Promotion" />
         <FormErrorMessage show={errors.length > 0} errors={errors} />
@@ -62,8 +63,8 @@ const AddPromotionForm = () => {
                 id="date-picker-dialog"
                 label="From Date"
                 format="MMM dd, yyyy"
-                value={dateFrom}
-                onChange={onChangeDate('dateFrom')}
+                value={startDate}
+                onChange={onChangeDate('startDate')}
                 KeyboardButtonProps={{
                   'aria-label': 'change date',
                 }}
@@ -72,8 +73,8 @@ const AddPromotionForm = () => {
                 margin="normal"
                 id="time-picker"
                 label="From Time"
-                value={dateFrom}
-                onChange={onChangeDate('dateFrom')}
+                value={startDate}
+                onChange={onChangeDate('startDate')}
                 KeyboardButtonProps={{
                   'aria-label': 'change time',
                 }}
@@ -88,8 +89,8 @@ const AddPromotionForm = () => {
                 id="date-picker-dialog"
                 label="To Date"
                 format="MMM dd, yyyy"
-                value={dateTo}
-                onChange={onChangeDate('dateTo')}
+                value={endDate}
+                onChange={onChangeDate('endDate')}
                 KeyboardButtonProps={{
                   'aria-label': 'change date',
                 }}
@@ -98,8 +99,8 @@ const AddPromotionForm = () => {
                 margin="normal"
                 id="time-picker"
                 label="To Time"
-                value={dateTo}
-                onChange={onChangeDate('TimeTo')}
+                value={endDate}
+                onChange={onChangeDate('endDate')}
                 KeyboardButtonProps={{
                   'aria-label': 'change time',
                 }}
@@ -120,24 +121,24 @@ const AddPromotionForm = () => {
           </div>
           <FormTextField
             type="time"
-            fieldName="startTime"
+            fieldName="startHour"
             onChange={onChangeString}
             errorFields={fieldErrors}
-            value={startTime}
+            value={startHour}
             label="Start Time"
             shrink
           />
           <FormTextField
             type="time"
-            fieldName="endTime"
+            fieldName="endHour"
             onChange={onChangeString}
             errorFields={fieldErrors}
-            value={endTime}
+            value={endHour}
             label="End Time"
             shrink
           />
           <FormTextField
-            fieldName="Discount"
+            fieldName="discount"
             type="number"
             onChange={onChangeString}
             errorFields={fieldErrors}
@@ -160,7 +161,7 @@ const AddPromotionForm = () => {
     </Container>
   );
 
-  return redirect ? <Redirect push to={AdminROUTES.SETTINGS.ADMIN_USER_LIST.path} /> : getForm();
+  return redirect ? <Redirect push to={AdminROUTES.SETTINGS.PROMOTIONS_LIST.path} /> : getForm();
 };
 
 export default AddPromotionForm;

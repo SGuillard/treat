@@ -8,7 +8,7 @@ import API from '../../../API';
 import { setServiceAction } from '../../../store/actions/ServicesActions';
 import {
   AdminUserInterface,
-  AppointmentInterface,
+  AppointmentInterface, PromotionInterface,
   ServiceInterface,
 } from '../../../views/types/types';
 import { setAdminUsersAction } from '../../../store/actions/adminUsersActions';
@@ -16,6 +16,7 @@ import { ErrorHandlerResponseInterface, ErrorObjectInterface } from '../../api/t
 import { loginApi } from '../../../views/login/login-helper';
 import { setLoginAction } from '../../../store/actions/globalActions';
 import { setAppointmentAction } from '../../../store/actions/appointmentAction';
+import { setPromotionAction } from '../../../store/actions/promotionAction';
 
 export const useFormActionHandler = (componentState: any, entity?: any) => {
   const dispatchReduxReducer = useDispatch();
@@ -38,6 +39,17 @@ export const useFormActionHandler = (componentState: any, entity?: any) => {
     event.preventDefault();
     submitRequest(API.ADMIN_USER, componentState, entity).then((response: object[]) => {
       dispatchReduxReducer(setAdminUsersAction(response as AdminUserInterface[]));
+      setRedirect(true);
+    }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
+      setFieldErrors(errorFields);
+      setErrors(errorMessages);
+    });
+  };
+
+  const handleSubmitPromotionForm = (event: React.FormEvent) => {
+    event.preventDefault();
+    submitRequest(API.PROMOTIONS, componentState).then((response: object[]) => {
+      dispatchReduxReducer(setPromotionAction(response as PromotionInterface[]));
       setRedirect(true);
     }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
       setFieldErrors(errorFields);
@@ -81,5 +93,5 @@ export const useFormActionHandler = (componentState: any, entity?: any) => {
 
   const onCancel = useCallback(() => setRedirect(true), []);
 
-  return { onCancel, redirect, errors, fieldErrors, handleSubmitAddAppointmentForm, handleSubmitServiceForm, handleSubmitAdminUserForm, handleRegistration };
+  return { onCancel, redirect, errors, fieldErrors, handleSubmitAddAppointmentForm, handleSubmitPromotionForm, handleSubmitServiceForm, handleSubmitAdminUserForm, handleRegistration };
 };
