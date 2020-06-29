@@ -1,5 +1,3 @@
 import { PromotionInterface } from '../../types/types';
 
-export interface TablePromotionInterface extends PromotionInterface {
-  serviceName?: string,
-}
+export type TablePromotionInterface = Omit<PromotionInterface, 'day' | 'isActive'> & { day: string, status: boolean, serviceName?: string };

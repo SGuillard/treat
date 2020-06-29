@@ -9,13 +9,15 @@ import { tableConfig } from './config/tableConfig';
 import { ReduxState } from '../../../store/types';
 import { dayOptions } from './form/helper';
 import { TablePromotionInterface } from './types';
+import { PromotionInterface } from '../../types/types';
 
 const Promotions = () => {
   const promotionList = useSelector((state: ReduxState) => state.promotions.list);
-  const mappedPromotions = promotionList.map((promotion: TablePromotionInterface) => {
-    const promotionTable = Object.assign(promotion) as Omit<TablePromotionInterface, 'day'> & { day: string };
+  const mappedPromotions = promotionList.map((promotion: PromotionInterface) => {
+    const promotionTable = Object.assign(promotion) as TablePromotionInterface;
     promotionTable.serviceName = promotion.service.name;
     promotionTable.day = dayOptions[promotion.day];
+    promotionTable.status = promotion.isActive as boolean;
     return promotionTable;
   });
 

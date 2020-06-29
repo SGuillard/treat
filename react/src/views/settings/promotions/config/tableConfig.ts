@@ -1,7 +1,7 @@
 export const tableConfig = [
   {
-    Header: 'Disable',
-    accessor: 'disable',
+    Header: 'Status',
+    accessor: 'status',
   },
   {
     Header: 'Name',
