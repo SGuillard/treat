@@ -24,11 +24,12 @@ import { FormSelect } from '../../../../uiComponents/forms/FormSelect/FormSelect
 import { useStyleForm } from './style';
 import { getDayOptions } from './helper';
 import { useSelectInputOptions } from '../../../../utils/common/useSelectInputOptions';
+import { weekDaysString } from '../../../../utils/common/weekDaysString';
 
 const AddPromotionForm = () => {
   const classes = useStyleForm();
 
-  const [componentState, dispatchComponentReducer] = useReducer(formReducer, {});
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, { day: weekDaysString[0], serviceId: '' });
 
   const { name, dateFrom, dateTo, day, startTime, endTime, discount, serviceId } = componentState;
 

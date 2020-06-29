@@ -1,11 +1,9 @@
-import React, { useEffect, useReducer } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useReducer } from 'react';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import { EventSeat } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
-import { ServiceInterface } from '../../../types/types';
 import { useStyles } from '../style';
 import FormActionButtons from '../../../../uiComponents/forms/FormActionButtons/FormActionButtons';
 import AdminROUTES from '../../../../router/admin/admin-routes';

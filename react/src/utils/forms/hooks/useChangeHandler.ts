@@ -4,7 +4,6 @@ import {
   FormOnChangeFunctionInterface,
   FormOnChangeSelectInterface,
 } from '../../../uiComponents/forms/FormTextField/type';
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 export const useChangeHandler = (dispatchComponentReducer: any) => {
   const onChangeString = useCallback<FormOnChangeFunctionInterface>((e) => {
