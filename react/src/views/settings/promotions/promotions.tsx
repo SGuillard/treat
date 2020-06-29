@@ -7,15 +7,13 @@ import { useSelector } from 'react-redux';
 import AdminROUTES from '../../../router/admin/admin-routes';
 import { tableConfig } from './config/tableConfig';
 import { ReduxState } from '../../../store/types';
-import { TablePromotionInterface } from '../../types/types';
 import { dayOptions } from './form/helper';
-
-type MappedPromotionsInterface = Omit<TablePromotionInterface, 'day'> & { day: string };
+import { TablePromotionInterface } from './types';
 
 const Promotions = () => {
   const promotionList = useSelector((state: ReduxState) => state.promotions.list);
   const mappedPromotions = promotionList.map((promotion: TablePromotionInterface) => {
-    const promotionTable = Object.assign(promotion) as MappedPromotionsInterface;
+    const promotionTable = Object.assign(promotion) as Omit<TablePromotionInterface, 'day'> & { day: string };
     promotionTable.serviceName = promotion.service.name;
     promotionTable.day = dayOptions[promotion.day];
     return promotionTable;

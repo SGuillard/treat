@@ -67,10 +67,6 @@ export interface PromotionInterface extends PromotionModel {
   id?: number | null;
 }
 
-export interface TablePromotionInterface extends PromotionInterface {
-  serviceName?: string,
-}
-
 export interface FormLoaderProps {
   params?: {
     id?: number,
