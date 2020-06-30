@@ -1,15 +1,75 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useTable } from 'react-table';
 import { Button, Container, Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Tooltip from '@material-ui/core/Tooltip';
 import AdminROUTES from '../../../router/admin/admin-routes';
 import { tableConfig } from './config/tableConfig';
 import { ReduxState } from '../../../store/types';
 import { dayOptions } from './form/helper';
 import { TablePromotionInterface } from './types';
 import { PromotionInterface } from '../../types/types';
+import { submitRequest } from '../../../utils/api/apiRequest';
+import API from '../../../API';
+import { initPromotionList } from '../../../store/actions/promotionAction';
+
+export interface ErrorWrapperHOCProps<T> {
+  children: ReactElement;
+  error?: string[];
+}
+
+export function ErrorWrapperHOC<T>({ children, error }: ErrorWrapperHOCProps<T>) {
+  return error
+    ? (
+      <Tooltip
+        title={error}
+        placement="top"
+        arrow
+      >
+        <div className="input-wrapper">
+          {React.cloneElement(children)}
+        </div>
+      </Tooltip>
+    )
+    : (
+      <div>
+        {children}
+      </div>
+    );
+}
+
+const PromotionSwitcher = ({ promotion }: {promotion: PromotionInterface}) => {
+  const [errors, setErrors] = useState<string[]>([]);
+
+  const changeStatus = async () => {
+    try {
+      await submitRequest(API.PROMOTIONS, { ...promotion, isActive: !promotion.isActive }, promotion);
+    } catch (requestErrors) {
+      setErrors(requestErrors);
+    }
+    initPromotionList();
+  };
+
+  return (
+    <ErrorWrapperHOC error={errors}>
+      <FormControlLabel
+        control={(
+          <Switch
+            checked={promotion.isActive}
+            onChange={changeStatus}
+            name="checkedB"
+            color="primary"
+          />
+    )}
+        label={promotion.isActive ? 'Active' : 'Disabled'}
+      />
+    </ErrorWrapperHOC>
+  );
+};
 
 const Promotions = () => {
   const promotionList = useSelector((state: ReduxState) => state.promotions.list);
@@ -17,7 +77,7 @@ const Promotions = () => {
     const promotionTable = Object.assign(promotion) as TablePromotionInterface;
     promotionTable.serviceName = promotion.service.name;
     promotionTable.day = dayOptions[promotion.day];
-    promotionTable.status = promotion.isActive as boolean;
+    promotionTable.status = <PromotionSwitcher promotion={promotion} />;
     return promotionTable;
   });
 

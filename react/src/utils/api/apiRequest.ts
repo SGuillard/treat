@@ -72,14 +72,12 @@ export const submitRequest = (url: string, store: any, editEntity?: formEntity) 
     resolve(response);
   })
     .catch((serverErrors: {response: ServerErrorInterface}) => {
-      console.log(serverErrors);
       const requestErrors = handleErrors(serverErrors.response);
       reject(requestErrors);
     });
 });
 
 export const deleteRequest = (url: string, id: number) => new Promise<object[]>((resolve, reject) => {
-  console.log(id);
   makeApiRequest('DELETE',
     `${url}/${id}`).then((response: object[]) => {
     resolve(response);

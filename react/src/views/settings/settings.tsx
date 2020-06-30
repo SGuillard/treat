@@ -12,6 +12,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { AvTimer, CardGiftcard, EventSeat, HomeWork, People } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
+import RateReviewIcon from '@material-ui/icons/RateReview';
 import AdminROUTES from '../../router/admin/admin-routes';
 
 const useStyles = makeStyles((theme) => ({
@@ -94,6 +95,14 @@ const Settings = () => {
                 <AvTimer />
               </ListItemIcon>
               <ListItemText primary="Business hours" />
+            </ListItem>
+          </List>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.OPENINGS.path)}>
+              <ListItemIcon>
+                <RateReviewIcon />
+              </ListItemIcon>
+              <ListItemText primary="Reviews" />
             </ListItem>
           </List>
           <List component="div" disablePadding>

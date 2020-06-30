@@ -17,7 +17,7 @@ class PromotionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'is_active' => (boolean) $this->day,
+            'is_active' => (boolean) $this->is_active,
             'name' => $this->name,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,

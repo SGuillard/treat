@@ -52,7 +52,7 @@ export interface OpeningHoursInterface extends OpeningHoursModel{
 }
 
 export interface PromotionModel {
-  isActive: boolean | number,
+  isActive: boolean,
   name: string,
   startDate: string,
   endDate: string,
