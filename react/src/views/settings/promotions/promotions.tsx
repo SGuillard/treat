@@ -83,6 +83,7 @@ const PromotionSwitcher = ({ promotion }: {promotion: PromotionInterface}) => {
   });
 
   const changeStatus = async () => {
+    // Change promotion object to remove service and not useful paramters
     submitRequest(API.PROMOTIONS, { ...promotion, status: true, isActive: !promotion.isActive }, promotion)
       .then((response) => {
         console.log(response);
