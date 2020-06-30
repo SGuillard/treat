@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useTable } from 'react-table';
 import { Button, Container, Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Tooltip from '@material-ui/core/Tooltip';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Zoom from '@material-ui/core/Zoom';
 import AdminROUTES from '../../../router/admin/admin-routes';
 import { tableConfig } from './config/tableConfig';
 import { ReduxState } from '../../../store/types';
@@ -16,24 +18,56 @@ import { PromotionInterface } from '../../types/types';
 import { submitRequest } from '../../../utils/api/apiRequest';
 import API from '../../../API';
 import { initPromotionList } from '../../../store/actions/promotionAction';
+import { ErrorHandlerResponseInterface, ErrorObjectInterface } from '../../../utils/api/type';
 
 export interface ErrorWrapperHOCProps<T> {
   children: ReactElement;
-  error?: string[];
+  errors: ErrorObjectInterface[];
 }
 
-export function ErrorWrapperHOC<T>({ children, error }: ErrorWrapperHOCProps<T>) {
-  return error
+const HtmlTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: '#f5f5f9',
+    color: 'red',
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid red',
+  },
+}))(Tooltip);
+
+
+export function ErrorWrapperHOC<T>({ errors, children }: ErrorWrapperHOCProps<T>) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (errors.length > 0) setOpen(true);
+  }, [errors]);
+
+  const getErrors = (errorsMessages: ErrorObjectInterface[]) => (
+    <ul>
+      {errorsMessages.map((error: any) => (
+        <li key={error.key}>
+          {error.error}
+        </li>
+      ))}
+    </ul>
+  );
+
+  return open
     ? (
-      <Tooltip
-        title={error}
-        placement="top"
+      <HtmlTooltip
+        title={getErrors(errors)}
+        open={open}
+        onClose={() => setOpen(false)}
+        placement="bottom"
+        TransitionComponent={Zoom}
+        leaveDelay={2000}
         arrow
       >
         <div className="input-wrapper">
-          {React.cloneElement(children)}
+          {children}
         </div>
-      </Tooltip>
+      </HtmlTooltip>
     )
     : (
       <div>
@@ -43,19 +77,24 @@ export function ErrorWrapperHOC<T>({ children, error }: ErrorWrapperHOCProps<T>)
 }
 
 const PromotionSwitcher = ({ promotion }: {promotion: PromotionInterface}) => {
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<ErrorHandlerResponseInterface>({
+    errorFields: [],
+    errorMessages: [],
+  });
 
   const changeStatus = async () => {
-    try {
-      await submitRequest(API.PROMOTIONS, { ...promotion, isActive: !promotion.isActive }, promotion);
-    } catch (requestErrors) {
-      setErrors(requestErrors);
-    }
+    submitRequest(API.PROMOTIONS, { ...promotion, status: true, isActive: !promotion.isActive }, promotion)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((requestErrors) => {
+        setErrors(requestErrors);
+      });
     initPromotionList();
   };
 
   return (
-    <ErrorWrapperHOC error={errors}>
+    <ErrorWrapperHOC errors={errors.errorMessages}>
       <FormControlLabel
         control={(
           <Switch

@@ -58,4 +58,24 @@ class PromotionTest extends TestCase
         $resourceResponse = (new PromotionCollection(Promotion::all()))->response()->getData(true);
         $response->assertJson($resourceResponse);
     }
+
+    /**
+     * postPromotionsListTest
+     *
+     * @return void
+     */
+    public function testPromotionPutEndpoint()
+    {
+        $this->withoutExceptionHandling();
+        $user = factory('App\AdminUser', 1)->make();
+        $this->actingAs($user->first(), 'api');
+        $promotion = factory('App\Promotion')->create();
+        $this->assertDatabaseHas('promotions', $promotion->toArray());
+        $promotion->is_active = !$promotion->is_active;
+        $response = $this->put($this->apiUrl . '/' .$promotion->id, $promotion->toArray());
+        $this->assertDatabaseHas('promotions', $promotion->toArray());
+        $response->assertStatus(200);
+        $resourceResponse = (new PromotionCollection(Promotion::all()))->response()->getData(true);
+        $response->assertJson($resourceResponse);
+    }
 }

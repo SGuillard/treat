@@ -43,13 +43,14 @@ class PromotionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Promotion $promotion
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Promotion $promotion)
     {
-        //
+        $promotion->update($request->input());
+        return $this->getAllPromotions();
     }
 
     /**
