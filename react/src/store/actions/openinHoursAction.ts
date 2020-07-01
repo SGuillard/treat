@@ -17,7 +17,6 @@ export const initOpeningHoursList = (): ThunkAction<void, ReduxState, unknown, A
   makeApiRequest(RequestMethod.GET, `${API.OPENINGS_HOURS}`).then((response: object[]) => dispatch(
     setOpeningHoursAction(response as OpeningHoursInterface[]),
   )).catch(() => {
-    console.log('okk');
     handleInitialisationRequestErrors(dispatch);
   });
 };

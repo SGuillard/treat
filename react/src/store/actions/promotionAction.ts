@@ -8,9 +8,9 @@ import { PromotionInterface } from '../../views/types/types';
 import { handleInitialisationRequestErrors } from './globalActions';
 import { SET_PROMOTION_ACTION } from './constants';
 
-export const setPromotionAction = (promotion: PromotionInterface[]) => ({
+export const setPromotionAction = (promotions: PromotionInterface[]) => ({
   type: SET_PROMOTION_ACTION,
-  payload: promotion,
+  payload: promotions,
 });
 
 export const initPromotionList = (): ThunkAction<void, ReduxState, unknown, Action<string>> => (dispatch) => {

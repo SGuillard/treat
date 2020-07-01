@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Promotion::class, function (Faker $faker) {
     $now = Carbon::now();
-    $dayOptions = [null, 1, 2];
+    $dayOptions = range(1,8);
 
     return array(
         'is_active' => $faker->boolean,

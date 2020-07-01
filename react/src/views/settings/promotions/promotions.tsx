@@ -3,7 +3,7 @@ import { useTable } from 'react-table';
 import { Button, Container, Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -17,8 +17,9 @@ import { TablePromotionInterface } from './types';
 import { PromotionInterface } from '../../types/types';
 import { submitRequest } from '../../../utils/api/apiRequest';
 import API from '../../../API';
-import { initPromotionList } from '../../../store/actions/promotionAction';
+import { initPromotionList, setPromotionAction } from '../../../store/actions/promotionAction';
 import { ErrorHandlerResponseInterface, ErrorObjectInterface } from '../../../utils/api/type';
+import { SET_PROMOTION_ACTION } from '../../../store/actions/constants';
 
 export interface ErrorWrapperHOCProps<T> {
   children: ReactElement;
@@ -82,16 +83,17 @@ const PromotionSwitcher = ({ promotion }: {promotion: PromotionInterface}) => {
     errorMessages: [],
   });
 
+  const dispatch = useDispatch();
+
   const changeStatus = async () => {
     // Change promotion object to remove service and not useful paramters
-    submitRequest(API.PROMOTIONS, { ...promotion, status: true, isActive: !promotion.isActive }, promotion)
+    submitRequest(API.PROMOTIONS, { id: promotion.id, isActive: !promotion.isActive }, promotion)
       .then((response) => {
-        console.log(response);
+        dispatch({ type: SET_PROMOTION_ACTION, payload: response });
       })
       .catch((requestErrors) => {
         setErrors(requestErrors);
       });
-    initPromotionList();
   };
 
   return (
