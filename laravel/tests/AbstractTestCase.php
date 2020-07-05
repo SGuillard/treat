@@ -35,18 +35,28 @@ abstract class AbstractTestCase extends TestCase
         }
     }
 
-    protected function fieldIsRequired($field)
+    private function makeItFailsWithAString($field)
+    {
+        $this->validateData();
+        $this->record->{$field} = 'this is a string. Not a date';
+        $this->generateRequestValidationError($field);
+    }
+
+    protected function fieldIsHour(string $field)
+    {
+        $this->makeItFailsWithAString($field);
+    }
+
+    protected function fieldIsRequired(string $field)
     {
         $this->validateData();
         $this->record->{$field} = null;
         $this->generateRequestValidationError($field);
     }
 
-    protected function fieldIsDate($field)
+    protected function fieldIsDateTime($field)
     {
-        $this->validateData();
-        $this->record->{$field} = 'this is a string. Not a date';
-        $this->generateRequestValidationError($field);
+        $this->makeItFailsWithAString($field);
     }
 
     protected function fieldIsString($field)

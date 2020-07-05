@@ -90,13 +90,13 @@ class PromotionTest extends AbstractTestCase
     private function validateStartDate()
     {
         $this->fieldIsRequired('start_date');
-        $this->fieldIsDate('start_date');
+        $this->fieldIsDateTime('start_date');
     }
 
     private function validateEndDate()
     {
         $this->fieldIsRequired('end_date');
-        $this->fieldIsDate('end_date');
+        $this->fieldIsDateTime('end_date');
         $this->firstDateIsAfterSecondDate('end_date', 'start_date');
     }
 
@@ -106,6 +106,11 @@ class PromotionTest extends AbstractTestCase
         $this->fieldIsBetween('day', 0, 8);
     }
 
+    private function validateStartHour()
+    {
+        $this->fieldIsHour('start_hour');
+    }
+
     public function testStoreRequestValidation()
     {
         $this->submitMethod = 'POST';
@@ -113,6 +118,7 @@ class PromotionTest extends AbstractTestCase
         $this->validateStartDate();
         $this->validateEndDate();
         $this->validateDay();
+        $this->validateStartHour();
     }
 
 }
