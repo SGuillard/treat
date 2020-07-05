@@ -7,12 +7,12 @@ import SettingsAdminUserList from '../../views/settings/adminUsers/settings-admi
 import SettingsServiceList from '../../views/settings/services/settings-service-list';
 import RouterContext from '../RouterContext';
 import Openings from '../../views/settings/openings/openings';
-import Promotions from '../../views/settings/promotions/promotions';
 import AddPromotionForm from '../../views/settings/promotions/form/add-promotion-form';
 import SettingsAdminUserFormLoader
   from '../../views/settings/adminUsers/form/settings-admin-user-form-loader';
 import SettingsServiceFormLoader
   from '../../views/settings/services/form/settings-service-form-loader';
+import { PromotionList } from '../../views/settings/promotions/promotion-list';
 
 const ContentPageRouter = () => {
   const { page, params } = useContext(RouterContext);
@@ -34,7 +34,7 @@ const ContentPageRouter = () => {
     case AdminROUTES.SETTINGS.SERVICE_EDIT.name:
       return <SettingsServiceFormLoader params={params} />;
     case AdminROUTES.SETTINGS.PROMOTIONS_LIST.name:
-      return <Promotions />;
+      return <PromotionList />;
     case AdminROUTES.SETTINGS.PROMOTIONS_ADD.name:
       return <AddPromotionForm />;
     default:

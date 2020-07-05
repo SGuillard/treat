@@ -1,124 +1,24 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTable } from 'react-table';
 import { Button, Container, Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Tooltip from '@material-ui/core/Tooltip';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Zoom from '@material-ui/core/Zoom';
+import { useSelector } from 'react-redux';
 import AdminROUTES from '../../../router/admin/admin-routes';
 import { tableConfig } from './config/tableConfig';
 import { ReduxState } from '../../../store/types';
 import { dayOptions } from './form/helper';
 import { TablePromotionInterface } from './types';
 import { PromotionInterface } from '../../types/types';
-import { submitRequest } from '../../../utils/api/apiRequest';
-import API from '../../../API';
-import { initPromotionList, setPromotionAction } from '../../../store/actions/promotionAction';
-import { ErrorHandlerResponseInterface, ErrorObjectInterface } from '../../../utils/api/type';
-import { SET_PROMOTION_ACTION } from '../../../store/actions/constants';
+import { PromotionSwitcher } from './promotion-switcher';
 
-export interface ErrorWrapperHOCProps<T> {
-  children: ReactElement;
-  errors: ErrorObjectInterface[];
-}
-
-const HtmlTooltip = withStyles((theme) => ({
-  tooltip: {
-    backgroundColor: '#f5f5f9',
-    color: 'red',
-    maxWidth: 220,
-    fontSize: theme.typography.pxToRem(12),
-    border: '1px solid red',
-  },
-}))(Tooltip);
-
-
-export function ErrorWrapperHOC<T>({ errors, children }: ErrorWrapperHOCProps<T>) {
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    if (errors.length > 0) setOpen(true);
-  }, [errors]);
-
-  const getErrors = (errorsMessages: ErrorObjectInterface[]) => (
-    <ul>
-      {errorsMessages.map((error: any) => (
-        <li key={error.key}>
-          {error.error}
-        </li>
-      ))}
-    </ul>
-  );
-
-  return open
-    ? (
-      <HtmlTooltip
-        title={getErrors(errors)}
-        open={open}
-        onClose={() => setOpen(false)}
-        placement="bottom"
-        TransitionComponent={Zoom}
-        leaveDelay={2000}
-        arrow
-      >
-        <div className="input-wrapper">
-          {children}
-        </div>
-      </HtmlTooltip>
-    )
-    : (
-      <div>
-        {children}
-      </div>
-    );
-}
-
-const PromotionSwitcher = ({ promotion }: {promotion: PromotionInterface}) => {
-  const [errors, setErrors] = useState<ErrorHandlerResponseInterface>({
-    errorFields: [],
-    errorMessages: [],
-  });
-
-  const dispatch = useDispatch();
-
-  const changeStatus = async () => {
-    // Change promotion object to remove service and not useful paramters
-    submitRequest(API.PROMOTIONS, { id: promotion.id, isActive: !promotion.isActive }, promotion)
-      .then((response) => {
-        dispatch({ type: SET_PROMOTION_ACTION, payload: response });
-      })
-      .catch((requestErrors) => {
-        setErrors(requestErrors);
-      });
-  };
-
-  return (
-    <ErrorWrapperHOC errors={errors.errorMessages}>
-      <FormControlLabel
-        control={(
-          <Switch
-            checked={promotion.isActive}
-            onChange={changeStatus}
-            name="checkedB"
-            color="primary"
-          />
-    )}
-        label={promotion.isActive ? 'Active' : 'Disabled'}
-      />
-    </ErrorWrapperHOC>
-  );
-};
-
-const Promotions = () => {
+export const PromotionList = () => {
   const promotionList = useSelector((state: ReduxState) => state.promotions.list);
   const mappedPromotions = promotionList.map((promotion: PromotionInterface) => {
     const promotionTable = Object.assign(promotion) as TablePromotionInterface;
     promotionTable.serviceName = promotion.service.name;
     promotionTable.day = dayOptions[promotion.day];
+    promotionTable.discount = `${promotion.discount}%`;
     promotionTable.status = <PromotionSwitcher promotion={promotion} />;
     return promotionTable;
   });
@@ -210,5 +110,3 @@ const Promotions = () => {
 
   return redirect ? <Redirect push to={AdminROUTES.SETTINGS.PROMOTIONS_ADD.path} /> : getTable();
 };
-
-export default Promotions;
