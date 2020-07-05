@@ -42,7 +42,7 @@ abstract class AbstractTestCase extends TestCase
         $this->generateRequestValidationError($field);
     }
 
-    protected function fieldIsHour(string $field)
+    protected function fieldIsTime(string $field)
     {
         $this->makeItFailsWithAString($field);
     }
@@ -70,6 +70,13 @@ abstract class AbstractTestCase extends TestCase
     {
         $this->validateData();
         $this->record->{$field} = 'This is not a number';
+        $this->generateRequestValidationError($field);
+    }
+
+    protected function fieldExists($field)
+    {
+        $this->validateData();
+        $this->record->{$field} = 0;
         $this->generateRequestValidationError($field);
     }
 

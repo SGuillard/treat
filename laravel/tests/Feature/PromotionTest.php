@@ -108,7 +108,22 @@ class PromotionTest extends AbstractTestCase
 
     private function validateStartHour()
     {
-        $this->fieldIsHour('start_hour');
+        $this->fieldIsTime('start_hour');
+    }
+
+    private function validateEndHour()
+    {
+        $this->fieldIsTime('start_hour');
+    }
+
+    private function validateDiscount()
+    {
+        $this->fieldIsNumber('discount');
+    }
+
+    private function validateService()
+    {
+        $this->fieldExists('service_id', 0);
     }
 
     public function testStoreRequestValidation()
@@ -119,6 +134,9 @@ class PromotionTest extends AbstractTestCase
         $this->validateEndDate();
         $this->validateDay();
         $this->validateStartHour();
+        $this->validateEndHour();
+        $this->validateDiscount();
+        $this->validateService();
     }
 
 }
