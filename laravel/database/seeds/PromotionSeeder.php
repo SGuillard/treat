@@ -11,6 +11,6 @@ class PromotionSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Promotion', 3)->create();
+        factory('App\Promotion', 7)->create();
     }
 }

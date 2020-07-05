@@ -1,11 +1,11 @@
 import React from 'react';
 import { renderWithRedux, screen } from '../../../../tests/utils';
-import Promotions from '../promotions';
 import '@testing-library/jest-dom';
+import { PromotionList } from '../promotion-list';
 
 describe('PromotionsComponent', () => {
   test('shows the children when the checkbox is checked', () => {
-    renderWithRedux(<Promotions />);
+    renderWithRedux(<PromotionList />);
     expect(screen.getByText('Active promotions')).toBeInTheDocument();
   });
 });

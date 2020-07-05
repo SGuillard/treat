@@ -4,6 +4,8 @@ import { Button, Container, Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Box from '@material-ui/core/Box';
+import AddIcon from '@material-ui/icons/Add';
 import AdminROUTES from '../../../router/admin/admin-routes';
 import { tableConfig } from './config/tableConfig';
 import { ReduxState } from '../../../store/types';
@@ -12,20 +14,22 @@ import { TablePromotionInterface } from './types';
 import { PromotionInterface } from '../../types/types';
 import { PromotionSwitcher } from './promotion-switcher';
 
+
 export const PromotionList = () => {
   const promotionList = useSelector((state: ReduxState) => state.promotions.list);
-  const mappedPromotions = promotionList.map((promotion: PromotionInterface) => {
-    const promotionTable = Object.assign(promotion) as TablePromotionInterface;
+
+  const getMappedPromotion = () => (promotionList ? promotionList.map((promotion: PromotionInterface) => {
+    const promotionTable = {} as TablePromotionInterface;
     promotionTable.serviceName = promotion.service.name;
     promotionTable.day = dayOptions[promotion.day];
     promotionTable.discount = `${promotion.discount}%`;
     promotionTable.status = <PromotionSwitcher promotion={promotion} />;
-    return promotionTable;
-  });
+    return { ...promotion, ...promotionTable };
+  }) : null);
 
   const data = React.useMemo(
-    () => mappedPromotions,
-    [mappedPromotions],
+    () => getMappedPromotion(),
+    [getMappedPromotion],
   );
 
   const columns = React.useMemo(
@@ -45,24 +49,30 @@ export const PromotionList = () => {
 
   const getTable = () => (
     <>
-      <Container component="main" maxWidth="xs">
+      <Container component="main">
         <CssBaseline />
         <Grid
           container
           direction="row"
           justify="space-between"
-          alignItems="flex-start"
         >
-          <Grid item />
-          <Grid item>Active promotions</Grid>
-          <Grid item><Button onClick={() => setRedirect(true)}>Add a promotion</Button></Grid>
+          <Grid item xs={4}>&nbsp;</Grid>
+          <Grid item xs={4}><h1>Promotion list</h1></Grid>
+          <Grid item xs={4}>
+            <Box p={3}>
+              <Button variant="contained" color="primary" onClick={() => setRedirect(true)}>
+                <AddIcon />
+                Add a promotion
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
           <thead>
             {headerGroups.map((headerGroup) => (
             // eslint-disable-next-line react/jsx-props-no-spreading
-              <tr {...headerGroup.getHeaderGroupProps()}>
+              <tr {...headerGroup.getHeaderGroupProps()} style={{ height: 55 }}>
                 {headerGroup.headers.map((column) => (
                   <th
               // eslint-disable-next-line react/jsx-props-no-spreading
