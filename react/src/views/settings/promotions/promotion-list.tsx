@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useTable } from 'react-table';
 import { Button, Container, Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,27 +9,14 @@ import AddIcon from '@material-ui/icons/Add';
 import AdminROUTES from '../../../router/admin/admin-routes';
 import { tableConfig } from './config/tableConfig';
 import { ReduxState } from '../../../store/types';
-import { dayOptions } from './form/helper';
-import { TablePromotionInterface } from './types';
-import { PromotionInterface } from '../../types/types';
-import { PromotionSwitcher } from './promotion-switcher';
-
+import { getMappedPromotion } from './helper/getMappedPromotion';
 
 export const PromotionList = () => {
   const promotionList = useSelector((state: ReduxState) => state.promotions.list);
 
-  const mappedPromotion = promotionList.map((promotion: PromotionInterface) => {
-    const promotionTable = {} as TablePromotionInterface;
-    promotionTable.serviceName = promotion.service.name;
-    promotionTable.day = dayOptions[promotion.day - 1];
-    promotionTable.discount = `${promotion.discount}%`;
-    promotionTable.status = <PromotionSwitcher promotion={promotion} />;
-    return { ...promotion, ...promotionTable };
-  });
-
   const data = React.useMemo(
-    () => (promotionList ? mappedPromotion : null),
-    [promotionList, mappedPromotion],
+    () => (promotionList ? getMappedPromotion(promotionList) : null),
+    [promotionList],
   );
 
   const columns = React.useMemo(
