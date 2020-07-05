@@ -28,10 +28,10 @@ class StorePromotionRequest extends FormRequest
             'start_date' => 'required | date',
             'end_date' => 'required | date | after:start_date',
             'day' => 'integer | between:0,8',
-            'start_hour' => 'date_format:H:i:s',
-            'end_hour' => 'date_format:H:i:s',
+            'start_hour' => 'date_format:H:i',
+            'end_hour' => 'date_format:H:i',
             'discount' => 'integer',
-            'service' => 'required | exists:services'
+            'service_id' => 'required | exists:services,id'
         ];
     }
 }

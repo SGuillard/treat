@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -11,6 +11,7 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import { FormControl, InputLabel } from '@material-ui/core';
+import moment from 'moment';
 import { formReducer } from '../../../../utils/forms/formReducer';
 import { useChangeHandler } from '../../../../utils/forms/hooks/useChangeHandler';
 import { useFormActionHandler } from '../../../../utils/forms/hooks/useFormActionHandler';
@@ -25,12 +26,17 @@ import { useStyleForm } from './style';
 import { getDayOptions } from './helper';
 import { useSelectInputOptions } from '../../../../utils/common/useSelectInputOptions';
 
-const initialValues = { name: '', day: 0, serviceId: '', startHour: '10:00', endHour: '11:00', discount: 15 };
+const initialStartDate = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+const initialEndDate = moment(new Date()).add(5, 'days').format('YYYY-MM-DD HH:mm:ss');
+
+const initialValues = { name: '', startDate: initialStartDate, endDate: initialEndDate, day: 0, serviceId: '', startHour: '10:00', endHour: '11:00', discount: 15 };
 
 const AddPromotionForm = () => {
   const classes = useStyleForm();
 
   const [componentState, dispatchComponentReducer] = useReducer(formReducer, initialValues);
+
+  console.log(initialValues);
 
   const { name, startDate, endDate, day, startHour, endHour, discount, serviceId } = componentState;
 

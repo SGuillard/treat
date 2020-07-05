@@ -5,8 +5,10 @@ namespace Tests\Feature;
 use App\Http\Resources\PromotionCollection;
 use App\Http\Resources\PromotionResource;
 use App\Promotion;
+use App\Service;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Validation\ValidationException;
 use Tests\AbstractTestCase;
 
 class PromotionTest extends AbstractTestCase
@@ -54,7 +56,11 @@ class PromotionTest extends AbstractTestCase
         $user = factory('App\AdminUser', 1)->make();
         $promotion = factory('App\Promotion')->make();
         $this->actingAs($user->first(), 'api');
-        $response = $this->post($this->apiUrl, $promotion->toArray());
+        try {
+            $response = $this->post($this->apiUrl, $promotion->toArray());
+        } catch (ValidationException $e) {
+            dd($e->errors());
+        }
         $this->assertDatabaseHas('promotions', $promotion->toArray());
         $response->assertStatus(200);
         $dbPromotion = Promotion::first();

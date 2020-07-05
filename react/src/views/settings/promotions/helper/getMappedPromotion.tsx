@@ -7,7 +7,7 @@ import { PromotionSwitcher } from '../promotion-switcher';
 export const getMappedPromotion = (promotionList: PromotionInterface[]) => promotionList.map((promotion: PromotionInterface) => {
   const promotionTable = {} as TablePromotionInterface;
   promotionTable.serviceName = promotion.service.name;
-  promotionTable.day = dayOptions[promotion.day - 1];
+  promotionTable.day = dayOptions[promotion.day];
   promotionTable.discount = `${promotion.discount}%`;
   promotionTable.status = <PromotionSwitcher promotion={promotion} />;
   return { ...promotion, ...promotionTable };

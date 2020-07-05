@@ -21,7 +21,7 @@ const SettingsServiceList = () => {
 
   const serviceList: ServiceInterface[] = useSelector((state: ReduxState) => state.services.list);
 
-  const { redirect, redirectUrl, editElement, redirectToAdd } = useListRedirection(AdminROUTES.SETTINGS.SERVICE_EDIT.path);
+  const { redirect, redirectUrl, editElement, addElement } = useListRedirection(AdminROUTES.SETTINGS.SERVICE_EDIT.path, AdminROUTES.SETTINGS.SERVICE_ADD.path);
 
   const displayTeamList = () => (
     <List dense className={classes.root}>
@@ -45,7 +45,7 @@ const SettingsServiceList = () => {
       <Card>
         <CardHeader
           action={
-            <AddCircleOutlineIcon style={{ paddingTop: '15px' }} onClick={redirectToAdd} />
+            <AddCircleOutlineIcon style={{ paddingTop: '15px' }} onClick={addElement} />
           }
           title="My Services"
         />

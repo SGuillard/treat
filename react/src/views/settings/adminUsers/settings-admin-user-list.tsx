@@ -23,7 +23,7 @@ const SettingsAdminUserList = () => {
 
   const adminUsers: AdminUserInterface[] = useSelector((state: ReduxState) => state.adminUsers.list);
 
-  const { redirect, redirectUrl, editElement, redirectToAdd } = useListRedirection(AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path);
+  const { redirect, redirectUrl, editElement, addElement } = useListRedirection(AdminROUTES.SETTINGS.ADMIN_USER_EDIT.path, AdminROUTES.SETTINGS.ADMIN_USER_ADD.path);
 
   const displayTeamList = () => (
     <List dense className={classes.root}>
@@ -51,7 +51,7 @@ const SettingsAdminUserList = () => {
     <Container component="main" maxWidth="xs">
       <Card>
         <CardHeader
-          action={<AddCircleOutlineIcon style={{ paddingTop: '15px' }} onClick={redirectToAdd} />}
+          action={<AddCircleOutlineIcon style={{ paddingTop: '15px' }} onClick={addElement} />}
           title="My Team"
         />
         {displayTeamList()}

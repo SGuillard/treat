@@ -13,6 +13,8 @@ import SettingsAdminUserFormLoader
 import SettingsServiceFormLoader
   from '../../views/settings/services/form/settings-service-form-loader';
 import { PromotionList } from '../../views/settings/promotions/promotion-list';
+import SettingsAdminUserFormAdd
+  from '../../views/settings/adminUsers/form/settings-admin-user-form-add';
 
 const ContentPageRouter = () => {
   const { page, params } = useContext(RouterContext);
@@ -29,6 +31,8 @@ const ContentPageRouter = () => {
       return <Openings />;
     case AdminROUTES.SETTINGS.ADMIN_USER_EDIT.name:
       return <SettingsAdminUserFormLoader params={params} />;
+    case AdminROUTES.SETTINGS.ADMIN_USER_ADD.name:
+      return <SettingsAdminUserFormAdd />;
     case AdminROUTES.SETTINGS.SERVICE_LIST.name:
       return <SettingsServiceList />;
     case AdminROUTES.SETTINGS.SERVICE_EDIT.name:

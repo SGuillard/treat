@@ -24,6 +24,11 @@ const AdminROUTES = {
       pathWithId: '/admin/users/edit/:id?',
       name: 'settings/users/edit',
     },
+    ADMIN_USER_ADD: {
+      path: '/admin/users/add',
+      pathWithId: '/admin/users/add',
+      name: 'settings/users/add',
+    },
     SERVICE_LIST: {
       path: '/admin/services',
       name: 'settings/services',
@@ -32,6 +37,11 @@ const AdminROUTES = {
       path: '/admin/services/edit',
       pathWithId: '/admin/services/edit/:id?',
       name: 'settings/services/edit',
+    },
+    SERVICE_ADD: {
+      path: '/admin/services/add',
+      pathWithId: '/admin/services/add',
+      name: 'settings/services/add',
     },
     OPENINGS: {
       path: '/admin/openings',
