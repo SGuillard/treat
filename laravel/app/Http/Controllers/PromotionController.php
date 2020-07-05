@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePromotionRequest;
 use App\Http\Resources\PromotionResource;
 use App\Promotion;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class PromotionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePromotionRequest $request)
     {
         Promotion::create($request->input());
         return $this->getAllPromotions();
