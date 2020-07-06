@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -35,8 +35,6 @@ const AddPromotionForm = () => {
   const classes = useStyleForm();
 
   const [componentState, dispatchComponentReducer] = useReducer(formReducer, initialValues);
-
-  console.log(initialValues);
 
   const { name, startDate, endDate, day, startHour, endHour, discount, serviceId } = componentState;
 
@@ -92,7 +90,7 @@ const AddPromotionForm = () => {
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 margin="normal"
-                id="date-picker-dialog"
+                id="date-picker-dialoga"
                 label="To Date"
                 format="MMM dd, yyyy"
                 value={endDate}
@@ -103,7 +101,7 @@ const AddPromotionForm = () => {
               />
               <KeyboardTimePicker
                 margin="normal"
-                id="time-picker"
+                id="time-pickera"
                 label="To Time"
                 value={endDate}
                 onChange={onChangeDate('endDate')}

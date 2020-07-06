@@ -24,6 +24,7 @@ class ServiceRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required',
             'duration' => 'required',
             'price' => 'required | gt:1',
         ];
