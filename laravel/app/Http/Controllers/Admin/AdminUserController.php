@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\AdminUser;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateAdminUserRequest;
+use App\Http\Requests\AdminUserRequest;
 use App\Http\Resources\Admin\AdminUserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -29,7 +29,7 @@ class AdminUserController extends Controller
      * @param Request $request
      * @return AnonymousResourceCollection
      */
-    public function store(Request $request)
+    public function store(AdminUserRequest $request)
     {
         $newUser = AdminUser::create($request->input());
         $salon = $this->getSalon();
@@ -65,7 +65,7 @@ class AdminUserController extends Controller
      * @param AdminUser $adminUser
      * @return AnonymousResourceCollection
      */
-    public function update(UpdateAdminUserRequest $request, AdminUser $adminUser)
+    public function update(AdminUserRequest $request, AdminUser $adminUser)
     {
         $adminUser->update($request->input());
         return $this->getAdminUserList();

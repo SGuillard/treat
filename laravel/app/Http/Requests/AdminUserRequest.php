@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAdminUserRequest extends FormRequest
+class AdminUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class UpdateAdminUserRequest extends FormRequest
     public function rules()
     {
         return [
-//            'first_name' => 'required|array',
-//            'last_name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
         ];
     }
 }

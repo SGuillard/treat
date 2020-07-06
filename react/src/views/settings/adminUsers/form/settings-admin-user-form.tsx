@@ -18,7 +18,6 @@ import { formReducer } from '../../../../utils/forms/formReducer';
 import { FormErrorMessage } from '../../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
 import { useChangeHandler } from '../../../../utils/forms/hooks/useChangeHandler';
 import { useFormActionHandler } from '../../../../utils/forms/hooks/useFormActionHandler';
-import { AdminUserFormInterface } from '../../../types/types';
 
 const SettingsAdminUserForm = ({ adminUser }: SettingsAdminUserFormProps) => {
   const classes = useStyleForm();

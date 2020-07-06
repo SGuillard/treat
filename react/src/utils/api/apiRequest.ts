@@ -64,9 +64,9 @@ const handleErrors = (serverError: ServerErrorInterface): ErrorHandlerResponseIn
 
 export const submitRequest = (url: string, store: any, editEntity?: formEntity) => new Promise<object[]>((resolve, reject) => {
   // If edit mode, add user id for Back end
-  const requestData = editEntity ? formReducer(store, { name: 'id', value: editEntity.id }) : store;
-  const httpMethod = editEntity ? RequestMethod.PUT : RequestMethod.POST;
-  const params = editEntity ? `/${editEntity.id}` : '';
+  const requestData = editEntity && editEntity.id ? formReducer(store, { name: 'id', value: editEntity.id }) : store;
+  const httpMethod = editEntity && editEntity.id ? RequestMethod.PUT : RequestMethod.POST;
+  const params = editEntity && editEntity.id ? `/${editEntity.id}` : '';
   makeApiRequest(httpMethod,
     `${url}${params}`, requestData).then((response: object[]) => {
     resolve(response);
