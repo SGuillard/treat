@@ -4,7 +4,7 @@ import { ReduxState } from '../../../../store/types';
 import { AdminUserInterface, FormLoaderProps } from '../../../types/types';
 import SettingsAdminUserForm from './settings-admin-user-form';
 
-const SettingsAdminUserFormLoader = ({ params }: FormLoaderProps) => {
+const SettingsAdminUserFormEdit = ({ params }: FormLoaderProps) => {
   const adminUser = useSelector((state: ReduxState) => state.adminUsers.list.find((adminUserState: AdminUserInterface) => adminUserState.id === Number(
     params && params.id,
   )));
@@ -12,4 +12,4 @@ const SettingsAdminUserFormLoader = ({ params }: FormLoaderProps) => {
   return adminUser ? <SettingsAdminUserForm adminUser={adminUser} /> : <div>...loading</div>;
 };
 
-export default SettingsAdminUserFormLoader;
+export default SettingsAdminUserFormEdit;

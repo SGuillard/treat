@@ -8,13 +8,12 @@ import SettingsServiceList from '../../views/settings/services/settings-service-
 import RouterContext from '../RouterContext';
 import Openings from '../../views/settings/openings/openings';
 import AddPromotionForm from '../../views/settings/promotions/form/add-promotion-form';
-import SettingsAdminUserFormLoader
-  from '../../views/settings/adminUsers/form/settings-admin-user-form-loader';
-import SettingsServiceFormLoader
-  from '../../views/settings/services/form/settings-service-form-loader';
 import { PromotionList } from '../../views/settings/promotions/promotion-list';
 import SettingsAdminUserFormAdd
   from '../../views/settings/adminUsers/form/settings-admin-user-form-add';
+import SettingsAdminUserFormEdit from '../../views/settings/adminUsers/form/settings-admin-user-form-edit';
+import SettingsServiceFormEdit from '../../views/settings/services/form/settings-service-form-edit';
+import { SettingsServiceFormAdd } from '../../views/settings/services/form/settings-service-form-add';
 
 const ContentPageRouter = () => {
   const { page, params } = useContext(RouterContext);
@@ -30,13 +29,15 @@ const ContentPageRouter = () => {
     case AdminROUTES.SETTINGS.OPENINGS.name:
       return <Openings />;
     case AdminROUTES.SETTINGS.ADMIN_USER_EDIT.name:
-      return <SettingsAdminUserFormLoader params={params} />;
+      return <SettingsAdminUserFormEdit params={params} />;
     case AdminROUTES.SETTINGS.ADMIN_USER_ADD.name:
       return <SettingsAdminUserFormAdd />;
     case AdminROUTES.SETTINGS.SERVICE_LIST.name:
       return <SettingsServiceList />;
     case AdminROUTES.SETTINGS.SERVICE_EDIT.name:
-      return <SettingsServiceFormLoader params={params} />;
+      return <SettingsServiceFormEdit params={params} />;
+    case AdminROUTES.SETTINGS.SERVICE_ADD.name:
+      return <SettingsServiceFormAdd />;
     case AdminROUTES.SETTINGS.PROMOTIONS_LIST.name:
       return <PromotionList />;
     case AdminROUTES.SETTINGS.PROMOTIONS_ADD.name:

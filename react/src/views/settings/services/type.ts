@@ -1,9 +1,6 @@
-import { ServiceInterface } from '../../types/types';
+import { ServiceFormInterface } from '../../types/types';
+
 
 export interface SettingsServiceFormProps {
-  service: ServiceInterface
-}
-
-export interface SettingsServiceListProps {
-  serviceList: any,
+  service: ServiceFormInterface
 }

@@ -40,7 +40,6 @@ const AdminROUTES = {
     },
     SERVICE_ADD: {
       path: '/admin/services/add',
-      pathWithId: '/admin/services/add',
       name: 'settings/services/add',
     },
     OPENINGS: {

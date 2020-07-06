@@ -4,7 +4,7 @@ import { ReduxState } from '../../../../store/types';
 import { FormLoaderProps, ServiceInterface } from '../../../types/types';
 import SettingsServiceForm from './settings-service-form';
 
-const SettingsServiceFormLoader = ({ params }: FormLoaderProps) => {
+const SettingsServiceFormEdit = ({ params }: FormLoaderProps) => {
   const service = useSelector((state: ReduxState) => state.services.list.find((serviceState: ServiceInterface) => serviceState.id === Number(
     params && params.id,
   )));
@@ -12,4 +12,4 @@ const SettingsServiceFormLoader = ({ params }: FormLoaderProps) => {
   return service ? <SettingsServiceForm service={service} /> : <div>...loading</div>;
 };
 
-export default SettingsServiceFormLoader;
+export default SettingsServiceFormEdit;

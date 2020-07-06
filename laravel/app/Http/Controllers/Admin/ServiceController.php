@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateServiceRequest;
+use App\Http\Requests\ServiceRequest;
 use App\Http\Resources\Admin\ServiceResource;
 use App\Service;
 use Illuminate\Http\Request;
@@ -28,7 +28,7 @@ class ServiceController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
         $newService = Service::create($request->input());
         $salon = $this->getSalon();
@@ -54,7 +54,7 @@ class ServiceController extends Controller
      * @param Service $service
      * @return Response
      */
-    public function update(UpdateServiceRequest $request, Service $service)
+    public function update(ServiceRequest $request, Service $service)
     {
         $service->update($request->input());
         return $this->getServiceList();
