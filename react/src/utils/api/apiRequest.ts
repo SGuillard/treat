@@ -36,19 +36,17 @@ const handleErrors = (serverError: ServerErrorInterface): ErrorHandlerResponseIn
   if (serverError.status === 403) {
     errorMessages = [{
       error: serverError.data.message,
-      key: 0,
     }];
   } else if (serverError.status === 422) {
     const backendErrors = [serverError.data.errors];
     const castedErrorFields = castArrayList(backendErrors, castOptions.ToCamel) as FieldErrorsInterface[];
-    castedErrorFields.forEach((fields: FieldErrorsInterface, key: number) => {
+    castedErrorFields.forEach((fields: FieldErrorsInterface) => {
       const fieldNamesWithErrors = Object.keys(fields);
       errorFields = fieldNamesWithErrors;
-      Object.values(fields).forEach((fieldErrorMessages: FieldErrorMessageType, index: number) => {
+      Object.values(fields).forEach((fieldErrorMessages: FieldErrorMessageType) => {
         fieldErrorMessages.forEach((message: string) => {
           errorMessages.push({
             error: message,
-            key: parseInt(`${key}${index}`, 10),
           });
         });
       });
@@ -56,7 +54,6 @@ const handleErrors = (serverError: ServerErrorInterface): ErrorHandlerResponseIn
   } else {
     errorMessages = [{
       error: 'We encounter some issues with your request, please contact support',
-      key: 0,
     }];
   }
   return { errorMessages, errorFields };

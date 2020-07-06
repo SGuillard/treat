@@ -5,8 +5,6 @@ import {
 } from '../../views/types/types';
 
 export interface ErrorObjectInterface {
-  // Key is only used as an index for loop through component
-  key: number,
   error: string,
 }
 
