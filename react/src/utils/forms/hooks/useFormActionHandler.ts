@@ -5,7 +5,6 @@ import {
   submitRequest,
 } from '../../api/apiRequest';
 import API from '../../../API';
-import { setServiceAction } from '../../../store/actions/ServicesActions';
 import {
   AdminUserInterface,
   AppointmentInterface, PromotionInterface,
@@ -17,6 +16,7 @@ import { loginApi } from '../../../views/login/login-helper';
 import { setLoginAction } from '../../../store/actions/globalActions';
 import { setAppointmentAction } from '../../../store/actions/appointmentAction';
 import { setPromotionAction } from '../../../store/actions/promotionAction';
+import { setServiceAction } from '../../../store/actions/servicesActions';
 
 export const useFormActionHandler = (componentState: any, entity?: any) => {
   const dispatchReduxReducer = useDispatch();
@@ -91,7 +91,17 @@ export const useFormActionHandler = (componentState: any, entity?: any) => {
     });
   };
 
+  const handleSubmitProfileForm = (e: any) => {
+    e.preventDefault();
+    submitRequest(API.SALONS, { ...componentState }, entity).then((response: any) => {
+      console.log(response);
+    }).catch(({ errorMessages, errorFields }: ErrorHandlerResponseInterface) => {
+      setFieldErrors(errorFields);
+      setErrors(errorMessages);
+    });
+  };
+
   const onCancel = useCallback(() => setRedirect(true), []);
 
-  return { onCancel, redirect, errors, fieldErrors, handleSubmitAddAppointmentForm, handleSubmitPromotionForm, handleSubmitServiceForm, handleSubmitAdminUserForm, handleRegistration };
+  return { onCancel, redirect, errors, fieldErrors, handleSubmitAddAppointmentForm, handleSubmitProfileForm, handleSubmitPromotionForm, handleSubmitServiceForm, handleSubmitAdminUserForm, handleRegistration };
 };

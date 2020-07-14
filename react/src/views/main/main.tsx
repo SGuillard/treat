@@ -4,18 +4,12 @@ import { Redirect } from 'react-router-dom';
 import BottomMenu from '../menu/bottom-menu';
 import ContentPageRouter from '../../router/admin/content-page-router';
 import { initAdminUsers } from '../../store/actions/adminUsersActions';
-import { initServiceList } from '../../store/actions/ServicesActions';
 import AdminROUTES from '../../router/admin/admin-routes';
 import { ReduxState } from '../../store/types';
 import { initAppointmentList } from '../../store/actions/appointmentAction';
 import { initOpeningHoursList } from '../../store/actions/openinHoursAction';
 import { initPromotionList } from '../../store/actions/promotionAction';
-import { getRequest } from '../../utils/api/apiRequest';
-import API from '../../API';
-
-const getSalon = () => {
-  getRequest(API.)
-}
+import { initServiceList } from '../../store/actions/servicesActions';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -29,7 +23,6 @@ const Main = () => {
       dispatch(initAppointmentList());
       dispatch(initOpeningHoursList());
       dispatch(initPromotionList());
-      dispatch(getSalon());
     }
   }, [dispatch, isLogged]);
 

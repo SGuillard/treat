@@ -1,55 +1,54 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Grid from '@material-ui/core/Grid';
+import { Redirect } from 'react-router-dom';
 import { useStyleForm } from '../adminUsers/style';
 import { formReducer } from '../../../utils/forms/formReducer';
 import { useChangeHandler } from '../../../utils/forms/hooks/useChangeHandler';
 import { useFormActionHandler } from '../../../utils/forms/hooks/useFormActionHandler';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import { FormTitleImage } from '../../../uiComponents/forms/FormTitleImage/FormTitleImage';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { FormTitle } from '../../../uiComponents/forms/FormTitle/FormTitle';
 import { FormErrorMessage } from '../../../uiComponents/forms/FormErrorMessage/FormErrorMessage';
-import Grid from '@material-ui/core/Grid';
 import { FormTextField } from '../../../uiComponents/forms/FormTextField/FormTextField';
-import { FormSwitchField } from '../../../uiComponents/forms/FormSwitchField/FormSwitchField';
 import FormActionButtons from '../../../uiComponents/forms/FormActionButtons/FormActionButtons';
-import { Redirect } from 'react-router-dom';
 import AdminROUTES from '../../../router/admin/admin-routes';
+import { getRequest } from '../../../utils/api/apiRequest';
+import API from '../../../API';
 
-export const Profile = () => {
+export const Profile = ({ salon }: any) => {
   const classes = useStyleForm();
 
-  const [componentState, dispatchComponentReducer] = useReducer(formReducer, adminUser);
+  const [componentState, dispatchComponentReducer] = useReducer(formReducer, salon);
 
-  const { firstName, lastName, active } = componentState;
+  const { name, address } = componentState;
 
-  const { onChangeString, onChangeToggle } = useChangeHandler(dispatchComponentReducer);
+  const { onChangeString } = useChangeHandler(dispatchComponentReducer);
 
-  const { handleSubmitAdminUserForm, errors, fieldErrors, redirect, onCancel } = useFormActionHandler(componentState, adminUser);
+  const { handleSubmitAdminUserForm, errors, fieldErrors, redirect, onCancel } = useFormActionHandler(componentState, salon);
 
   const getForm = () => (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <form className={classes.paper} onSubmit={handleSubmitAdminUserForm}>
-        <FormTitleImage><AccountCircleIcon /></FormTitleImage>
-        <FormTitle title={`${adminUser ? 'Edit' : 'Add'} Team Member`} />
+        <FormTitle title="Business Profile" />
         <FormErrorMessage show={errors.length > 0} errors={errors} />
         <Grid container spacing={3} style={{ padding: '15px' }}>
           <FormTextField
             onChange={onChangeString}
             errorFields={fieldErrors}
-            value={firstName}
-            fieldName="firstName"
-            label="First Name"
+            value={name}
+            fieldName="Business Name"
+            label="Business Name"
           />
           <FormTextField
             onChange={onChangeString}
             errorFields={fieldErrors}
-            value={lastName}
-            fieldName="lastName"
-            label="Last Name"
+            value={address}
+            fieldName="address"
+            label="Address"
           />
-          <FormSwitchField onChange={onChangeToggle} value={active} />
           <FormActionButtons onCancel={onCancel} />
         </Grid>
       </form>

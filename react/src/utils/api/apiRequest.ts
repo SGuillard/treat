@@ -23,7 +23,10 @@ export const makeApiRequest = (method: Method, slug: string, payload: {} = {}) =
     method,
     data,
   })
-    .then((response: ServerResponseInterface) => resolve(castArrayList(response.data.data, castOptions.ToCamel)))
+    .then((response: ServerResponseInterface) => {
+      const datas = response.data.data;
+      resolve(Array.isArray(datas) ? castArrayList(datas, castOptions.ToCamel) : datas);
+    })
     .catch((errors: ServerErrorInterface) => {
       reject(errors);
     });
@@ -60,8 +63,9 @@ const handleErrors = (serverError: ServerErrorInterface): ErrorHandlerResponseIn
 };
 
 export const getRequest = (url: string) => new Promise<object[]>((resolve, reject) => {
-  makeApiRequest(RequestMethod.GET,
-    `${url}`).then((response: object[]) => {
+  console.log(url);
+  makeApiRequest(RequestMethod.GET, url).then((response: object[]) => {
+      console.log(response);
     resolve(response);
   })
     .catch((serverErrors: { response: ServerErrorInterface }) => {
