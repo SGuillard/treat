@@ -8,5 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Salon::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
+        'address' => $faker->address,
     ];
 });

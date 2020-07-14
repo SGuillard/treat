@@ -24,4 +24,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('appointments', 'AppointmentController');
     Route::apiResource('openingHours', 'OpeningHourController');
     Route::apiResource('promotions', 'PromotionController');
+    Route::apiResource('salons', 'SalonController');
+    Route::get('userSalon', 'SalonController@getUserSalon');
 });

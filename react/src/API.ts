@@ -7,6 +7,7 @@ const API = {
   APPOINTMENTS: '/appointments',
   OPENINGS_HOURS: '/openingHours',
   PROMOTIONS: '/promotions',
+  SALONS: '/salons',
 };
 
 export default API;

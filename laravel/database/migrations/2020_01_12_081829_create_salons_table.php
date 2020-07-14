@@ -16,6 +16,7 @@ class CreateSalonsTable extends Migration
         Schema::create('salons', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->default('');
+            $table->string('address')->default('');
             $table->timestamps();
         });
     }

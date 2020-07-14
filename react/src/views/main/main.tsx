@@ -10,6 +10,12 @@ import { ReduxState } from '../../store/types';
 import { initAppointmentList } from '../../store/actions/appointmentAction';
 import { initOpeningHoursList } from '../../store/actions/openinHoursAction';
 import { initPromotionList } from '../../store/actions/promotionAction';
+import { getRequest } from '../../utils/api/apiRequest';
+import API from '../../API';
+
+const getSalon = () => {
+  getRequest(API.)
+}
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -23,6 +29,7 @@ const Main = () => {
       dispatch(initAppointmentList());
       dispatch(initOpeningHoursList());
       dispatch(initPromotionList());
+      dispatch(getSalon());
     }
   }, [dispatch, isLogged]);
 
