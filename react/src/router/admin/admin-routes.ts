@@ -54,6 +54,10 @@ const AdminROUTES = {
       path: '/admin/promotions/add',
       name: 'settings/promotions/add',
     },
+    PROFILE: {
+      path: '/admin/profile',
+      name: 'settings/profile',
+    },
   },
   REGISTER: {
     path: '/admin/register',

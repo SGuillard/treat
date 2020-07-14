@@ -14,6 +14,7 @@ import SettingsAdminUserFormAdd
 import SettingsAdminUserFormEdit from '../../views/settings/adminUsers/form/settings-admin-user-form-edit';
 import SettingsServiceFormEdit from '../../views/settings/services/form/settings-service-form-edit';
 import { SettingsServiceFormAdd } from '../../views/settings/services/form/settings-service-form-add';
+import { Profile } from '../../views/settings/profile/profile';
 
 const ContentPageRouter = () => {
   const { page, params } = useContext(RouterContext);
@@ -42,6 +43,8 @@ const ContentPageRouter = () => {
       return <PromotionList />;
     case AdminROUTES.SETTINGS.PROMOTIONS_ADD.name:
       return <AddPromotionForm />;
+    case AdminROUTES.SETTINGS.PROFILE.name:
+      return <Profile />;
     default:
       return <Calendar />;
   }

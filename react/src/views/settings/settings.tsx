@@ -82,7 +82,7 @@ const Settings = () => {
             </ListItem>
           </List>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
+            <ListItem button className={classes.nested} onClick={() => redirection(AdminROUTES.SETTINGS.PROFILE.path)}>
               <ListItemIcon>
                 <HomeWork />
               </ListItemIcon>

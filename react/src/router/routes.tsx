@@ -23,6 +23,7 @@ const Root = () => (
       <Route exact path={AdminROUTES.SETTINGS.OPENINGS.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.OPENINGS.name} />} />
       <Route exact path={AdminROUTES.SETTINGS.PROMOTIONS_LIST.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.PROMOTIONS_LIST.name} />} />
       <Route exact path={AdminROUTES.SETTINGS.PROMOTIONS_ADD.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.PROMOTIONS_ADD.name} />} />
+      <Route exact path={AdminROUTES.SETTINGS.PROFILE.path} render={() => <AdminRouter page={AdminROUTES.SETTINGS.PROFILE.name} />} />
       <Route path={AdminROUTES.LOGIN.path} component={Login} />
       <Route path={AdminROUTES.REGISTER.path} component={Register} />
       {/* Others */}
