@@ -103,9 +103,6 @@ abstract class AbstractTestCase extends TestCase
         $this->generateRequestValidationError($field);
     }
 
-//>fieldIsNumber('day');
-//$this->fieldIsBetween(0, 8);
-
     protected function firstDateIsAfterSecondDate($firstDateField, $secondDateField)
     {
         $this->validateData();

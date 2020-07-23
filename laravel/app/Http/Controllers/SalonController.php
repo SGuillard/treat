@@ -28,7 +28,8 @@ class SalonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Salon::create($request->input());
+        return $this->getUserSalon();
     }
 
     /**
@@ -55,13 +56,14 @@ class SalonController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Salon $salon
+     * @return SalonResource
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Salon $salon)
     {
-        //
+        $salon->update($request->input());
+        return $this->getUserSalon();
     }
 
     /**
